@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .animate-shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.05);
+        }
+        .recessed-input {
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: inset 0px 2px 4px rgba(0,0,0,0.02);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#00504d",
+                        "surface-container-highest": "#e2e2e5",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "primary-container": "#156966",
+                        "inverse-primary": "#8ad3cf",
+                        "secondary": "#516161",
+                        "outline-variant": "#bec9c7",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#f9f9fc",
+                        "tertiary-fixed": "#ffdbcc",
+                        "outline": "#6f7978",
+                        "surface-tint": "#156966",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f9f9fc",
+                        "on-tertiary-container": "#ffceb8",
+                        "on-primary-fixed": "#00201f",
+                        "on-background": "#1a1c1e",
+                        "secondary-fixed": "#d4e6e5",
+                        "primary": "#00504d",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e8ea",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#8a4f32",
+                        "on-secondary-fixed-variant": "#3a4a49",
+                        "inverse-on-surface": "#f0f0f3",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e2e2e5",
+                        "surface-dim": "#dadadc",
+                        "on-secondary-container": "#576867",
+                        "on-primary-container": "#9ce6e1",
+                        "inverse-surface": "#2f3133",
+                        "on-surface": "#1a1c1e",
+                        "secondary-container": "#d4e6e5",
+                        "primary-fixed": "#a6f0eb",
+                        "surface-container-low": "#f3f3f6",
+                        "primary-fixed-dim": "#8ad3cf",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#6e381d",
+                        "on-secondary-fixed": "#0e1e1e",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#b8cac9",
+                        "on-tertiary-fixed": "#351000",
+                        "on-surface-variant": "#3f4948",
+                        "surface-container": "#eeeef0",
+                        "tertiary": "#6e381d",
+                        "surface": "#f9f9fc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "xs": "8px",
+                        "md": "24px",
+                        "gutter": "16px",
+                        "container-margin": "24px",
+                        "sm": "16px",
+                        "lg": "40px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "label-sm": ["Montserrat"],
+                        "title-md": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-lg text-body-lg min-h-screen selection:bg-primary-container/30">
+<!-- Top Navigation (Wizard Style) -->
+<header class="sticky top-0 z-50 bg-surface/60 backdrop-blur-3xl border-b border-white/20 h-20 flex items-center px-container-margin justify-between">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-on-surface">arrow_back</span>
+</button>
+<div class="flex flex-col items-center">
+<h1 class="font-title-md text-title-md text-on-surface">Validación de Datos</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Paso 2 de 3</p>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-on-surface">close</span>
+</button>
+</header>
+<main class="px-gutter py-md space-y-md pb-40">
+<!-- Progress Bar -->
+<div class="flex gap-2 h-1 px-base">
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-surface-container-highest rounded-full"></div>
+</div>
+<!-- AI Extraction Alert -->
+<div class="glass-card rounded-xl p-md flex gap-sm bg-primary-fixed/20 border-primary-fixed/30 overflow-hidden relative">
+<div class="absolute inset-0 animate-shimmer opacity-30 pointer-events-none"></div>
+<div class="flex-shrink-0">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="space-y-base">
+<h3 class="font-label-sm text-label-sm text-primary uppercase tracking-wider">IA FisioMirror</h3>
+<p class="text-on-surface-variant text-sm">Hemos extraído automáticamente la información del informe. Por favor, verifica que los datos sean correctos.</p>
+</div>
+</div>
+<!-- Patient Info Card -->
+<section class="space-y-sm">
+<h2 class="px-base font-title-md text-title-md text-primary">Información del Paciente</h2>
+<div class="glass-card rounded-xl divide-y divide-white/10">
+<div class="p-md space-y-xs">
+<label class="font-label-sm text-label-sm text-outline">Nombre Completo</label>
+<div class="recessed-input rounded-lg px-sm py-xs border border-white/20 flex items-center justify-between">
+<span class="font-semibold">Elena Rodríguez Martínez</span>
+<span class="material-symbols-outlined text-primary text-sm">verified</span>
+</div>
+</div>
+<div class="p-md grid grid-cols-2 gap-md">
+<div class="space-y-xs">
+<label class="font-label-sm text-label-sm text-outline">Edad</label>
+<div class="recessed-input rounded-lg px-sm py-xs border border-white/20">
+<span>34 años</span>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="font-label-sm text-label-sm text-outline">ID Paciente</label>
+<div class="recessed-input rounded-lg px-sm py-xs border border-white/20">
+<span>#882-ER</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Clinical Diagnosis Card -->
+<section class="space-y-sm">
+<h2 class="px-base font-title-md text-title-md text-primary">Diagnóstico Extraído</h2>
+<div class="glass-card rounded-xl p-md space-y-md">
+<div class="space-y-xs">
+<label class="font-label-sm text-label-sm text-outline">Condición Principal</label>
+<div class="recessed-input rounded-lg p-sm border border-white/20 relative overflow-hidden">
+<div class="absolute inset-0 animate-shimmer opacity-20 pointer-events-none"></div>
+<span class="font-semibold text-on-surface">Tendinopatía del Manguito Rotador</span>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="font-label-sm text-label-sm text-outline">Observaciones de la IA</label>
+<div class="recessed-input rounded-lg p-sm border border-white/20 text-on-surface-variant text-sm leading-relaxed italic">
+                        "Se detecta limitación funcional en abducción de hombro derecho (60°) y dolor agudo en arco medio. Recomendado inicio de AR Sessions para movilidad escapular."
+                    </div>
+</div>
+<div class="flex flex-wrap gap-xs">
+<span class="bg-primary/10 text-primary px-sm py-1 rounded-full text-xs font-semibold border border-primary/20">Hombro Derecho</span>
+<span class="bg-primary/10 text-primary px-sm py-1 rounded-full text-xs font-semibold border border-primary/20">Crónico</span>
+<span class="bg-primary/10 text-primary px-sm py-1 rounded-full text-xs font-semibold border border-primary/20">Post-quirúrgico</span>
+</div>
+</div>
+</section>
+<!-- Preview Image -->
+<section class="space-y-sm">
+<h2 class="px-base font-title-md text-title-md text-primary">Documento de Origen</h2>
+<div class="glass-card rounded-xl p-xs">
+<div class="rounded-lg overflow-hidden h-48 bg-surface-dim relative group cursor-pointer active:scale-[0.98] transition-transform">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A clinical physical therapy report scan lying on a medical desk, showing anatomical diagrams of a shoulder with handwritten clinical notes and a FisioMirror stamp. High-key light-mode aesthetic with soft shadows, premium clinical setting, clean and professional atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCU-tCBnMvnzc_70bpxNWFuv8CGNaRUrWfGpBsf2xCpRTRuUlhpRjq1yv0KN-VXunItj9zKH4daIBALIPv3LnGpyY6Va27tHy8PtPXQhp79_3u1B_xAL4sABbTvdw94PFoNGhTQOKYBkSKNmDr9F8w7f-IkwHfNAYjBCqzLgCUQP5fGkBP-q0T8AP051A1dWAl9Lvf-4qGd8QkQW-VO2BLdhGeUYnNc5M5mQFMwNsGVpoKhWk2xpalvjVgzPir-623bJuEiTsgSqEGW"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-inverse-surface/80 text-inverse-on-surface px-md py-xs rounded-full flex items-center gap-xs text-sm backdrop-blur-md">
+<span class="material-symbols-outlined text-sm">zoom_in</span>
+                            Ver Documento Original
+                        </div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Sticky Bottom Action Bar -->
+<footer class="fixed bottom-0 left-0 right-0 p-container-margin z-50">
+<!-- Floating Backdrop Blur for the button area -->
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-transparent -z-10 h-40 -top-16"></div>
+<div class="flex flex-col gap-sm">
+<button class="w-full h-16 bg-primary text-on-primary rounded-xl font-bold flex items-center justify-center gap-sm shadow-xl active:scale-95 transition-all duration-200">
+<span>Continuar</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="w-full h-14 bg-surface/40 backdrop-blur-xl border border-white/30 text-on-surface-variant rounded-xl font-semibold flex items-center justify-center active:scale-95 transition-all duration-200">
+                Editar Datos Manualmente
+            </button>
+</div>
+</footer>
+<!-- Background Atmospheric Effect -->
+<div class="fixed inset-0 -z-20 pointer-events-none">
+<div class="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-0 left-0 w-80 h-80 bg-primary-container/10 rounded-full blur-[100px]"></div>
+</div>
+<script>
+        // Micro-interaction for input verification shimmer
+        document.querySelectorAll('.recessed-input').forEach(input => {
+            input.addEventListener('click', () => {
+                input.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    input.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+    </script>
+</body></html>

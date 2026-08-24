@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Arthur Vance - Clinical Profile | FisioMirror</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#3f4948",
+                        "primary-fixed-dim": "#8ad3cf",
+                        "on-secondary-fixed-variant": "#3a4a49",
+                        "surface-container-highest": "#e2e2e5",
+                        "primary-container": "#156966",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#b8cac9",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2f3133",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface": "#f9f9fc",
+                        "primary": "#00504d",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#d4e6e5",
+                        "on-secondary-fixed": "#0e1e1e",
+                        "on-primary-fixed": "#00201f",
+                        "on-primary-container": "#9ce6e1",
+                        "outline-variant": "#bec9c7",
+                        "surface-variant": "#e2e2e5",
+                        "surface-tint": "#156966",
+                        "inverse-on-surface": "#f0f0f3",
+                        "outline": "#6f7978",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "background": "#f9f9fc",
+                        "on-primary-fixed-variant": "#00504d",
+                        "on-tertiary-fixed-variant": "#6e381d",
+                        "on-tertiary-container": "#ffceb8",
+                        "surface-container": "#eeeef0",
+                        "on-surface": "#1a1c1e",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#d4e6e5",
+                        "primary-fixed": "#a6f0eb",
+                        "secondary": "#516161",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#576867",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#dadadc",
+                        "on-background": "#1a1c1e",
+                        "tertiary-container": "#8a4f32",
+                        "tertiary": "#6e381d",
+                        "surface-container-high": "#e8e8ea",
+                        "inverse-primary": "#8ad3cf",
+                        "surface-container-low": "#f3f3f6",
+                        "surface-bright": "#f9f9fc",
+                        "on-primary": "#ffffff"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "sm": "16px",
+                        "lg": "40px",
+                        "container-margin": "24px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "xl": "64px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "title-md": ["Montserrat"],
+                        "label-sm": ["Montserrat"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #f9f9fc; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.05);
+        }
+        .ios-glass {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 12px 40px rgba(0,0,0,0.08);
+        }
+        .progress-gradient {
+            background: linear-gradient(90deg, #156966 0%, #8ad3cf 100%);
+        }
+        .number-flow {
+            font-variant-numeric: tabular-nums;
+        }
+        /* Custom scrollbar for clinical feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #bec9c7; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6f7978; }
+    </style>
+</head>
+<body class="flex min-h-screen text-on-surface selection:bg-primary-fixed selection:text-primary">
+<!-- Background Ambience -->
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+
+<div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[100px]"></div>
+</div>
+<!-- SIDE NAVIGATION (JSON Component) -->
+<aside class="h-screen w-64 sticky left-0 top-0 bg-surface/80 dark:bg-on-surface-variant/20 backdrop-blur-3xl border-r border-white/20 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] flex flex-col py-md px-sm z-50">
+<div class="flex items-center gap-3 px-2 mb-lg">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center text-on-primary-container shadow-lg">
+<span class="material-symbols-outlined">health_metrics</span>
+</div>
+<div>
+<h1 class="font-headline-lg text-[22px] leading-tight text-primary font-bold tracking-tight">FisioMirror</h1>
+<p class="text-[11px] font-semibold text-outline tracking-widest uppercase">Clinical Portal</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Nav Items based on JSON -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:text-primary hover:bg-white/10 transition-all duration-200 ease-in-out active:scale-95" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-Montserrat text-body-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-2xl text-primary font-bold border-r-4 border-primary bg-primary-container/10 transition-all duration-200 ease-in-out active:scale-95" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-Montserrat text-body-lg">Patients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:text-primary hover:bg-white/10 transition-all duration-200 ease-in-out active:scale-95" href="#">
+<span class="material-symbols-outlined">fitness_center</span>
+<span class="font-Montserrat text-body-lg">Routines</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:text-primary hover:bg-white/10 transition-all duration-200 ease-in-out active:scale-95" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-Montserrat text-body-lg">Statistics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-2xl text-on-surface-variant hover:text-primary hover:bg-white/10 transition-all duration-200 ease-in-out active:scale-95" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-Montserrat text-body-lg">Settings</span>
+</a>
+</nav>
+<!-- CTA & Clinician Profile -->
+<div class="mt-auto pt-md border-t border-outline-variant/10">
+<button class="w-full mb-6 bg-primary text-on-primary py-3 px-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg hover:shadow-primary/20 active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+<span>New Patient</span>
+</button>
+<div class="flex items-center gap-3 p-2 bg-surface-container-low rounded-2xl">
+<img class="w-10 h-10 rounded-full object-cover border-2 border-white" data-alt="A professional headshot of Dr. Elena, a middle-aged female physiotherapist with a kind and confident expression. She is wearing a white clinical coat over a navy blue blouse. The background is a soft-focus, brightly lit clinical office with wooden accents and plants, maintaining a premium medical aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1K4JufDvoexDJMI9eTJ-BfybLzQsS-bcNeHFwwn1iHErDgFkKFDKHBA5VdlRwq71srFQL9Qop-a0qjXQEXv9PtnSahUV9WwQa9TuqDNnA3iO7S2sH6Ol05KpnK9ydDpQoLAX60wEPaEfvTZtqIpep3mbjicbs1CZFlJEf39Dwcq__2kfu954lJz-Jebiv-GT9fAalTa2yCA153-AzdzxbxV4D2OB15C-vrCm4eDv-cm4N4l_jQ2EQLVBFybKpZo9nBoRPE51-YHvl"/>
+<div class="overflow-hidden">
+<p class="text-on-surface font-bold text-sm truncate">Dr. Elena</p>
+<p class="text-outline text-[10px] uppercase font-semibold">Clinical Director</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- MAIN CONTENT -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- TOP NAV BAR (JSON Component style) -->
+<header class="docked full-width top-0 sticky z-40 bg-surface/60 backdrop-blur-2xl border-b border-white/20 shadow-sm flex justify-between items-center px-lg py-sm w-full">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex items-center gap-2 text-outline font-medium text-sm">
+<span>Patients</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary font-bold">Arthur Vance</span>
+</div>
+</div>
+<!-- Command Palette Search -->
+<div class="hidden md:flex flex-1 max-w-xl mx-8">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-white/40 border border-white/30 rounded-full py-2.5 pl-12 pr-16 focus:ring-2 focus:ring-primary/20 focus:border-primary/40 text-sm font-Montserrat" placeholder="Type / to search patients, sessions, or commands..." type="text"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-1 opacity-50">
+<kbd class="bg-surface-variant px-1.5 py-0.5 rounded text-[10px] border border-outline/20">⌘</kbd>
+<kbd class="bg-surface-variant px-1.5 py-0.5 rounded text-[10px] border border-outline/20">K</kbd>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 text-green-700 rounded-full text-xs font-bold border border-green-500/20">
+<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    SYNCED
+                </div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- DASHBOARD AREA -->
+<div class="p-lg space-y-lg max-w-[1400px] mx-auto w-full">
+<!-- Patient Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h2 class="font-headline-lg text-4xl text-primary font-extrabold tracking-tight mb-2">Arthur Vance</h2>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-1 bg-primary-container/20 text-primary rounded-full text-xs font-bold border border-primary/10">Post-op ACL Reconstruction</span>
+<span class="px-4 py-1 bg-surface-container-high text-outline rounded-full text-xs font-bold">Week 8 of 12</span>
+<span class="px-4 py-1 bg-tertiary-container/20 text-tertiary rounded-full text-xs font-bold border border-tertiary/10">High Compliance</span>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-3 bg-white/60 border border-white/50 backdrop-blur-md text-primary rounded-2xl font-bold flex items-center gap-2 hover:bg-white/80 transition-all active:scale-95">
+<span class="material-symbols-outlined">clinical_notes</span>
+                        Clinical History
+                    </button>
+<button class="px-6 py-3 bg-primary text-on-primary rounded-2xl font-bold flex items-center gap-2 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all active:scale-95">
+<span class="material-symbols-outlined">videocam</span>
+                        Start AR Session
+                    </button>
+</div>
+</div>
+<!-- Sub-Navigation (Horizontal Tabs) -->
+<div class="flex border-b border-outline-variant/30 gap-8">
+<button class="pb-3 border-b-2 border-primary text-primary font-bold text-title-md transition-all">Overview</button>
+<button class="pb-3 border-b-2 border-transparent text-outline-variant hover:text-primary font-semibold text-title-md transition-all">Clinical History</button>
+<button class="pb-3 border-b-2 border-transparent text-outline-variant hover:text-primary font-semibold text-title-md transition-all">Assigned Routine</button>
+<button class="pb-3 border-b-2 border-transparent text-outline-variant hover:text-primary font-semibold text-title-md transition-all">Statistics</button>
+</div>
+<!-- BENTO GRID CONTENT -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- 1. Recovery Metrics (Large Card) -->
+<div class="lg:col-span-8 space-y-gutter">
+<div class="ios-glass p-md rounded-3xl overflow-hidden relative group">
+<div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-8xl">rebase_edit</span>
+</div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="text-on-surface font-bold text-xl mb-1">Biomechanical Progress</h3>
+<p class="text-outline text-sm">Range of Motion (ROM) progression over 8 weeks</p>
+</div>
+<div class="text-right">
+<span class="text-4xl font-extrabold text-primary number-flow">72%</span>
+<p class="text-outline text-[10px] uppercase font-bold tracking-widest">Global Recovery</p>
+</div>
+</div>
+<!-- Custom Graph Visualization -->
+<div class="h-64 w-full flex items-end justify-between gap-2 px-2">
+<!-- Bars simulated with divs -->
+<div class="flex-1 bg-primary/10 rounded-t-xl h-[30%] relative group cursor-pointer hover:bg-primary/20 transition-all">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] font-bold bg-white px-2 py-1 rounded shadow-sm">W1: 22°</div>
+</div>
+<div class="flex-1 bg-primary/15 rounded-t-xl h-[40%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+<div class="flex-1 bg-primary/20 rounded-t-xl h-[35%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+<div class="flex-1 bg-primary/30 rounded-t-xl h-[55%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+<div class="flex-1 bg-primary/40 rounded-t-xl h-[65%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+<div class="flex-1 bg-primary/60 rounded-t-xl h-[80%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+<div class="flex-1 bg-primary/80 rounded-t-xl h-[85%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+<div class="flex-1 progress-gradient rounded-t-xl h-[92%] relative group cursor-pointer shadow-lg transition-all">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 opacity-100 text-[10px] font-bold bg-primary text-on-primary px-3 py-1 rounded-full shadow-lg">CURRENT: 114°</div>
+</div>
+</div>
+<div class="flex justify-between mt-4 px-2 text-[10px] font-bold text-outline uppercase tracking-tighter">
+<span>Week 1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span>W7</span><span>Week 8 (Now)</span>
+</div>
+</div>
+</div>
+<!-- Secondary Insights Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="glass-panel p-md rounded-3xl flex flex-col justify-between">
+<div class="flex justify-between items-center mb-6">
+<div class="w-12 h-12 rounded-2xl bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed-variant shadow-sm">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<span class="text-xs font-bold text-tertiary px-3 py-1 bg-tertiary/10 rounded-full">OPTIMAL</span>
+</div>
+<div>
+<p class="text-outline text-xs font-bold uppercase tracking-widest mb-1">Pain Threshold</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-extrabold text-on-surface">2.4</span>
+<span class="text-outline text-sm">/ 10</span>
+</div>
+<div class="mt-4 h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim" style="width: 24%"></div>
+</div>
+</div>
+</div>
+<div class="glass-panel p-md rounded-3xl flex flex-col justify-between">
+<div class="flex justify-between items-center mb-6">
+<div class="w-12 h-12 rounded-2xl bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed-variant shadow-sm">
+<span class="material-symbols-outlined">fitness_center</span>
+</div>
+<span class="text-xs font-bold text-primary px-3 py-1 bg-primary/10 rounded-full">ON TRACK</span>
+</div>
+<div>
+<p class="text-outline text-xs font-bold uppercase tracking-widest mb-1">Session Volume</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-extrabold text-on-surface">14</span>
+<span class="text-outline text-sm">Completed</span>
+</div>
+<p class="text-green-600 text-[10px] font-bold mt-2">+2 sessions vs last week</p>
+</div>
+</div>
+</div>
+</div>
+<!-- 2. Side Panel Insights -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Clinical Insight Card -->
+<div class="bg-primary-container p-md rounded-3xl text-on-primary-container shadow-2xl relative overflow-hidden group">
+<!-- Subtle Sparkle Shader -->
+<div class="absolute inset-0 opacity-20 pointer-events-none group-hover:opacity-30 transition-opacity">
+
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<h3 class="font-bold text-lg">Clinical Insight</h3>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 mb-6 border border-white/10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+<p class="text-[10px] font-bold uppercase tracking-widest opacity-80">AI Copilot Suggestion</p>
+</div>
+<p class="text-sm leading-relaxed mb-4">
+                                    Arthur's ACL recovery shows a <span class="font-bold underline decoration-secondary">15% deviation</span> in pivot stability during landing drills. Recommend adjusting proprioception module for next session.
+                                </p>
+<button class="w-full py-2.5 bg-on-primary-container text-primary font-bold text-xs rounded-xl transition-all hover:bg-white active:scale-95 shadow-sm">
+                                    Adjust Routine Now
+                                </button>
+</div>
+<div class="space-y-4">
+<p class="text-[10px] font-bold uppercase tracking-widest opacity-60">Upcoming Priorities</p>
+<div class="flex items-center gap-3 group/item cursor-pointer">
+<div class="w-5 h-5 rounded border-2 border-white/30 flex items-center justify-center transition-colors group-hover/item:border-white"></div>
+<span class="text-sm opacity-90">Review biomechanical lag</span>
+</div>
+<div class="flex items-center gap-3 group/item cursor-pointer">
+<div class="w-5 h-5 rounded border-2 border-white/30 flex items-center justify-center transition-colors group-hover/item:border-white"></div>
+<span class="text-sm opacity-90">Finalize report for Dr. Chen</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Facility Context (Simulated Map/Location) -->
+<div class="glass-panel p-md rounded-3xl overflow-hidden group">
+<div class="flex justify-between items-center mb-4">
+<h4 class="font-bold text-sm">Next Treatment Room</h4>
+<span class="text-[10px] font-bold px-2 py-0.5 bg-surface-container rounded-lg">ROOM #04</span>
+</div>
+<div class="h-40 rounded-2xl overflow-hidden relative bg-surface-container-highest border border-outline-variant/30">
+<div class="absolute inset-0 grayscale opacity-40 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+<!-- Mock Floor Plan -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 border-2 border-primary/20 rounded flex items-center justify-center">
+<div class="w-4 h-4 bg-primary rounded-full animate-ping"></div>
+<div class="absolute w-4 h-4 bg-primary rounded-full"></div>
+<div class="absolute -bottom-4 text-[10px] font-bold text-primary">Patient Location</div>
+</div>
+<div class="absolute bottom-3 left-3 px-3 py-1.5 glass-panel rounded-full text-[9px] font-extrabold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-xs">location_on</span>
+                                PHYSIO ZONE 4
+                            </div>
+</div>
+<div class="mt-4 flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-300"></div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-400"></div>
+<div class="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center bg-primary text-on-primary text-[8px] font-bold">+3</div>
+</div>
+<p class="text-[10px] font-bold text-outline">Clinic is at 82% capacity</p>
+</div>
+</div>
+</div>
+</div>
+<!-- LOWER ACTION TRAY -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="ios-glass p-md rounded-3xl flex items-center gap-4 hover:bg-white/60 transition-all cursor-pointer">
+<div class="w-14 h-14 rounded-2xl bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">history</span>
+</div>
+<div>
+<h4 class="font-bold">Session History</h4>
+<p class="text-xs text-outline">Last: 2 days ago</p>
+</div>
+</div>
+<div class="ios-glass p-md rounded-3xl flex items-center gap-4 hover:bg-white/60 transition-all cursor-pointer">
+<div class="w-14 h-14 rounded-2xl bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">description</span>
+</div>
+<div>
+<h4 class="font-bold">Medical Docs</h4>
+<span class="text-[10px] font-bold bg-error-container text-on-error-container px-2 py-0.5 rounded-full uppercase">Update Required</span>
+</div>
+</div>
+<div class="ios-glass p-md rounded-3xl flex items-center gap-4 hover:bg-white/60 transition-all cursor-pointer group">
+<div class="w-14 h-14 rounded-2xl bg-secondary-container/30 flex items-center justify-center text-secondary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-3xl">share</span>
+</div>
+<div>
+<h4 class="font-bold">Export Report</h4>
+<p class="text-xs text-outline">PDF, CSV, or HL7</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for Quick Actions -->
+<div class="fixed bottom-8 right-8 z-[60] flex flex-col items-end gap-3">
+<button class="w-14 h-14 rounded-2xl bg-primary-container text-on-primary-container shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all group overflow-hidden">
+<span class="material-symbols-outlined text-2xl relative z-10">bolt</span>
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform"></div>
+</button>
+</div>
+<!-- JavaScript for minor interactions -->
+<script>
+        // Simple Command Palette Simulation
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                alert('Command Palette: Searching patient records...');
+            }
+        });
+
+        // Hover effect for graph bars
+        const bars = document.querySelectorAll('.group.cursor-pointer');
+        bars.forEach(bar => {
+            bar.addEventListener('mouseenter', () => {
+                // Potential for adding micro-sounds or haptic simulation
+            });
+        });
+    </script>
+</body></html>

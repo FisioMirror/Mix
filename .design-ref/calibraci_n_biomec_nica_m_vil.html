@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Calibración Biomecánica - FisioMirror</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-container {
+            backdrop-filter: blur(24px);
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .skeleton-overlay {
+            stroke-dasharray: 8;
+            animation: dash 20s linear infinite;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: 1000; }
+        }
+        .scan-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #156966, transparent);
+            box-shadow: 0 0 15px #156966;
+            animation: scan 3s ease-in-out infinite;
+            position: absolute;
+            width: 100%;
+            z-index: 20;
+        }
+        @keyframes scan {
+            0%, 100% { top: 10%; opacity: 0; }
+            50% { top: 90%; opacity: 1; }
+        }
+        .pulse-success {
+            animation: pulse-green 2s infinite;
+        }
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(0, 80, 77, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 80, 77, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 80, 77, 0); }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#d4e6e5",
+                        "outline": "#6f7978",
+                        "secondary": "#516161",
+                        "on-primary-container": "#9ce6e1",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#d4e6e5",
+                        "primary-fixed-dim": "#8ad3cf",
+                        "inverse-on-surface": "#f0f0f3",
+                        "on-secondary-container": "#576867",
+                        "on-surface": "#1a1c1e",
+                        "primary-fixed": "#a6f0eb",
+                        "background": "#f9f9fc",
+                        "on-tertiary-fixed": "#351000",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f9f9fc",
+                        "on-secondary-fixed": "#0e1e1e",
+                        "tertiary": "#6e381d",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-secondary-fixed-variant": "#3a4a49",
+                        "surface-container": "#eeeef0",
+                        "surface-bright": "#f9f9fc",
+                        "tertiary-container": "#8a4f32",
+                        "surface-dim": "#dadadc",
+                        "inverse-primary": "#8ad3cf",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "surface-container-high": "#e8e8ea",
+                        "surface-variant": "#e2e2e5",
+                        "primary-container": "#156966",
+                        "outline-variant": "#bec9c7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#6e381d",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-low": "#f3f3f6",
+                        "primary": "#00504d",
+                        "on-tertiary-container": "#ffceb8",
+                        "on-background": "#1a1c1e",
+                        "surface-tint": "#156966",
+                        "on-primary-fixed": "#00201f",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#2f3133",
+                        "on-surface-variant": "#3f4948",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#00504d",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#b8cac9",
+                        "surface-glass": "rgba(249, 249, 252, 0.7)"
+                    },
+                    "spacing": {
+                        "xs": "8px",
+                        "gutter": "16px",
+                        "container-margin": "24px",
+                        "xl": "64px",
+                        "sm": "16px",
+                        "md": "24px",
+                        "base": "4px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Montserrat"],
+                        "title-md": ["Montserrat"],
+                        "label-sm": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "display-lg": ["Montserrat"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background font-body-lg text-on-surface overflow-hidden h-screen flex flex-col">
+<!-- Top AppBar (Mobile Style) -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-gutter py-4 glass-container border-b-0">
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<h1 class="font-headline-sm text-title-md font-bold text-primary">Calibración Biomecánica</h1>
+<span class="text-xs text-on-surface-variant opacity-70">Móvil • Dr. Profile</span>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-primary">settings</span>
+</div>
+</header>
+<!-- Main Viewport (Camera Preview Simulation) -->
+<main class="flex-1 relative mt-[72px] mb-[96px] bg-surface-container overflow-hidden mx-4 rounded-3xl border border-white/40 shadow-2xl">
+<!-- Background Animation Layer (Representing AR Field) -->
+
+<!-- Camera Feed Placeholder -->
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover grayscale-[0.2]" data-alt="A clean, professional physiotherapy clinic room with bright natural lighting, minimalist medical equipment, and a large wall mirror. The shot is a slightly wide portrait angle from a mobile device height, showing a light gray flooring and white walls, embodying a clinical premium aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQUQVSSj-V9WCQ2Gn-6thGTnR_jDlTMBF-CDPMbTMwTmMFKbS3XkcYQRcYeyVFvHykflEDixQuCv7Sp6mzH5NHY3kOO91ZI8VjxCMy-tgf4TERS3R9fuR7XqZKwm9q4o77T1apkVgGkL7d0Ez_BMv2wjckmmEAtJV2a3Cy3Q7ETF6Pt-2QSXqOMNGE-4dInlIqB1GsSSOAwXuGHZmVLJ205IzyNKpS7gLRLyTn7eRs00-kYUqNfC0OH0mY_BfEX0xDDK9K-AIQBZ_R"/>
+</div>
+<!-- Scanning UI elements -->
+<div class="scan-line"></div>
+<!-- AR Landmark Overlay (SVG for skeletal landmarks) -->
+<div class="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+<svg class="w-full h-full p-12" viewbox="0 0 200 400">
+<!-- Torso & Joints Visualization -->
+<circle class="opacity-80" cx="100" cy="80" fill="none" r="12" stroke="#156966" stroke-width="2"></circle>
+<path class="skeleton-overlay" d="M100 92 L100 220" stroke="#156966" stroke-width="1"></path>
+<path class="skeleton-overlay" d="M60 120 L140 120" stroke="#156966" stroke-width="1"></path>
+<path class="skeleton-overlay" d="M70 280 L100 220 L130 280" stroke="#156966" stroke-width="1"></path>
+<!-- Key Landmarks -->
+<circle class="pulse-success" cx="60" cy="120" fill="#00504d" r="4"></circle>
+<circle class="pulse-success" cx="140" cy="120" fill="#00504d" r="4"></circle>
+<circle cx="100" cy="220" fill="#00504d" r="4"></circle>
+<circle cx="70" cy="280" fill="#00504d" r="4"></circle>
+<circle cx="130" cy="280" fill="#00504d" r="4"></circle>
+<!-- Shoulder labels -->
+<text fill="#00504d" font-family="Montserrat" font-size="10" font-weight="bold" x="50" y="110">L_SHOULDER</text>
+<text fill="#00504d" font-family="Montserrat" font-size="10" font-weight="bold" x="110" y="110">R_SHOULDER</text>
+</svg>
+</div>
+<!-- Calibration Pills (Top Floating) -->
+<div class="absolute top-6 left-0 w-full flex justify-center gap-2 px-4 z-30">
+<!-- Iluminación - Success -->
+<div class="flex items-center gap-2 px-4 py-2 glass-container rounded-full border border-white/50">
+<div class="w-2 h-2 rounded-full bg-primary pulse-success"></div>
+<span class="text-[11px] font-bold text-on-surface-variant">Iluminación</span>
+<span class="material-symbols-outlined text-[14px] text-primary">check_circle</span>
+</div>
+<!-- Visibilidad - Success -->
+<div class="flex items-center gap-2 px-4 py-2 glass-container rounded-full border border-white/50">
+<div class="w-2 h-2 rounded-full bg-primary pulse-success"></div>
+<span class="text-[11px] font-bold text-on-surface-variant">Visibilidad</span>
+<span class="material-symbols-outlined text-[14px] text-primary">check_circle</span>
+</div>
+<!-- Fondo - Alert -->
+<div class="flex items-center gap-2 px-4 py-2 glass-container rounded-full border border-error/20">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="text-[11px] font-bold text-on-surface-variant">Fondo</span>
+<span class="material-symbols-outlined text-[14px] text-error" data-weight="fill">warning</span>
+</div>
+</div>
+<!-- Feedback Card -->
+<div class="absolute bottom-6 left-6 right-6 z-30">
+<div class="glass-container p-4 rounded-2xl flex items-start gap-3 border border-white/60">
+<div class="bg-primary/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary">info</span>
+</div>
+<div>
+<h3 class="text-xs font-bold text-on-surface">Instrucción</h3>
+<p class="text-[13px] leading-snug text-on-surface-variant">Manténgase a 2 metros del dispositivo. El fondo está algo cargado, procure despejar el área.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Action Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 glass-container px-6 py-4 flex flex-col gap-4 rounded-t-3xl border-t-0 shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
+<div class="flex justify-between items-center px-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="text-xs font-bold text-primary">IA ACTIVADA</span>
+</div>
+<span class="text-xs text-on-surface-variant/60 font-medium">Latencia: 12ms</span>
+</div>
+<button class="w-full py-4 bg-primary text-white font-headline-sm rounded-2xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.95] transition-all duration-200 flex items-center justify-center gap-3" id="start-btn">
+<span class="font-bold">Comenzar Sesión</span>
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+</nav>
+<!-- Interactive Layer Script -->
+<script>
+        document.getElementById('start-btn').addEventListener('click', function() {
+            this.innerHTML = `
+                <span class="font-bold">Iniciando...</span>
+                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            `;
+            setTimeout(() => {
+                alert('Sesión Iniciada. Rastreo biomecánico en curso.');
+                location.reload();
+            }, 1500);
+        });
+
+        // Subtle parallax effect on landmarks
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) / 100;
+            const moveY = (e.clientY - window.innerHeight / 2) / 100;
+            const svg = document.querySelector('svg');
+            if (svg) {
+                svg.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            }
+        });
+    </script>
+</body></html>

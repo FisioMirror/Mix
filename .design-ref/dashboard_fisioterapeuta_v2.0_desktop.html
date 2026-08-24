@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FisioMirror v2.0 | Dashboard Clínico</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#8ad3cf",
+                        "on-primary-container": "#9ce6e1",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#156966",
+                        "outline-variant": "#bec9c7",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e2e2e5",
+                        "tertiary-container": "#8a4f32",
+                        "primary-container": "#156966",
+                        "on-secondary-container": "#576867",
+                        "on-background": "#1a1c1e",
+                        "tertiary": "#6e381d",
+                        "surface-dim": "#dadadc",
+                        "secondary-fixed": "#d4e6e5",
+                        "surface-bright": "#f9f9fc",
+                        "on-surface": "#1a1c1e",
+                        "secondary-fixed-dim": "#b8cac9",
+                        "on-tertiary-fixed-variant": "#6e381d",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-low": "#f3f3f6",
+                        "on-surface-variant": "#3f4948",
+                        "on-secondary-fixed-variant": "#3a4a49",
+                        "on-tertiary-container": "#ffceb8",
+                        "inverse-surface": "#2f3133",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "on-primary-fixed-variant": "#00504d",
+                        "secondary-container": "#d4e6e5",
+                        "on-secondary-fixed": "#0e1e1e",
+                        "primary-fixed-dim": "#8ad3cf",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#a6f0eb",
+                        "inverse-on-surface": "#f0f0f3",
+                        "secondary": "#516161",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "surface": "#f9f9fc",
+                        "surface-variant": "#e2e2e5",
+                        "primary": "#00504d",
+                        "error": "#ba1a1a",
+                        "surface-container": "#eeeef0",
+                        "on-tertiary-fixed": "#351000",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e8ea",
+                        "background": "#f9f9fc",
+                        "outline": "#6f7978",
+                        "on-primary-fixed": "#00201f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "gutter": "16px",
+                        "xl": "64px",
+                        "lg": "40px",
+                        "container-margin": "24px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "sm": "16px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "label-sm": ["Montserrat"],
+                        "display-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #f9f9fc; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+        }
+        .sidebar-glass {
+            background: rgba(243, 243, 246, 0.8);
+            backdrop-filter: blur(32px);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .clinical-shadow { box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .active-nav { background: rgba(0, 80, 77, 0.08); color: #00504d; font-weight: 700; border-right: 3px solid #00504d; }
+        
+        @keyframes number-flow {
+            from { transform: translateY(10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-number { animation: number-flow 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    </style>
+</head>
+<body class="bg-background text-on-surface overflow-hidden">
+<div class="flex h-screen w-full relative">
+<!-- Background Animation Layer -->
+
+<!-- SideNavBar (288px) -->
+<aside class="sidebar-glass w-[288px] flex flex-col h-full z-20 relative">
+<div class="p-8">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">FisioMirror</h1>
+<p class="text-[10px] uppercase tracking-widest text-outline mt-1 font-bold">Clinical Edition v2.0</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<!-- Nav Items (Labels from JSON / User requirements mapping) -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all active-nav" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Inicio</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/40" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-label-sm">Pacientes</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/40" href="#">
+<span class="material-symbols-outlined">person_add</span>
+<span class="font-label-sm text-label-sm">Cargar Paciente</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/40" href="#">
+<span class="material-symbols-outlined">key</span>
+<span class="font-label-sm text-label-sm">Tokens</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/40" href="#">
+<span class="material-symbols-outlined">fitness_center</span>
+<span class="font-label-sm text-label-sm">Ejercicios</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/40" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-sm text-label-sm">Estadísticas</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/40" href="#">
+<span class="material-symbols-outlined">construction</span>
+<span class="font-label-sm text-label-sm">Herramientas</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all text-on-surface-variant hover:bg-surface-variant/40" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="font-label-sm text-label-sm">Perfil</span>
+</a>
+</nav>
+<div class="p-6 mt-auto space-y-4 border-t border-white/10">
+<button class="flex items-center gap-3 w-full px-4 py-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">download_for_offline</span>
+<span class="font-label-sm text-label-sm">Instalar App</span>
+</button>
+<div class="flex items-center justify-between px-4">
+<button class="p-2 rounded-full hover:bg-surface-variant/50 transition-colors" id="theme-toggle">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+<button class="p-2 rounded-full hover:bg-error/10 text-error transition-colors">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+<div class="flex items-center gap-3 p-3 glass-panel rounded-2xl">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A professional headshot of a middle-aged male physiotherapist with a kind expression, wearing a minimalist white clinical coat. The background is a softly blurred modern medical office with teal accents and soft, high-key lighting. The overall style is clean, sharp, and embodies a premium healthcare aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuYhP8B05iLFDg9oFy7S_Kz7AjVCs1GLz-5XuvB7VTUkdKG1Aj3UzFn5fK52FTjgOWZ58BJcVhaoekDu-SXK8kpRzYQ99M65cmBbo941eJSlwtQhs60paWaSk1P2eH1o00aMsnX1I83ytPR8hDA64FIkUNh0NDaieZmMHtZ-VuhnEJxMIwyi1AtDE70Zkrh0hKeTFPhDY1i53tN626PtWsgAgjanthmYkK5c_PaPw6CbxWbHRyoKQZpyaxXYfcwHz4iAEpY8jSm4l2"/>
+<div class="overflow-hidden">
+<p class="font-label-sm text-label-sm truncate">Dr. Sterling Henderson</p>
+<p class="text-[10px] text-outline truncate">Senior Physiotherapist</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="flex-1 flex flex-col h-full overflow-y-auto z-10">
+<!-- Header -->
+<header class="h-16 flex items-center justify-between px-8 glass-panel sticky top-0 z-30">
+<nav class="flex items-center text-outline text-label-sm gap-2">
+<span class="hover:text-primary cursor-pointer">Inicio</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface font-bold">Dashboard</span>
+</nav>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="bg-surface-variant/30 border-none rounded-full pl-10 pr-4 py-2 w-72 text-label-sm focus:ring-2 focus:ring-primary/20 placeholder:text-outline transition-all" placeholder="Buscar pacientes o ejercicios... (⌘K)" type="text"/>
+</div>
+<button class="relative p-2 rounded-full hover:bg-surface-variant/50 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content Area -->
+<div class="p-8 space-y-8">
+<!-- Welcome -->
+<section>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Buenos días, Dr. Henderson</h2>
+<p class="text-outline font-title-md text-title-md">Jueves, 24 de Octubre de 2024</p>
+</section>
+<!-- KPI Cards -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="glass-panel p-6 rounded-3xl clinical-shadow group hover:-translate-y-1 transition-transform cursor-default">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-primary/10 rounded-2xl text-primary">
+<span class="material-symbols-outlined">group</span>
+</div>
+<span class="text-success text-xs font-bold bg-green-100 text-green-700 px-2 py-1 rounded-full">+12%</span>
+</div>
+<p class="text-outline font-label-sm text-label-sm">Pacientes Activos</p>
+<h3 class="text-display-lg font-display-lg animate-number">124</h3>
+</div>
+<div class="glass-panel p-6 rounded-3xl clinical-shadow group hover:-translate-y-1 transition-transform cursor-default">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary/10 rounded-2xl text-secondary">
+<span class="material-symbols-outlined">calendar_today</span>
+</div>
+<span class="text-outline text-xs font-bold">Hoy</span>
+</div>
+<p class="text-outline font-label-sm text-label-sm">Sesiones Hoy</p>
+<h3 class="text-display-lg font-display-lg animate-number">18</h3>
+</div>
+<div class="glass-panel p-6 rounded-3xl clinical-shadow group hover:-translate-y-1 transition-transform cursor-default">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-tertiary/10 rounded-2xl text-tertiary">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<span class="text-success text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Excelente</span>
+</div>
+<p class="text-outline font-label-sm text-label-sm">Adherencia Semanal</p>
+<h3 class="text-display-lg font-display-lg animate-number">92%</h3>
+</div>
+<div class="glass-panel p-6 rounded-3xl clinical-shadow group hover:-translate-y-1 transition-transform cursor-default">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-error/10 rounded-2xl text-error">
+<span class="material-symbols-outlined">key_visualizer</span>
+</div>
+<span class="text-error text-xs font-bold animate-pulse">Atención</span>
+</div>
+<p class="text-outline font-label-sm text-label-sm">Tokens Pendientes</p>
+<h3 class="text-display-lg font-display-lg animate-number">05</h3>
+</div>
+</section>
+<!-- Quick Actions Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<button class="relative overflow-hidden group glass-panel p-8 rounded-[40px] text-left transition-all hover:shadow-2xl">
+<div class="absolute -right-8 -bottom-8 w-48 h-48 bg-primary/5 rounded-full blur-3xl group-hover:scale-150 transition-transform"></div>
+<div class="p-4 bg-primary text-white rounded-3xl w-fit mb-6 shadow-lg">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">videocam</span>
+</div>
+<h4 class="font-headline-lg text-headline-lg mb-2">Nueva Sesión AR</h4>
+<p class="text-outline text-body-lg">Inicia un seguimiento remoto con biofeedback en tiempo real.</p>
+<span class="mt-6 flex items-center gap-2 text-primary font-bold">Comenzar ahora <span class="material-symbols-outlined">arrow_forward</span></span>
+</button>
+<button class="relative overflow-hidden group glass-panel p-8 rounded-[40px] text-left transition-all hover:shadow-2xl">
+<div class="absolute -right-8 -bottom-8 w-48 h-48 bg-secondary/5 rounded-full blur-3xl group-hover:scale-150 transition-transform"></div>
+<div class="p-4 bg-secondary text-white rounded-3xl w-fit mb-6 shadow-lg">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">person_add</span>
+</div>
+<h4 class="font-headline-lg text-headline-lg mb-2">Cargar Paciente</h4>
+<p class="text-outline text-body-lg">Sube historias clínicas o importa perfiles desde el sistema central.</p>
+<span class="mt-6 flex items-center gap-2 text-secondary font-bold">Importar <span class="material-symbols-outlined">upload</span></span>
+</button>
+<button class="relative overflow-hidden group glass-panel p-8 rounded-[40px] text-left transition-all hover:shadow-2xl">
+<div class="absolute -right-8 -bottom-8 w-48 h-48 bg-tertiary/5 rounded-full blur-3xl group-hover:scale-150 transition-transform"></div>
+<div class="p-4 bg-tertiary text-white rounded-3xl w-fit mb-6 shadow-lg">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">generating_tokens</span>
+</div>
+<h4 class="font-headline-lg text-headline-lg mb-2">Generar Token</h4>
+<p class="text-outline text-body-lg">Crea accesos temporales para nuevos usuarios o pacientes externos.</p>
+<span class="mt-6 flex items-center gap-2 text-tertiary font-bold">Emitir llave <span class="material-symbols-outlined">key</span></span>
+</button>
+</section>
+<!-- Insights & Priorities Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Dynamic AI Insights -->
+<section class="glass-panel p-8 rounded-[32px] flex flex-col gap-6 relative overflow-hidden">
+<div class="flex items-center gap-3">
+<div class="w-2 h-8 bg-primary rounded-full"></div>
+<h4 class="font-title-md text-title-md">AI Copilot Suggestion</h4>
+</div>
+<div class="space-y-4">
+<div class="p-4 bg-primary-container/20 rounded-2xl border border-primary/10">
+<p class="text-on-surface-variant italic leading-relaxed">
+                                    "Basado en los datos de la última semana, el 15% de los pacientes con patología lumbar muestran una disminución en la adherencia los días miércoles. Se sugiere enviar un recordatorio automático o ajustar la carga de ejercicios matutinos."
+                                </p>
+</div>
+<div class="flex gap-4">
+<button class="flex-1 bg-primary text-white py-3 rounded-xl font-bold hover:scale-[0.98] transition-transform">Aplicar Recomendación</button>
+<button class="flex-1 bg-surface-variant/40 py-3 rounded-xl font-bold text-on-surface-variant hover:bg-surface-variant/60 transition-colors">Ignorar</button>
+</div>
+</div>
+</section>
+<!-- Priorities List -->
+<section class="glass-panel p-8 rounded-[32px] flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-title-md text-title-md">Prioridades del Día</h4>
+<button class="text-primary font-bold text-sm">Ver todas</button>
+</div>
+<div class="space-y-4">
+<label class="flex items-center gap-4 p-4 hover:bg-surface-variant/30 rounded-2xl transition-colors cursor-pointer group">
+<input class="w-6 h-6 rounded-lg border-outline text-primary focus:ring-primary" type="checkbox"/>
+<div class="flex-1">
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors">Revisar progreso AR: Elena Gomez</p>
+<p class="text-xs text-outline">Post-operatorio de rodilla (Día 14)</p>
+</div>
+<span class="text-[10px] font-bold text-error px-2 py-1 bg-error/10 rounded">ALTA</span>
+</label>
+<label class="flex items-center gap-4 p-4 hover:bg-surface-variant/30 rounded-2xl transition-colors cursor-pointer group">
+<input class="w-6 h-6 rounded-lg border-outline text-primary focus:ring-primary" type="checkbox"/>
+<div class="flex-1">
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors">Actualizar rutina: Marco Polo</p>
+<p class="text-xs text-outline">Manguito rotador</p>
+</div>
+<span class="text-[10px] font-bold text-secondary px-2 py-1 bg-secondary/10 rounded">MEDIA</span>
+</label>
+<label class="flex items-center gap-4 p-4 hover:bg-surface-variant/30 rounded-2xl transition-colors cursor-pointer group">
+<input class="w-6 h-6 rounded-lg border-outline text-primary focus:ring-primary" type="checkbox"/>
+<div class="flex-1">
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors">Sesión presencial: Julia Roberts</p>
+<p class="text-xs text-outline">Evaluación funcional - 16:30hs</p>
+</div>
+<span class="text-[10px] font-bold text-outline px-2 py-1 bg-outline/10 rounded">BAJA</span>
+</label>
+</div>
+</section>
+</div>
+<!-- Patient Progress Visualization (Extra Bento Component) -->
+<section class="glass-panel p-8 rounded-[40px] relative overflow-hidden h-[400px]">
+<div class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay" data-alt="A sophisticated data visualization dashboard showing health metrics. High-resolution line graphs in shades of primary teal and secondary cyan move across a glass-textured background. The aesthetic is clean, clinical, and high-end, representing a real-time remote monitoring interface for patient rehabilitation." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCAQbsMZ4gjaXYDJeIDNYw_nu-36bB72EqoQUdctQaRFGT2fDBfWGJtSYOePTergzb0HBOC-ixjGD78DXZpPRODr_7-oPa8JghdCcICnNMeh3SlMn-v1qTsu4SLlKgdrVf2fj5bgyGstG1Ycvvglww3NnPVN-WfKjOg128JgxJetEYJWfI1yYgzLIFNCBRha3CD61ZoGWk3wt3kLuelu8LO_A87tXZ_1Qc34bBlhoc236Ds_9n4QGkyrtr3-m5ysNkKHpSJWKVi6Zez')"></div>
+<div class="relative z-10 h-full flex flex-col">
+<div class="flex justify-between items-start mb-auto">
+<div>
+<h4 class="font-headline-lg text-headline-lg">Remote Monitoring Hub</h4>
+<p class="text-outline max-w-md">Flujo de datos en tiempo real procesados por la cámara Mirror de los pacientes activos.</p>
+</div>
+<div class="flex gap-2">
+<div class="w-3 h-3 bg-green-500 rounded-full animate-ping"></div>
+<span class="text-xs font-bold">LIVE SYNC</span>
+</div>
+</div>
+<div class="mt-auto flex justify-between items-end">
+<div class="flex -space-x-4">
+<img class="w-12 h-12 rounded-full border-4 border-white shadow-sm object-cover" data-alt="Avatar of a patient" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArkMxw67wCOg_hKqyLDxFbgth3mdCo1BNZxp8KDc-2sKOCNIuHqXhAI3jN6YliU7feKFjCQRkBI-GETSneHve9RnTYHvjq5NCX-E-g5om1ImfKx4A_hIFl3MFFPeKRUV0qY9iZrLaSBG4HfeakKKamOA5iFT286S8rIPIjmNrx04Z9GgK0Vjp2y8v2suHLTkR_01xaie396lwiAZm2ZQPpt9puY3lfYD1-yAKkJC76HnYvviblcnhCvi0bhnMF-iGJ1SNRP9hUGvqU"/>
+<img class="w-12 h-12 rounded-full border-4 border-white shadow-sm object-cover" data-alt="Avatar of a patient" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQkhXXpKoR-lxI26EU08JKuHhc3BqJZumtemls4-n88eVTpJCdwZjo0e65Hay0WOP5G2c7fI6hP9veChX7NCkq5lApMURxCh3tOEZ3HuKBQkYocv2unFf7tL9Q8y-Osnh4cs8dLrG_8TzwkS1Et-Z7jky9d1gRl9lsLJzX3udkt-7Bysu4ybRQet_doy_qi-iBjl-td5m2su3ZYTIJVIHoT0f05p05vknKBV2qIsjk1zB3VTd4xMmMI3tReJWTulWQW0WEC0rGh4bA"/>
+<img class="w-12 h-12 rounded-full border-4 border-white shadow-sm object-cover" data-alt="Avatar of a patient" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM1O_WqR3fi0N1C8dIF_2Uzj4ZJ78C68LfmFjHzDYw4BcjVbtg5VKLlw-aYqpfsnwOyGbIiIu-_PxNcG0TxZhfW3ZwjmiOvQc6w1kun6xgf-gTwXGJwwe8y12M1frWWUVwHnJg3OL_YPJN5Q3EqA6KupEOlWDtFaCXkZbrNAqL614NJB9tvgm28NDtPPTnQWHtJ2J92eElq2iwOVOMfX1ATitLdY8oBLUsXrgTo5W2rTtuGgqjr27it-zfB-itXCEsnlEsBgTsV4yL"/>
+<div class="w-12 h-12 rounded-full border-4 border-white bg-surface-variant flex items-center justify-center text-xs font-bold">+12</div>
+</div>
+<button class="px-6 py-3 bg-white/20 backdrop-blur-md rounded-2xl border border-white/30 font-bold hover:bg-white/40 transition-all">Explorar Mapa Térmico</button>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="pt-12 pb-6 flex flex-col md:flex-row justify-between items-center text-outline text-xs gap-4">
+<p>© 2024 FisioMirror S.A. | Clinical Premium v2.0.42</p>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Directrices Clínicas HIPAA</a>
+<a class="hover:text-primary transition-colors" href="#">Términos de Servicio</a>
+<a class="hover:text-primary transition-colors" href="#">Privacidad de Datos</a>
+</div>
+</footer>
+</div>
+</main>
+</div>
+<script>
+        // Micro-interactions and simple theme toggle logic
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            const icon = themeToggle.querySelector('.material-symbols-outlined');
+            icon.textContent = document.documentElement.classList.contains('dark') ? 'light_mode' : 'dark_mode';
+        });
+
+        // Search Bar Keyboard Shortcut Simulation
+        window.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                document.querySelector('input[type="text"]').focus();
+            }
+        });
+
+        // Simple scale effect for KPI cards on hover
+        document.querySelectorAll('.glass-panel').forEach(card => {
+            card.addEventListener('mousedown', () => card.style.transform = 'scale(0.98)');
+            card.addEventListener('mouseup', () => card.style.transform = 'scale(1)');
+            card.addEventListener('mouseleave', () => card.style.transform = 'scale(1)');
+        });
+    </script>
+</body></html>

@@ -1,0 +1,11 @@
+{
+  "template": "bolt-vite-react-ts",
+  "skills": {},
+  "systemSkills": {
+    "browser-testing": true,
+    "seo-geo": true,
+    "skill-creator": true,
+    "web-design-guidelines": true,
+    "writing-guidelines": true
+  }
+}

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FisioMirror v2.0 | Dashboard del Paciente</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-panel-dark {
+            background: rgba(21, 105, 102, 0.1);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ios-shadow {
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.05);
+        }
+        .active-scale:active {
+            transform: scale(0.95);
+            transition: transform 0.2s ease-in-out;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        .shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#ffffff",
+                      "inverse-primary": "#8ad3cf",
+                      "on-primary-container": "#9ce6e1",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-tint": "#156966",
+                      "outline-variant": "#bec9c7",
+                      "on-error": "#ffffff",
+                      "surface-container-highest": "#e2e2e5",
+                      "tertiary-container": "#8a4f32",
+                      "primary-container": "#156966",
+                      "on-secondary-container": "#576867",
+                      "on-background": "#1a1c1e",
+                      "tertiary": "#6e381d",
+                      "surface-dim": "#dadadc",
+                      "secondary-fixed": "#d4e6e5",
+                      "surface-bright": "#f9f9fc",
+                      "on-surface": "#1a1c1e",
+                      "secondary-fixed-dim": "#b8cac9",
+                      "on-tertiary-fixed-variant": "#6e381d",
+                      "tertiary-fixed": "#ffdbcc",
+                      "surface-container-low": "#f3f3f6",
+                      "on-surface-variant": "#3f4948",
+                      "on-secondary-fixed-variant": "#3a4a49",
+                      "on-tertiary-container": "#ffceb8",
+                      "inverse-surface": "#2f3133",
+                      "tertiary-fixed-dim": "#ffb694",
+                      "on-primary-fixed-variant": "#00504d",
+                      "secondary-container": "#d4e6e5",
+                      "on-secondary-fixed": "#0e1e1e",
+                      "primary-fixed-dim": "#8ad3cf",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#a6f0eb",
+                      "inverse-on-surface": "#f0f0f3",
+                      "secondary": "#516161",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "surface": "#f9f9fc",
+                      "surface-variant": "#e2e2e5",
+                      "primary": "#00504d",
+                      "error": "#ba1a1a",
+                      "surface-container": "#eeeef0",
+                      "on-tertiary-fixed": "#351000",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#e8e8ea",
+                      "background": "#f9f9fc",
+                      "outline": "#6f7978",
+                      "on-primary-fixed": "#00201f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "24px",
+                      "gutter": "16px",
+                      "xl": "64px",
+                      "lg": "40px",
+                      "container-margin": "24px",
+                      "base": "4px",
+                      "xs": "8px",
+                      "sm": "16px"
+              },
+              "fontFamily": {
+                      "title-md": ["Montserrat"],
+                      "headline-lg": ["Montserrat"],
+                      "body-lg": ["Montserrat"],
+                      "label-sm": ["Montserrat"],
+                      "headline-lg-mobile": ["Montserrat"],
+                      "display-lg": ["Montserrat"]
+              },
+              "fontSize": {
+                      "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-lg min-h-screen pb-32">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl border-b border-white/20 shadow-sm flex justify-between items-center px-6 h-16">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">FisioMirror</h1>
+<div class="flex gap-4 items-center">
+<button class="active-scale text-primary p-2 rounded-full hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">light_mode</span>
+</button>
+<button class="active-scale text-primary p-2 rounded-full hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+</header>
+<!-- Content Area -->
+<main class="mt-20 px-6 space-y-8 max-w-md mx-auto">
+<!-- Saludo -->
+<section class="space-y-1">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Hola, Felipe.</h2>
+<p class="text-on-surface-variant text-body-lg">Comienza tu recuperación hoy</p>
+</section>
+<!-- KPIs Horizontal Scroll -->
+<section class="overflow-x-auto -mx-6 px-6 scroll-smooth">
+<div class="flex gap-4 w-max pb-2">
+<div class="glass-panel ios-shadow p-5 rounded-3xl w-32 space-y-2 border-l-4 border-l-primary">
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase">Racha</span>
+<div class="flex items-end gap-1">
+<span class="text-primary font-headline-lg-mobile text-headline-lg-mobile">12</span>
+<span class="text-primary/70 font-label-sm text-label-sm mb-1">días</span>
+</div>
+</div>
+<div class="glass-panel ios-shadow p-5 rounded-3xl w-32 space-y-2 border-l-4 border-l-primary">
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase">Sesiones</span>
+<div class="flex items-end gap-1">
+<span class="text-primary font-headline-lg-mobile text-headline-lg-mobile">48</span>
+<span class="text-primary/70 font-label-sm text-label-sm mb-1">total</span>
+</div>
+</div>
+<div class="glass-panel ios-shadow p-5 rounded-3xl w-32 space-y-2 border-l-4 border-l-primary">
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase">Minutos</span>
+<div class="flex items-end gap-1">
+<span class="text-primary font-headline-lg-mobile text-headline-lg-mobile">145</span>
+<span class="text-primary/70 font-label-sm text-label-sm mb-1">sem.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Feature Card: Recommended AR Session -->
+<section>
+<div class="relative overflow-hidden glass-panel ios-shadow rounded-3xl p-6 min-h-[220px] flex flex-col justify-between group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl -mr-10 -mt-10"></div>
+<div class="space-y-2 relative z-10">
+<span class="inline-flex items-center gap-1 bg-primary text-on-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                        Recomendado
+                    </span>
+<h3 class="font-title-md text-title-md text-on-surface">Sesión AR Recomendada</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed max-w-[70%]">Movilidad de hombro con asistencia por cámara en tiempo real.</p>
+</div>
+<button class="relative z-10 active-scale bg-primary text-on-primary font-bold py-4 rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-primary/20">
+                    Join Session
+                    <span class="material-symbols-outlined">play_arrow</span>
+</button>
+<!-- Visual Decoration (Simulated Glass Image) -->
+<div class="absolute right-[-10px] bottom-[-20px] w-36 h-44 opacity-20 transform rotate-12 bg-surface-container-highest rounded-2xl overflow-hidden pointer-events-none">
+<div class="w-full h-full bg-cover bg-center" data-alt="A futuristic medical user interface showing a human anatomy 3D model with skeletal points tracked for physical therapy. The visualization is rendered in a soft clinical teal and white aesthetic with glowing nodes and lines, reflecting a high-end augmented reality experience for rehabilitation." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAezgS0NOb23j16GujDMMv-jSCKRkuAkB6tEt9-R3rUk97hQuRsuxhzZWMl6U-269LjXRBCrYQ7QIbA7WnfziQIw0Q-iuk3eWshFj8jvo49ud4M8J-MbYhx-XvgusHlvs5pKC7LYBH41ptW47auV_88AJRZR9Tkck7cy311vL_gqsJTdFV0Om_xbQ6hYNY3RzQQ0I_LtyRVdj6mIOXkYSE-GqFBCj6rdpTn_gnfWR6Nh53gSZRza3s3nQ_iQeoQ85h5IpBwdYibRSbi')"></div>
+</div>
+</div>
+</section>
+<!-- Assigned Routine Section -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="font-title-md text-title-md text-on-surface">Rutina Asignada</h3>
+<span class="text-primary font-label-sm text-label-sm">Ver Todo</span>
+</div>
+<div class="space-y-3">
+<!-- Exercise Item 1 -->
+<div class="glass-panel ios-shadow p-4 rounded-2xl flex items-center gap-4 active-scale cursor-pointer group">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+</div>
+<div class="flex-1">
+<h4 class="font-semibold text-on-surface">Rotación de Hombro</h4>
+<p class="text-on-surface-variant text-xs">3 series • 12 reps</p>
+</div>
+<div class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">play_arrow</span>
+</div>
+</div>
+<!-- Exercise Item 2 -->
+<div class="glass-panel ios-shadow p-4 rounded-2xl flex items-center gap-4 active-scale cursor-pointer group">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">healing</span>
+</div>
+<div class="flex-1">
+<h4 class="font-semibold text-on-surface">Estiramiento Cervical</h4>
+<p class="text-on-surface-variant text-xs">5 min • Sostenido</p>
+</div>
+<div class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">play_arrow</span>
+</div>
+</div>
+</div>
+</section>
+<!-- My Progress Section -->
+<section class="space-y-4">
+<h3 class="font-title-md text-title-md text-on-surface">Mi Progreso</h3>
+<div class="glass-panel ios-shadow rounded-3xl p-6 h-48 relative overflow-hidden flex flex-col justify-end">
+<div class="absolute inset-0 p-6 flex items-end justify-between gap-2">
+<div class="w-full bg-primary/20 rounded-t-lg h-[40%] shimmer"></div>
+<div class="w-full bg-primary/30 rounded-t-lg h-[60%] shimmer"></div>
+<div class="w-full bg-primary/40 rounded-t-lg h-[80%] shimmer"></div>
+<div class="w-full bg-primary/50 rounded-t-lg h-[50%] shimmer"></div>
+<div class="w-full bg-primary/60 rounded-t-lg h-[90%] shimmer"></div>
+<div class="w-full bg-primary/70 rounded-t-lg h-[75%] shimmer"></div>
+<div class="w-full bg-primary rounded-t-lg h-[100%]"></div>
+</div>
+<div class="relative z-10 flex justify-between w-full text-[10px] text-on-surface-variant font-bold uppercase pt-4">
+<span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Buttons -->
+<div class="fixed bottom-28 right-6 flex flex-col gap-4 z-40">
+<button class="w-14 h-14 bg-[#3b82f6] text-white rounded-full flex items-center justify-center shadow-xl active-scale">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<button class="w-14 h-14 bg-[#10b981] text-white rounded-full flex items-center justify-center shadow-xl active-scale">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<!-- Bottom Navigation Bar (Dock) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface/70 dark:bg-surface-dim/70 backdrop-blur-3xl border-t border-white/30 shadow-2xl rounded-t-3xl pt-2 pb-6 px-4 flex justify-around items-center">
+<!-- Inicio (Active) -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-2 active-scale">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-[10px] mt-1">Inicio</span>
+</button>
+<!-- Ejercicios -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant/70 active-scale hover:bg-surface-container-high rounded-2xl px-4 py-2">
+<span class="material-symbols-outlined">fitness_center</span>
+<span class="font-label-sm text-[10px] mt-1">Ejercicios</span>
+</button>
+<!-- Progreso -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant/70 active-scale hover:bg-surface-container-high rounded-2xl px-4 py-2">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label-sm text-[10px] mt-1">Progreso</span>
+</button>
+<!-- Asistente IA -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant/70 active-scale hover:bg-surface-container-high rounded-2xl px-4 py-2">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-sm text-[10px] mt-1">Asistente IA</span>
+</button>
+<!-- Perfil -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant/70 active-scale hover:bg-surface-container-high rounded-2xl px-4 py-2">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px] mt-1">Perfil</span>
+</button>
+</nav>
+<script>
+        // Simple scroll observer for interactive feedback
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+            observer.observe(section);
+        });
+
+        // Pull to refresh simulation (Haptic vibe)
+        let touchstartY = 0;
+        document.addEventListener('touchstart', e => {
+            touchstartY = e.changedTouches[0].screenY;
+        }, false);
+
+        document.addEventListener('touchend', e => {
+            const touchendY = e.changedTouches[0].screenY;
+            if (touchendY > touchstartY + 100 && window.scrollY === 0) {
+                // Simulate refresh
+                document.body.style.opacity = "0.5";
+                setTimeout(() => {
+                    document.body.style.opacity = "1";
+                }, 500);
+            }
+        }, false);
+    </script>
+</body></html>

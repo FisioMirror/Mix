@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FisioMirror | Clinical AI Toolbox</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#eeeef0",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#6e381d",
+                        "inverse-primary": "#8ad3cf",
+                        "outline-variant": "#bec9c7",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "surface-variant": "#e2e2e5",
+                        "surface-container-high": "#e8e8ea",
+                        "on-secondary-fixed": "#0e1e1e",
+                        "inverse-on-surface": "#f0f0f3",
+                        "tertiary": "#6e381d",
+                        "error": "#ba1a1a",
+                        "on-background": "#1a1c1e",
+                        "on-secondary-fixed-variant": "#3a4a49",
+                        "secondary-fixed": "#d4e6e5",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1a1c1e",
+                        "tertiary-fixed": "#ffdbcc",
+                        "primary-container": "#156966",
+                        "on-primary-container": "#9ce6e1",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#8ad3cf",
+                        "surface": "#f9f9fc",
+                        "on-primary-fixed-variant": "#00504d",
+                        "secondary": "#516161",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#8a4f32",
+                        "on-tertiary-container": "#ffceb8",
+                        "primary-fixed": "#a6f0eb",
+                        "secondary-fixed-dim": "#b8cac9",
+                        "on-primary": "#ffffff",
+                        "primary": "#00504d",
+                        "background": "#f9f9fc",
+                        "on-secondary-container": "#576867",
+                        "inverse-surface": "#2f3133",
+                        "on-tertiary-fixed": "#351000",
+                        "on-surface-variant": "#3f4948",
+                        "on-primary-fixed": "#00201f",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e2e2e5",
+                        "surface-tint": "#156966",
+                        "surface-container-low": "#f3f3f6",
+                        "surface-dim": "#dadadc",
+                        "outline": "#6f7978",
+                        "surface-bright": "#f9f9fc",
+                        "secondary-container": "#d4e6e5",
+                        "surface-glass": "rgba(255, 255, 255, 0.7)"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "md": "24px",
+                        "lg": "40px",
+                        "xs": "8px",
+                        "base": "4px",
+                        "xl": "64px",
+                        "container-margin": "24px",
+                        "sm": "16px",
+                        "margin-desktop": "64px",
+                        "component-gap": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Montserrat", "sans-serif"],
+                        "headline-md": ["Montserrat", "sans-serif"],
+                        "headline-sm": ["Montserrat", "sans-serif"],
+                        "label-lg": ["Montserrat", "sans-serif"],
+                        "label-md": ["Montserrat", "sans-serif"],
+                        "title-md": ["Montserrat", "sans-serif"],
+                        "display-lg": ["Montserrat", "sans-serif"]
+                    },
+                    "maxWidth": {
+                        "container-max": "1440px"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(circle at 0% 0%, #e0f2f1 0%, #f9f9fc 50%, #ffffff 100%);
+            min-height: 100vh;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .shimmer-wave {
+            background: linear-gradient(
+                90deg,
+                rgba(21, 105, 102, 0) 0%,
+                rgba(21, 105, 102, 0.1) 50%,
+                rgba(21, 105, 102, 0) 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #d4e6e5;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #156966;
+            border: 4px solid #ffffff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(21, 105, 102, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:active {
+            transform: scale(1.2);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bec9c7;
+            border-radius: 10px;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="text-on-surface bg-background">
+<!-- Top Navigation Bar -->
+<header class="w-full top-0 sticky z-50 bg-surface-glass backdrop-blur-[14px] border-b border-white/50 shadow-[0_8px_32px_0_rgba(21,105,102,0.08)]">
+<div class="flex justify-between items-center px-6 lg:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-2xl font-bold text-primary">FisioMirror</span>
+<div class="hidden md:flex gap-6 ml-8">
+<a class="text-primary font-bold border-b-2 border-primary py-1 px-2" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:bg-primary/5 transition-colors py-1 px-2 rounded-lg" href="#">Patients</a>
+<a class="text-on-surface-variant hover:bg-primary/5 transition-colors py-1 px-2 rounded-lg" href="#">Toolbox</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-surface-container rounded-full px-4 py-2 border border-outline-variant/30">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm ml-2 w-48" placeholder="Search patient ID..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-primary/5 p-2 rounded-full transition-colors">notifications</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female physiotherapist in clinical attire, soft studio lighting, high-end professional photography style, minimal medical background with teal accents to match the branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkD2QDSIt3HJn5fbKFs4TmIDxfD5Cc64iknF_Q1aDwgEv0JLZv5zNYoO22RkCYNZz6giBWXSkHp8dgbkQq2fS7wEUB8fecPLv9_keo_Zs8fdhEpiYlrSgsp6hs2KYoFVWs3leyzV-_DuPJE9X1be90HICGexwjNnfQRNYMx_Hy67SCeZy1WMUAAbQz8UP-AxV3r0iF1FvssWsPMff5MKFHsoe_4Ay32q8cooYZjDcOXljl5FLO6VOixO6piH-bSbMzP3sbWWPK-XJK"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex max-w-container-max mx-auto px-4 lg:px-12 py-8 gap-8">
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col gap-8">
+<header>
+<h1 class="font-headline-lg text-headline-lg text-primary">Clinical AI Toolbox</h1>
+<p class="text-on-surface-variant font-body-lg">Accelerate your workflow with precision clinical instruments powered by AI.</p>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- OCR Quick Scanner (6 cols) -->
+<section class="lg:col-span-7 glass-panel rounded-3xl p-8 relative overflow-hidden group">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h2 class="font-title-md text-xl text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">document_scanner</span>
+                                OCR Quick Scanner
+                            </h2>
+<p class="text-sm text-on-surface-variant mt-1">Convert reports into structured clinical data</p>
+</div>
+<span class="bg-primary/10 text-primary text-[10px] uppercase font-bold px-3 py-1 rounded-full tracking-wider">AI Magic</span>
+</div>
+<div class="border-2 border-dashed border-outline-variant rounded-2xl p-12 flex flex-col items-center justify-center bg-white/20 transition-all hover:bg-white/40 cursor-pointer relative overflow-hidden" id="drop-area">
+<div class="absolute inset-0 shimmer-wave opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+<div class="z-10 flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-primary-container/10 rounded-full flex items-center justify-center mb-4 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-primary text-3xl">upload_file</span>
+</div>
+<p class="font-semibold text-on-surface">Drag &amp; drop clinical reports</p>
+<p class="text-xs text-on-surface-variant mt-2">Supports PDF, JPG, PNG (Max 15MB)</p>
+<button class="mt-6 bg-primary text-white px-6 py-2 rounded-full font-label-lg text-sm transition-all hover:shadow-lg active:scale-95">Magic Scan</button>
+</div>
+</div>
+<!-- Scan Results Preview (Mock) -->
+<div class="mt-6 opacity-40 group-hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-low border border-white/40">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<div class="flex-1">
+<div class="h-2 w-32 bg-outline-variant rounded-full mb-2"></div>
+<div class="h-2 w-24 bg-outline-variant/50 rounded-full"></div>
+</div>
+<span class="text-xs font-bold text-primary">SCANNING...</span>
+</div>
+</div>
+</section>
+<!-- BMI Calculator (5 cols) -->
+<section class="lg:col-span-5 glass-panel rounded-3xl p-8 flex flex-col">
+<div class="mb-8">
+<h2 class="font-title-md text-xl text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">calculate</span>
+                            BMI Precision Tool
+                        </h2>
+<p class="text-sm text-on-surface-variant mt-1">Real-time clinical classification</p>
+</div>
+<div class="space-y-10 flex-1">
+<!-- Height Slider -->
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<label class="text-sm font-semibold text-on-surface-variant">Height</label>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-bold text-primary" id="height-val">175</span>
+<span class="text-sm text-on-surface-variant">cm</span>
+</div>
+</div>
+<input class="cursor-pointer" id="height-slider" max="250" min="100" type="range" value="175"/>
+</div>
+<!-- Weight Slider -->
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<label class="text-sm font-semibold text-on-surface-variant">Weight</label>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-bold text-primary" id="weight-val">72</span>
+<span class="text-sm text-on-surface-variant">kg</span>
+</div>
+</div>
+<input class="cursor-pointer" id="weight-slider" max="200" min="30" type="range" value="72"/>
+</div>
+</div>
+<div class="mt-10 p-6 bg-primary-container text-white rounded-2xl shadow-xl transition-all duration-500 overflow-hidden relative">
+<div class="relative z-10 flex items-center justify-between">
+<div>
+<p class="text-xs uppercase tracking-widest opacity-80 mb-1">Calculated BMI</p>
+<span class="text-4xl font-extrabold" id="bmi-result">23.5</span>
+</div>
+<div class="text-right">
+<span class="bg-white/20 px-3 py-1 rounded-lg font-bold text-sm backdrop-blur-md" id="bmi-status">Healthy Weight</span>
+<p class="text-[10px] mt-2 opacity-70">Normal Range: 18.5 – 24.9</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Session Summarizer (12 cols) -->
+<section class="lg:col-span-12 glass-panel rounded-3xl p-8">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<h2 class="font-title-md text-xl text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">auto_awesome</span>
+                                AR Session Summarizer
+                            </h2>
+<p class="text-sm text-on-surface-variant mt-1">Generate natural language narratives from session telemetry</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<select class="appearance-none bg-surface-container-low border border-outline-variant/30 rounded-xl px-6 py-2.5 pr-10 text-sm font-semibold focus:ring-primary focus:border-primary">
+<option>Select Patient</option>
+<option>John Doe - ID: 4821</option>
+<option selected="">Sarah Jenkins - ID: 1092</option>
+<option>Marcus Aurelius - ID: 8829</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+<button class="bg-primary text-white flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">magic_button</span>
+                                Generate Narrative
+                            </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Source Data -->
+<div class="bg-white/30 rounded-2xl p-5 border border-white/50">
+<h3 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">sensors</span>
+                                Last AR Telemetry
+                            </h3>
+<ul class="space-y-4">
+<li class="flex justify-between items-center text-sm border-b border-outline-variant/10 pb-2">
+<span class="text-on-surface-variant">ROM (Left Knee)</span>
+<span class="font-bold text-primary">112°</span>
+</li>
+<li class="flex justify-between items-center text-sm border-b border-outline-variant/10 pb-2">
+<span class="text-on-surface-variant">Stability Score</span>
+<span class="font-bold text-primary">84%</span>
+</li>
+<li class="flex justify-between items-center text-sm border-b border-outline-variant/10 pb-2">
+<span class="text-on-surface-variant">Task Completion</span>
+<span class="font-bold text-primary">12/15</span>
+</li>
+<li class="flex justify-between items-center text-sm border-b border-outline-variant/10 pb-2">
+<span class="text-on-surface-variant">Fatigue Indicator</span>
+<span class="font-bold text-error">Moderate</span>
+</li>
+</ul>
+</div>
+<!-- Narrative Result -->
+<div class="lg:col-span-2 bg-primary-container/5 rounded-2xl p-6 border border-primary/10 relative">
+<div class="absolute top-4 right-4 flex gap-2">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors text-sm">content_copy</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors text-sm">print</button>
+</div>
+<h3 class="text-xs font-bold uppercase tracking-widest text-primary mb-4">Clinical Summary</h3>
+<div class="font-body-lg text-on-surface leading-relaxed italic border-l-4 border-primary/20 pl-6 py-2">
+                                "During the session on Oct 24, Patient Sarah Jenkins demonstrated a significant improvement in knee range of motion, reaching 112 degrees with minimal compensatory movement. Stability scores remained consistent at 84%. However, moderate fatigue was observed during the final three tasks, suggesting we should focus on endurance in the next cycle. Recommend maintaining current workload but increasing rest intervals by 15%."
+                            </div>
+<div class="mt-6 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-[10px] font-bold text-primary-container/60 uppercase">AI Generated • Verified by Clinical Engine</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Right Side AI Assistant Panel -->
+<aside class="hidden xl:flex flex-col w-[380px] h-[calc(100vh-140px)] sticky top-[100px] glass-panel rounded-3xl overflow-hidden transition-all duration-500" id="ai-sidebar">
+<div class="p-6 bg-primary-container text-white flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<div>
+<h3 class="font-bold">Clinical Assistant</h3>
+<p class="text-[10px] opacity-70">Active &amp; Ready</p>
+</div>
+</div>
+<button class="material-symbols-outlined hover:bg-white/10 p-1 rounded-lg">close_fullscreen</button>
+</div>
+<div class="flex-1 p-6 space-y-6 overflow-y-auto custom-scrollbar">
+<!-- AI Message -->
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-sm">auto_awesome</span>
+</div>
+<div class="bg-surface-container rounded-2xl rounded-tl-none p-4 text-sm text-on-surface">
+                        Hello Dr. Miller! I'm ready to help. You can ask me things like:
+                        <div class="mt-3 space-y-2">
+<button class="w-full text-left bg-white px-3 py-2 rounded-lg border border-outline-variant/30 text-xs text-primary hover:bg-primary/5 transition-colors">"Analyze Sarah's latest ROM trends"</button>
+<button class="w-full text-left bg-white px-3 py-2 rounded-lg border border-outline-variant/30 text-xs text-primary hover:bg-primary/5 transition-colors">"Suggest exercises for ACL recovery"</button>
+</div>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex gap-3 justify-end">
+<div class="bg-primary text-white rounded-2xl rounded-tr-none p-4 text-sm shadow-md">
+                        What's the clinical range for a 12-week post-op total knee replacement?
+                    </div>
+<div class="w-8 h-8 rounded-full border border-primary/20 flex items-center justify-center shrink-0">
+<img class="w-full h-full object-cover rounded-full" data-alt="Physiotherapist avatar icon, clinical professional appearance, clean lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSvm9bFCyGNK4tkzRnRQRxIEbkPO6npjIAwmw_UOKEsXYcuZcTkXX2sukhDI-v98jDrxYhb5MRNWqZZSIq0-ilW-zV2MrMS9WxhLcFHmMhQD9qd9GgzPvRfs4XH_-aq2ip3_L-UyQp5cT98gzFA57q9_9O1Wl_gDFZucUVmBiROC3ZuCSPfbZ2uKyJC4XkXVq3tvEmSamUmdel0T7bmPNooAR8CmCjj1SXHP4RqyB7QkPi6D-1VRCSJXl6FjOf6wATBCRH4p3n52Sa"/>
+</div>
+</div>
+<!-- AI Response -->
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-sm">auto_awesome</span>
+</div>
+<div class="bg-surface-container rounded-2xl rounded-tl-none p-4 text-sm text-on-surface">
+                        At 12 weeks, a typical target is 0° extension and 120° flexion. However, this varies based on preoperative status.
+                        <div class="mt-3 h-24 w-full rounded-lg relative overflow-hidden bg-white/50">
+<img class="w-full h-full object-cover" data-alt="A clean, medical scientific diagram showing knee range of motion degrees, clinical medical illustration style, teal and white colors, minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4oCEOB6JHatOge3dsDGfNqcymphDpHARzrci0A3CQNq5E1Ax-3EKiirxT6TZ8Y-hPsDuOkDfLC0YKX3PoFDhJfFN4JCnjF3Z3fudjuYm4yOhMn-xWyZzzVZT4JX7Uw4Z4MQUOO84WP-GmpG_qTYwMUBjM34SxAWUIBcEgNuv6RGTtL9vI_bLcxc3yi3Z1fX5lTHJ0qmqz5BJgWNMsDnymq1A8qggsT16qv7TkLdL3QcHQE1ErVhCTiQxF_ldvmr0obOWRQ1pijZUk"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-6 border-t border-outline-variant/20 bg-white/40">
+<div class="relative">
+<textarea class="w-full bg-surface-container-low border border-outline-variant/30 rounded-2xl px-4 py-3 text-sm focus:ring-primary focus:border-primary resize-none pr-12" placeholder="Ask your clinical query..." rows="2"></textarea>
+<button class="absolute right-2 bottom-2 w-8 h-8 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+<div class="mt-3 flex justify-between items-center text-[10px] text-outline px-1">
+<span class="flex items-center gap-1"><span class="w-1 h-1 bg-green-500 rounded-full"></span> HIPAA Compliant</span>
+<span>24/48 Tokens used</span>
+</div>
+</div>
+</aside>
+</div>
+<!-- Mobile Bottom Navigation (Visible on Small Screens) -->
+<nav class="lg:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface-glass backdrop-blur-[14px] border-t border-white/50 shadow-[0_-4px_16px_0_rgba(21,105,102,0.12)]">
+<div class="flex justify-around items-center px-4 py-3 w-full">
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary/10 transition-transform active:scale-90 p-2">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-[10px]">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary/10 transition-transform active:scale-90 p-2">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-[10px]">Patients</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed bg-primary-container/20 rounded-xl px-4 py-1 transition-transform active:scale-90">
+<span class="material-symbols-outlined">videocam</span>
+<span class="font-label-md text-[10px] font-bold">AR</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary/10 transition-transform active:scale-90 p-2">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-md text-[10px]">Stats</span>
+</button>
+</div>
+</nav>
+<script>
+        // BMI Logic
+        const hSlider = document.getElementById('height-slider');
+        const wSlider = document.getElementById('weight-slider');
+        const hVal = document.getElementById('height-val');
+        const wVal = document.getElementById('weight-val');
+        const bmiResult = document.getElementById('bmi-result');
+        const bmiStatus = document.getElementById('bmi-status');
+
+        function updateBMI() {
+            const h = hSlider.value / 100;
+            const w = wSlider.value;
+            const bmi = (w / (h * h)).toFixed(1);
+            
+            // Numeric Animation Mock
+            bmiResult.innerText = bmi;
+            hVal.innerText = hSlider.value;
+            wVal.innerText = wSlider.value;
+
+            // Classification Logic
+            if (bmi < 18.5) {
+                bmiStatus.innerText = "Underweight";
+                bmiStatus.className = "bg-blue-500/40 px-3 py-1 rounded-lg font-bold text-sm backdrop-blur-md";
+            } else if (bmi < 25) {
+                bmiStatus.innerText = "Healthy Weight";
+                bmiStatus.className = "bg-green-500/40 px-3 py-1 rounded-lg font-bold text-sm backdrop-blur-md";
+            } else if (bmi < 30) {
+                bmiStatus.innerText = "Overweight";
+                bmiStatus.className = "bg-orange-500/40 px-3 py-1 rounded-lg font-bold text-sm backdrop-blur-md";
+            } else {
+                bmiStatus.innerText = "Obesity Range";
+                bmiStatus.className = "bg-red-500/40 px-3 py-1 rounded-lg font-bold text-sm backdrop-blur-md";
+            }
+        }
+
+        hSlider.addEventListener('input', updateBMI);
+        wSlider.addEventListener('input', updateBMI);
+
+        // Simple Scan Interaction
+        const dropArea = document.getElementById('drop-area');
+        dropArea.addEventListener('click', () => {
+            const btn = dropArea.querySelector('button');
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin mr-2">sync</span> Processing...';
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined mr-2">check</span> Scan Complete';
+                btn.classList.replace('bg-primary', 'bg-green-600');
+            }, 2000);
+        });
+
+        // Initialize
+        updateBMI();
+    </script>
+</body></html>

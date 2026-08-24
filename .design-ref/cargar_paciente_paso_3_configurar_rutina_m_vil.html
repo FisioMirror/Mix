@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PhysioPortal - Routine Configuration</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container": "#eeeef0",
+            "surface-dim": "#dadadc",
+            "secondary-fixed": "#d4e6e5",
+            "on-primary-fixed": "#00201f",
+            "inverse-on-surface": "#f0f0f3",
+            "on-primary-container": "#9ce6e1",
+            "on-error-container": "#93000a",
+            "surface-container-highest": "#e2e2e5",
+            "surface-container-high": "#e8e8ea",
+            "primary": "#00504d",
+            "on-secondary": "#ffffff",
+            "secondary": "#516161",
+            "tertiary": "#6e381d",
+            "primary-container": "#156966",
+            "on-background": "#1a1c1e",
+            "on-primary": "#ffffff",
+            "on-secondary-fixed-variant": "#3a4a49",
+            "on-tertiary": "#ffffff",
+            "secondary-fixed-dim": "#b8cac9",
+            "on-secondary-fixed": "#0e1e1e",
+            "outline": "#6f7978",
+            "error": "#ba1a1a",
+            "inverse-primary": "#8ad3cf",
+            "on-primary-fixed-variant": "#00504d",
+            "surface-variant": "#e2e2e5",
+            "tertiary-fixed-dim": "#ffb694",
+            "tertiary-container": "#8a4f32",
+            "secondary-container": "#d4e6e5",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim": "#8ad3cf",
+            "primary-fixed": "#a6f0eb",
+            "surface-bright": "#f9f9fc",
+            "background": "#f9f9fc",
+            "on-surface": "#1a1c1e",
+            "surface": "#f9f9fc",
+            "on-secondary-container": "#576867",
+            "surface-tint": "#156966",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed": "#351000",
+            "outline-variant": "#bec9c7",
+            "tertiary-fixed": "#ffdbcc",
+            "surface-container-low": "#f3f3f6",
+            "on-tertiary-container": "#ffceb8",
+            "on-tertiary-fixed-variant": "#6e381d",
+            "error-container": "#ffdad6",
+            "on-surface-variant": "#3f4948",
+            "inverse-surface": "#2f3133"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "1.5rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "xl": "64px",
+            "base": "4px",
+            "xs": "8px",
+            "lg": "40px",
+            "gutter": "16px",
+            "sm": "16px",
+            "md": "24px",
+            "container-margin": "24px"
+          },
+          "fontFamily": {
+            "headline-lg": ["Montserrat"],
+            "headline-lg-mobile": ["Montserrat"],
+            "display-lg": ["Montserrat"],
+            "body-lg": ["Montserrat"],
+            "title-md": ["Montserrat"],
+            "label-sm": ["Montserrat"]
+          },
+          "fontSize": {
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(32px);
+    }
+    .tap-scale {
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .tap-scale:active {
+      transform: scale(0.96);
+    }
+    .progress-bar-segment {
+      height: 6px;
+      border-radius: 99px;
+      background: #e2e2e5;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #00504d;
+      transition: width 0.5s ease-out;
+    }
+    .remove-gradient {
+      background: linear-gradient(90deg, transparent, #ba1a1a 80%);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low font-body-lg text-on-surface overflow-x-hidden min-h-screen">
+<!-- Top App Bar (Mobile Context) -->
+<header class="fixed top-0 left-0 right-0 z-50 glass-nav h-20 px-sm flex items-center justify-between border-b border-white/20">
+<div class="flex items-center gap-xs">
+<button class="w-10 h-10 flex items-center justify-center tap-scale">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<div>
+<h1 class="font-title-md text-primary leading-none">Routine Setup</h1>
+<p class="text-label-sm text-secondary uppercase tracking-wider">Patient: Sarah Jenkins</p>
+</div>
+</div>
+<div class="flex items-center gap-xs">
+<div class="text-right mr-2">
+<span class="font-bold text-primary">Step 3</span>
+<span class="text-secondary text-label-sm">/ 4</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-40 px-container-margin">
+<!-- Step Indicator Line -->
+<div class="flex gap-2 mb-lg">
+<div class="flex-1 progress-bar-segment"><div class="progress-fill w-full"></div></div>
+<div class="flex-1 progress-bar-segment"><div class="progress-fill w-full"></div></div>
+<div class="flex-1 progress-bar-segment"><div class="progress-fill w-full"></div></div>
+<div class="flex-1 progress-bar-segment"><div class="progress-fill w-0"></div></div>
+</div>
+<!-- Section: Recommended -->
+<div class="mb-lg">
+<div class="flex justify-between items-end mb-md">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">AI Recommended</h2>
+<p class="text-on-surface-variant font-body-lg">Optimized for Rotator Cuff Recovery</p>
+</div>
+<span class="bg-primary/10 text-primary text-label-sm px-3 py-1 rounded-full font-bold">4 Found</span>
+</div>
+<!-- Horizontal Filter Chips -->
+<div class="flex gap-xs overflow-x-auto pb-4 -mx-container-margin px-container-margin no-scrollbar">
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary font-bold whitespace-nowrap tap-scale">All Matches</button>
+<button class="px-5 py-2 rounded-full bg-white/50 text-secondary font-semibold border border-white/60 whitespace-nowrap tap-scale">Flexibility</button>
+<button class="px-5 py-2 rounded-full bg-white/50 text-secondary font-semibold border border-white/60 whitespace-nowrap tap-scale">Stability</button>
+<button class="px-5 py-2 rounded-full bg-white/50 text-secondary font-semibold border border-white/60 whitespace-nowrap tap-scale">Resistance</button>
+</div>
+<!-- Recommended List -->
+<div class="space-y-sm">
+<!-- Exercise Card 1 -->
+<div class="glass-card p-4 rounded-xl flex gap-md items-center tap-scale group relative overflow-hidden" onclick="addToRoutine(this)">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A clinical high-end studio photography of a woman performing a scapular stability exercise with a resistance band. The environment is bright, minimalist, with a professional medical aesthetic and soft teal color accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA416mMeJWqD3WbqE47E9c4GZrfuN9VPrNbjwi6QYEfjbqtN6MIwDsZCkjKfSL-oJ_8z8DhSSYZoPi4_NP5SfovaedhAZ20roq8nFFAKQ_dzbgFjX0EiCLaHFHu1_g71IZRXQDvupFl7U9A-U1trxvD8UxzUBhjGjA9VNtzTwL60ee0UVJ18QeQ7-pPdHIDfn6mHx2iucuBgjwChV5WwVKM6PcBPaDJ75y8Gu4ACeDeYc_vQK6C1PUgpJXuVpxDBjOu0bbvAaEHI0PW"/>
+</div>
+<div class="flex-1">
+<h3 class="font-title-md text-on-surface">Scapular Stability</h3>
+<p class="text-label-sm text-secondary">3 Sets • 12 Reps • 2m Rest</p>
+<div class="flex items-center gap-1 mt-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">bolt</span>
+<span class="text-label-sm text-tertiary font-bold">High Precision Required</span>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg transition-transform group-active:scale-125">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<!-- Exercise Card 2 -->
+<div class="glass-card p-4 rounded-xl flex gap-md items-center tap-scale group relative overflow-hidden" onclick="addToRoutine(this)">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close up photography of a patient performing an ankle proprioception exercise on a wooden balance board. Bright, clinical setting with clean white walls and professional studio lighting with a premium medical feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAD9B8s6naDzmFe9O9LHDN_HpQ1QDQAXU7GG_qP0fGbt3ET9LPX9gQqhu1S-m_OBZAxn_O8oy49SBYjAtyF1V7N3cEPBorgbeZfIwwx135ToThnDfIN-FeCnq4xvz8i7UE7gS8gbt7twzL3e5M-q9Rj1lh8VDAugyj58FsMQO7hoHhqRLUiEhRmHtzzHQEFOqUCQEjnBQS8sSROT32i9NZCpkzlLK31zG_b_TlQDvXl0cM_QHNTNOe9w2WJ3b0HRIRVJhUxEYYhEzkN"/>
+</div>
+<div class="flex-1">
+<h3 class="font-title-md text-on-surface">External Rotation</h3>
+<p class="text-label-sm text-secondary">2 Sets • 15 Reps • 1m Rest</p>
+<div class="flex items-center gap-1 mt-2">
+<span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+<span class="text-label-sm text-primary font-bold">Standard Rehab</span>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg transition-transform group-active:scale-125">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Review Routine Drawer Trigger -->
+<div class="mt-xl">
+<div class="flex items-center justify-between mb-md">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Current Routine</h2>
+<span class="text-primary font-bold text-label-sm">Edit All</span>
+</div>
+<!-- Current Routine Items -->
+<div class="space-y-sm" id="routine-list">
+<!-- Item 1: Swipable -->
+<div class="relative overflow-hidden rounded-xl">
+<div class="absolute inset-0 remove-gradient flex items-center justify-end px-md opacity-0 transition-opacity duration-200" id="delete-bg-1">
+<span class="material-symbols-outlined text-white">delete</span>
+</div>
+<div class="glass-card p-sm relative z-10 transition-transform duration-300 translate-x-0" id="swipe-item-1" ontouchend="handleTouchEnd(event, 1)" ontouchmove="handleTouchMove(event, 1)" ontouchstart="handleTouchStart(event)">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">fitness_center</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface">Wall Slides</h4>
+<p class="text-label-sm text-secondary">Intensity: Low</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-high rounded-lg p-1">
+<button class="w-8 h-8 flex items-center justify-center text-primary font-bold tap-scale">—</button>
+<div class="w-12 text-center font-bold text-on-surface">3 <span class="text-[10px] text-secondary">SETS</span></div>
+<button class="w-8 h-8 flex items-center justify-center text-primary font-bold tap-scale">+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="relative overflow-hidden rounded-xl">
+<div class="absolute inset-0 remove-gradient flex items-center justify-end px-md opacity-0 transition-opacity duration-200" id="delete-bg-2">
+<span class="material-symbols-outlined text-white">delete</span>
+</div>
+<div class="glass-card p-sm relative z-10 transition-transform duration-300 translate-x-0" id="swipe-item-2" ontouchend="handleTouchEnd(event, 2)" ontouchmove="handleTouchMove(event, 2)" ontouchstart="handleTouchStart(event)">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">self_improvement</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface">Isometric Hold</h4>
+<p class="text-label-sm text-secondary">Intensity: Moderate</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-high rounded-lg p-1">
+<button class="w-8 h-8 flex items-center justify-center text-primary font-bold tap-scale">—</button>
+<div class="w-12 text-center font-bold text-on-surface">10 <span class="text-[10px] text-secondary">REPS</span></div>
+<button class="w-8 h-8 flex items-center justify-center text-primary font-bold tap-scale">+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky FAB for Adding Custom -->
+<button class="fixed right-container-margin bottom-32 w-14 h-14 bg-tertiary text-on-tertiary rounded-full shadow-2xl flex items-center justify-center tap-scale z-40">
+<span class="material-symbols-outlined">add</span>
+</button>
+<!-- Footer Action -->
+<footer class="fixed bottom-0 left-0 right-0 p-container-margin glass-nav z-50 border-t border-white/20">
+<button class="w-full h-16 bg-primary text-on-primary rounded-xl font-bold text-title-md flex items-center justify-center gap-sm shadow-xl active:scale-95 transition-transform duration-200">
+      Finalize Routine
+      <span class="material-symbols-outlined">chevron_right</span>
+</button>
+<div class="mt-4 flex justify-center">
+<div class="h-1 w-32 bg-on-surface/20 rounded-full"></div>
+</div>
+</footer>
+<script>
+    // Interaction Logic for Swipe-to-remove
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    function handleTouchStart(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }
+
+    function handleTouchMove(e, id) {
+      const currentX = e.changedTouches[0].screenX;
+      const diff = currentX - touchStartX;
+      const item = document.getElementById(`swipe-item-${id}`);
+      const bg = document.getElementById(`delete-bg-${id}`);
+      
+      if (diff < 0) {
+        const move = Math.max(diff, -100);
+        item.style.transform = `translateX(${move}px)`;
+        bg.style.opacity = Math.abs(move) / 100;
+      }
+    }
+
+    function handleTouchEnd(e, id) {
+      touchEndX = e.changedTouches[0].screenX;
+      const item = document.getElementById(`swipe-item-${id}`);
+      const bg = document.getElementById(`delete-bg-${id}`);
+      
+      if (touchStartX - touchEndX > 80) {
+        // Remove item animation
+        item.style.transform = 'translateX(-120%)';
+        setTimeout(() => {
+          item.parentElement.style.maxHeight = '0';
+          item.parentElement.style.margin = '0';
+          item.parentElement.style.opacity = '0';
+          setTimeout(() => item.parentElement.remove(), 300);
+        }, 200);
+      } else {
+        // Snap back
+        item.style.transform = 'translateX(0)';
+        bg.style.opacity = 0;
+      }
+    }
+
+    function addToRoutine(el) {
+      // Simulate success toast or animation
+      const btn = el.querySelector('button');
+      const originalIcon = btn.innerHTML;
+      btn.innerHTML = '<span class="material-symbols-outlined">check</span>';
+      btn.classList.replace('bg-primary', 'bg-tertiary');
+      
+      setTimeout(() => {
+        btn.innerHTML = originalIcon;
+        btn.classList.replace('bg-tertiary', 'bg-primary');
+      }, 1000);
+    }
+  </script>
+</body></html>

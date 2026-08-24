@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Progress &amp; Gamification - FisioMirror</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#9ce6e1",
+                        "on-background": "#1a1c1e",
+                        "surface-variant": "#e2e2e5",
+                        "tertiary-container": "#8a4f32",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "surface-tint": "#156966",
+                        "secondary-fixed": "#d4e6e5",
+                        "inverse-on-surface": "#f0f0f3",
+                        "tertiary": "#6e381d",
+                        "background": "#f9f9fc",
+                        "on-secondary-container": "#576867",
+                        "surface-bright": "#f9f9fc",
+                        "on-surface-variant": "#3f4948",
+                        "primary-fixed": "#a6f0eb",
+                        "primary-fixed-dim": "#8ad3cf",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-high": "#e8e8ea",
+                        "surface-container-low": "#f3f3f6",
+                        "secondary-fixed-dim": "#b8cac9",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2f3133",
+                        "secondary": "#516161",
+                        "on-tertiary-fixed": "#351000",
+                        "on-secondary-fixed-variant": "#3a4a49",
+                        "inverse-primary": "#8ad3cf",
+                        "outline-variant": "#bec9c7",
+                        "surface-container": "#eeeef0",
+                        "surface": "#f9f9fc",
+                        "primary": "#00504d",
+                        "on-surface": "#1a1c1e",
+                        "on-tertiary-container": "#ffceb8",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#6e381d",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#d4e6e5",
+                        "on-secondary-fixed": "#0e1e1e",
+                        "on-primary-fixed-variant": "#00504d",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#dadadc",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#156966",
+                        "on-primary-fixed": "#00201f",
+                        "outline": "#6f7978"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "24px",
+                        "lg": "40px",
+                        "gutter": "16px",
+                        "xl": "64px",
+                        "md": "24px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "sm": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "title-md": ["Montserrat"],
+                        "display-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Montserrat', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        .achievement-badge:active { transform: scale(0.92); }
+        .tab-active { transform: scale(0.95); transition: transform 0.2s ease-in-out; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center px-6 pt-10 pb-4 sticky top-0 z-50 bg-background/80 backdrop-blur-md">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A clinical headshot of a young professional patient, soft warm studio lighting, clean white clinical background, smiling gently, high-resolution portrait with a premium health-tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzXW64gH594e52nvIJD1D2pW7vFcW2m7XH5PGo8UrkrY9W1Jyj1tW8gK-qfhM8XIOVnZeedkYZYcANrLALosgG3NMqJ1ElseNJRr0HJUxsA8Pt7RD9n76Gy9bvLArO3ZC37joZ2mc3KUmSgXLqRqg1zDz3-4CeU0Hjlpr6EbRg3cVsEo0ucqbhCWMOHJ1tv6Gf-dA7jXMTkzWkGSFVs9RV5k0sbAkeYCG5iE9uTsZOH-PEvVOuly8lfq4U_o7k7m7_q3N-zRXzMPbl"/>
+</div>
+<div>
+<p class="text-[10px] font-bold text-primary uppercase tracking-widest leading-tight">My Journey</p>
+<h1 class="font-title-md text-title-md text-primary">Progress</h1>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full glass-card text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<main class="px-6 space-y-8">
+<!-- 1. Hero: Animated Progress Ring & Streak -->
+<section class="relative flex flex-col items-center justify-center py-6">
+<div class="relative w-64 h-64 flex items-center justify-center">
+<!-- Background Circle -->
+<svg class="absolute w-full h-full">
+<circle class="text-surface-container-high" cx="128" cy="128" fill="transparent" r="110" stroke="currentColor" stroke-width="12"></circle>
+</svg>
+<!-- Progress Circle -->
+<svg class="absolute w-full h-full">
+<circle class="text-primary progress-ring-circle" cx="128" cy="128" fill="transparent" id="main-progress" r="110" stroke="currentColor" stroke-dasharray="691.15" stroke-dashoffset="691.15" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="text-center z-10">
+<div class="flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-tertiary text-4xl" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-display-lg text-display-lg text-on-background ml-1">12</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Day Streak</p>
+<p class="text-primary font-bold mt-2">85% of Daily Goal</p>
+</div>
+<!-- WebGL Shader Atmosphere (Simulated via overlay) -->
+<div class="absolute -z-10 w-full h-full opacity-40 scale-125 pointer-events-none">
+
+</div>
+</div>
+</section>
+<!-- 2. Summary Tiles: Metric Carousel -->
+<section>
+<div class="flex overflow-x-auto gap-4 hide-scrollbar -mx-6 px-6 pb-2">
+<div class="flex-none w-40 p-5 rounded-3xl glass-card border-none bg-surface-container-low">
+<div class="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined">timer</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Minutes</p>
+<h3 class="font-title-md text-title-md text-on-background">420</h3>
+</div>
+<div class="flex-none w-40 p-5 rounded-3xl glass-card border-none bg-primary text-on-primary">
+<div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-white mb-4">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<p class="font-label-sm text-label-sm text-primary-fixed-dim">Sessions</p>
+<h3 class="font-title-md text-title-md">24</h3>
+</div>
+<div class="flex-none w-40 p-5 rounded-3xl glass-card border-none bg-surface-container-low">
+<div class="w-10 h-10 rounded-2xl bg-secondary-container flex items-center justify-center text-secondary mb-4">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Quality</p>
+<h3 class="font-title-md text-title-md text-on-background">98%</h3>
+</div>
+</div>
+</section>
+<!-- 3. Biomechanical Chart -->
+<section class="glass-card p-6 rounded-3xl">
+<div class="flex justify-between items-end mb-6">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Stability Profile</p>
+<h3 class="font-title-md text-title-md text-on-background">Joint Precision</h3>
+</div>
+<div class="text-right">
+<p class="text-primary font-bold">+12%</p>
+<p class="text-[10px] text-on-surface-variant">vs last week</p>
+</div>
+</div>
+<div class="h-40 w-full relative">
+<!-- Simple SVG Path for Mobile-friendly Chart -->
+<svg class="w-full h-full" viewbox="0 0 300 100">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="rgba(0, 80, 77, 0.2)"></stop>
+<stop offset="100%" stop-color="rgba(0, 80, 77, 0)"></stop>
+</lineargradient>
+</defs>
+<path d="M0 80 Q 50 10, 100 60 T 200 30 T 300 10 L 300 100 L 0 100 Z" fill="url(#chartGradient)"></path>
+<path d="M0 80 Q 50 10, 100 60 T 200 30 T 300 10" fill="transparent" stroke="#00504d" stroke-linecap="round" stroke-width="3"></path>
+<!-- Points -->
+<circle cx="50" cy="10" fill="#00504d" r="4"></circle>
+<circle cx="200" cy="30" fill="#00504d" r="4"></circle>
+<circle cx="300" cy="10" fill="#00504d" r="4"></circle>
+</svg>
+<div class="flex justify-between mt-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">
+<span>Mon</span>
+<span>Wed</span>
+<span>Fri</span>
+<span>Today</span>
+</div>
+</div>
+</section>
+<!-- 4. Muro de Logros (Achievements) -->
+<section>
+<div class="flex justify-between items-center mb-4 px-2">
+<h3 class="font-title-md text-title-md text-on-background">Milestones</h3>
+<button class="text-primary font-bold text-label-sm">View All</button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="achievement-badge p-5 rounded-3xl glass-card flex flex-col items-center text-center transition-transform cursor-pointer" onclick="this.classList.toggle('scale-105')">
+<div class="w-16 h-16 rounded-full bg-gradient-to-tr from-primary to-primary-fixed flex items-center justify-center text-white mb-3 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+</div>
+<p class="font-bold text-sm text-on-background">First Session</p>
+<p class="text-[10px] text-on-surface-variant">Completed Oct 1</p>
+</div>
+<div class="achievement-badge p-5 rounded-3xl glass-card flex flex-col items-center text-center transition-transform cursor-pointer" onclick="this.classList.toggle('scale-105')">
+<div class="w-16 h-16 rounded-full bg-gradient-to-tr from-secondary to-secondary-fixed-dim flex items-center justify-center text-white mb-3 shadow-lg shadow-secondary/20">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+</div>
+<p class="font-bold text-sm text-on-background">Stability King</p>
+<p class="text-[10px] text-on-surface-variant">Earned 2d ago</p>
+</div>
+</div>
+</section>
+<!-- 5. Next Goal Card -->
+<section class="pb-8">
+<div class="p-6 rounded-3xl bg-secondary-container text-on-secondary-fixed overflow-hidden relative">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-sm">rocket_launch</span>
+<p class="font-label-sm text-label-sm text-on-secondary-fixed-variant uppercase tracking-widest">Coming Up</p>
+</div>
+<h3 class="font-title-md text-title-md text-on-background mb-4">Unlock: Advanced Hip Routine</h3>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span>8 / 10 Sessions</span>
+<span>80%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-1000" style="width: 80%;"></div>
+</div>
+</div>
+<button class="mt-6 w-full py-3 bg-on-background text-background rounded-full font-bold text-sm shadow-xl transition-transform active:scale-95">
+                        Set as Priority
+                    </button>
+</div>
+<!-- Abstract Glass Detail -->
+<div class="absolute -right-10 -bottom-10 w-32 h-32 bg-primary/10 rounded-full blur-2xl"></div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Dock style) -->
+<nav class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-md h-18 glass-card rounded-full flex justify-around items-center px-4 py-3 z-50 border border-white/40 shadow-2xl">
+<button class="flex flex-col items-center justify-center gap-1 p-2 text-on-surface-variant hover:scale-110 transition-transform active:scale-95">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-[10px]">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 p-2 text-on-surface-variant hover:scale-110 transition-transform active:scale-95">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-[10px]">Social</span>
+</button>
+<button class="bg-primary text-on-primary rounded-full px-6 py-2 flex items-center justify-center gap-2 shadow-lg shadow-primary/30 transition-transform active:scale-95">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-sm text-label-sm">Stats</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 p-2 text-on-surface-variant hover:scale-110 transition-transform active:scale-95">
+<span class="material-symbols-outlined">play_circle</span>
+<span class="font-label-sm text-[10px]">Sessions</span>
+</button>
+</nav>
+<script>
+        // Trigger Progress Ring Animation on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            const circle = document.getElementById('main-progress');
+            const radius = circle.r.baseVal.value;
+            const circumference = 2 * Math.PI * radius;
+            
+            // Daily goal: 85%
+            const offset = circumference - (0.85 * circumference);
+            
+            setTimeout(() => {
+                circle.style.strokeDashoffset = offset;
+            }, 300);
+        });
+
+        // Simple vibration/click feel for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('touchstart', () => {
+                if ('vibrate' in navigator) navigator.vibrate(5);
+            });
+        });
+    </script>
+</body></html>

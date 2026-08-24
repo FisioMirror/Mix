@@ -1,0 +1,14 @@
+For all designs I ask you to make, have them be beautiful, not cookie cutter. Make webpages that are fully featured and worthy for production.
+
+By default, this template supports JSX syntax with Tailwind CSS classes, React hooks, and Lucide React for icons. You are AUTHORIZED to use the following packages that are already installed and verified to work: @heroui/react, framer-motion, lucide-react, recharts, @tabler/icons-react, @number-flow/react, jspdf, html2canvas, canvas-confetti, react-hot-toast. These packages are ESSENTIAL for the UI and MUST be used when appropriate. Do not uninstall them or replace them with alternatives.
+
+CRITICAL UI RULES:
+- When asked to add color, animations, or redesign components, USE THE ALREADY INSTALLED PACKAGES to their full potential.
+- HeroUI (@heroui/react) components like Button, Card, Modal, Skeleton, Tabs, Input, Calendar, etc. MUST be used as the base for UI elements.
+- Framer Motion MUST be used for ALL animations, transitions, and micro-interactions.
+- Lucide React and Tabler Icons MUST be used for ALL iconography.
+- Do NOT use plain HTML buttons or divs when a HeroUI component exists.
+- Do NOT use CSS animations when Framer Motion can do it better.
+- When adding color, ALWAYS reference the project's color palette files (Paleta Modo Claro.md, Paleta Modo Oscuro.md) located in the public folder.
+- Glassmorphism effects MUST use Tailwind's backdrop-blur classes combined with bg-opacity.
+- ALL text must be in Spanish unless it's a universally accepted medical term.

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FisioMirror - Patient Directory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#eeeef0",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed-variant": "#6e381d",
+                      "inverse-primary": "#8ad3cf",
+                      "outline-variant": "#bec9c7",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#ffb694",
+                      "surface-variant": "#e2e2e5",
+                      "surface-container-high": "#e8e8ea",
+                      "on-secondary-fixed": "#0e1e1e",
+                      "inverse-on-surface": "#f0f0f3",
+                      "tertiary": "#6e381d",
+                      "error": "#ba1a1a",
+                      "on-background": "#1a1c1e",
+                      "on-secondary-fixed-variant": "#3a4a49",
+                      "secondary-fixed": "#d4e6e5",
+                      "on-tertiary": "#ffffff",
+                      "on-surface": "#1a1c1e",
+                      "tertiary-fixed": "#ffdbcc",
+                      "primary-container": "#156966",
+                      "on-primary-container": "#9ce6e1",
+                      "error-container": "#ffdad6",
+                      "primary-fixed-dim": "#8ad3cf",
+                      "surface": "#f9f9fc",
+                      "on-primary-fixed-variant": "#00504d",
+                      "secondary": "#516161",
+                      "on-secondary": "#ffffff",
+                      "tertiary-container": "#8a4f32",
+                      "on-tertiary-container": "#ffceb8",
+                      "primary-fixed": "#a6f0eb",
+                      "secondary-fixed-dim": "#b8cac9",
+                      "on-primary": "#ffffff",
+                      "primary": "#00504d",
+                      "background": "#f9f9fc",
+                      "on-secondary-container": "#576867",
+                      "inverse-surface": "#2f3133",
+                      "on-tertiary-fixed": "#351000",
+                      "on-surface-variant": "#3f4948",
+                      "on-primary-fixed": "#00201f",
+                      "on-error": "#ffffff",
+                      "surface-container-highest": "#e2e2e5",
+                      "surface-tint": "#156966",
+                      "surface-container-low": "#f3f3f6",
+                      "surface-dim": "#dadadc",
+                      "outline": "#6f7978",
+                      "surface-bright": "#f9f9fc",
+                      "secondary-container": "#d4e6e5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "md": "24px",
+                      "lg": "40px",
+                      "xs": "8px",
+                      "base": "4px",
+                      "xl": "64px",
+                      "container-margin": "24px",
+                      "sm": "16px"
+              },
+              "fontFamily": {
+                      "title-md": ["Montserrat"],
+                      "display-lg": ["Montserrat"],
+                      "body-lg": ["Montserrat"],
+                      "headline-lg": ["Montserrat"],
+                      "label-sm": ["Montserrat"],
+                      "headline-lg-mobile": ["Montserrat"]
+              },
+              "fontSize": {
+                      "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .recessed-input {
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+<!-- Top Navigation Anchor -->
+<header class="w-full top-0 sticky z-50 bg-surface-glass backdrop-blur-[14px] text-primary border-b border-white/50 shadow-[0_8px_32px_0_rgba(21,105,102,0.08)]">
+<div class="flex justify-between items-center px-6 py-4 max-w-container-max mx-auto">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">FisioMirror</h1>
+<div class="flex gap-4">
+<button class="cursor-pointer active:scale-95 duration-200 hover:bg-primary/5 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="cursor-pointer active:scale-95 duration-200 hover:bg-primary/5 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</header>
+<main class="min-h-screen pb-32 pt-6">
+<!-- Search & Filter Container -->
+<div class="px-6 mb-8">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full recessed-input border-none rounded-xl py-4 pl-12 pr-4 font-body-lg text-on-surface focus:ring-2 focus:ring-primary/20 transition-all outline-none" placeholder="Search by patient name or ID" type="text"/>
+</div>
+<!-- Category Chips -->
+<div class="flex gap-3 overflow-x-auto no-scrollbar py-6">
+<button class="px-6 py-2 rounded-full font-label-sm text-label-sm bg-primary text-on-primary shadow-lg shadow-primary/20 transition-transform active:scale-95">All</button>
+<button class="px-6 py-2 rounded-full font-label-sm text-label-sm glass-panel text-on-surface-variant hover:bg-white/60 transition-all active:scale-95">Post-Op</button>
+<button class="px-6 py-2 rounded-full font-label-sm text-label-sm glass-panel text-on-surface-variant hover:bg-white/60 transition-all active:scale-95">Recent</button>
+<button class="px-6 py-2 rounded-full font-label-sm text-label-sm glass-panel text-on-surface-variant hover:bg-white/60 transition-all active:scale-95">Critical</button>
+</div>
+</div>
+<!-- Patient Directory List -->
+<div class="px-6 space-y-4">
+<!-- Patient Card 1 -->
+<div class="glass-panel rounded-2xl p-6 flex items-center justify-between shadow-[0_4px_20px_rgba(0,0,0,0.05)] animate-slide" style="animation-delay: 100ms;">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full overflow-hidden border-2 border-primary/10">
+<img class="w-full h-full object-cover" data-alt="A clinical portrait of a mature male patient with a friendly expression, set against a soft, clean medical office background. The lighting is bright and high-key, emphasizing a light-mode aesthetic. The color palette is composed of soft whites and teals, conveying professional clinical care and empathy in the FisioMirror premium style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6j4Z_RFWn4EZgauMryv4YPgSDi2LWaUHr6pq-KuOPKtWa_OOqWKqXGGTMsVpUpN6owwMjalb6k4ELJY_2o86KEgUwjfV9rqyFLoCHU0aBCdVx93CUN1fNvpUaiwGZ2uIxr7VLgLxdIkmSvxpSqOHF0GBBetrwyVhZkK-DCFPbYMouh928LDAw3AMCqw0vDRb3JyGf46yddBysOJ0xImE3M8dXfNGaxyV5ciE-4b_z-s3nETfWaBFaECGH4mTd2-qFBcM7MI4tV3oU"/>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Elena Rodriguez</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Post-Op: Left Knee ACL</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<div class="relative w-12 h-12 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle cx="24" cy="24" fill="transparent" r="20" stroke="#E2E2E5" stroke-width="4"></circle>
+<circle cx="24" cy="24" fill="transparent" r="20" stroke="#00504d" stroke-dasharray="125.6" stroke-dashoffset="31.4" stroke-width="4"></circle>
+</svg>
+<span class="absolute font-label-sm text-[10px] font-bold text-primary">75%</span>
+</div>
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full font-label-sm text-[10px]">Active</span>
+</div>
+</div>
+<!-- Patient Card 2 -->
+<div class="glass-panel rounded-2xl p-6 flex items-center justify-between shadow-[0_4px_20px_rgba(0,0,0,0.05)] animate-slide" style="animation-delay: 200ms;">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full overflow-hidden border-2 border-primary/10">
+<img class="w-full h-full object-cover" data-alt="A portrait of a senior female patient smiling gently, wearing a soft pastel blue top. The setting is a bright, modern clinical hallway with soft out-of-focus plants. The visual style is premium clinical with high-end glassmorphism elements, maintaining a serene and authoritative healthcare aesthetic using FisioMirror teal accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgEax-Cy38-nX3Bwwpuw48mXzF536toqOUVFUVEthxkZXWy-eeMKhYJg5D9rzVzqnk5XngMfXvllhwkAdfxAfcmvkuddozODO5dfSNHRSBENoVjYwmzMEFO2vsrgl-jSWv9Np2eKdDg6nrN0DVeSY_AXOP6wym0qArR4950h1vlzZt6X02CKExhB7IQSwkFpjPkivhGjwTTG9Z_CeBbPFOF-NxYiO6GtWwhofWXxE6A9DaLs48W92NCWIWGWmVnf4d8-OG6_YHOVB7"/>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Marcus Chen</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Spinal Mobility Program</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<div class="relative w-12 h-12 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle cx="24" cy="24" fill="transparent" r="20" stroke="#E2E2E5" stroke-width="4"></circle>
+<circle cx="24" cy="24" fill="transparent" r="20" stroke="#00504d" stroke-dasharray="125.6" stroke-dashoffset="87.9" stroke-width="4"></circle>
+</svg>
+<span class="absolute font-label-sm text-[10px] font-bold text-primary">30%</span>
+</div>
+<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full font-label-sm text-[10px]">Pending</span>
+</div>
+</div>
+<!-- Patient Card 3 -->
+<div class="glass-panel rounded-2xl p-6 flex items-center justify-between shadow-[0_4px_20px_rgba(0,0,0,0.05)] animate-slide" style="animation-delay: 300ms;">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full overflow-hidden border-2 border-primary/10">
+<img class="w-full h-full object-cover" data-alt="A portrait of a young athletic male patient in physical therapy attire, looking confident. The background is a crisp, high-tech sports rehabilitation clinic with blurred AR equipment. The aesthetic is sophisticated, clinical premium, featuring soft shadows, high-key lighting, and the signature FisioMirror teal color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-RdDrpeHdoPv0d6X_ToR5x1qPTUINXhoQCOV9nsP2ZiXQG04w_XO2FFohpwejPxyiDz-QMzo7Zd3UhLYcaJfnipgxwASLsl_26Tz7z5_wjE8ZbWsW8tMKrZ0vJRoo9qGSaT9eRagJna8lsKIrlwQs1R7FOElj3gk8RNzfFtNgL7dGPZEFLyuWZoN9QLre7vzRsqUH-emhLRXApt7Q8KkN6NIBabfpi6lzznBdFHO3Xfd3wljU9JixS48dyvgM8xL__Yg_op14ticc"/>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Sarah Jenkins</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Rotator Cuff Repair</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<div class="relative w-12 h-12 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle cx="24" cy="24" fill="transparent" r="20" stroke="#E2E2E5" stroke-width="4"></circle>
+<circle cx="24" cy="24" fill="transparent" r="20" stroke="#00504d" stroke-dasharray="125.6" stroke-dashoffset="12.5" stroke-width="4"></circle>
+</svg>
+<span class="absolute font-label-sm text-[10px] font-bold text-primary">90%</span>
+</div>
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full font-label-sm text-[10px]">Active</span>
+</div>
+</div>
+<!-- Patient Card 4 -->
+<div class="glass-panel rounded-2xl p-6 flex items-center justify-between shadow-[0_4px_20px_rgba(0,0,0,0.05)] animate-slide" style="animation-delay: 400ms;">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full overflow-hidden border-2 border-primary/10">
+<img class="w-full h-full object-cover" data-alt="A portrait of a middle-aged female patient in a clean, modern medical setting. Soft, diffuse lighting highlights her calm expression. The image integrates the FisioMirror clinical premium aesthetic, with a focus on pristine whites, soft teal shadows, and high-value healthcare craftsmanship in a light-mode environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAR-6RXtXRWVdlLYkOkkl7yBEidBtz1XhcSPQEEomd7N8zFtAnAPNuxfcJXP0VW_8CqPFuwfgO5ivpEHZHwtDd77BbWTsmj3c1NsGosYZNEYINW5N-isCBL6VWrKYMzxlM7NtLWR8VQV2tgd-AGWsvJF9rqyj3F-7b45t6sRGdQjzsoG3rtM072df4dS0TEbIkDMBR-9bO3Adc1h0m4DlcxYGwChfsuamR7Wm5SI1G5UJeidwbB3JAOdrpjlt-zu0gsMh22cocYWylK"/>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">David Miller</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Hip Replacement</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<div class="relative w-12 h-12 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle cx="24" cy="24" fill="transparent" r="20" stroke="#E2E2E5" stroke-width="4"></circle>
+<circle cx="24" cy="24" fill="transparent" r="20" stroke="#00504d" stroke-dasharray="125.6" stroke-dashoffset="100.5" stroke-width="4"></circle>
+</svg>
+<span class="absolute font-label-sm text-[10px] font-bold text-primary">20%</span>
+</div>
+<span class="px-3 py-1 bg-error-container text-error rounded-full font-label-sm text-[10px]">Overdue</span>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB: Register New Patient -->
+<button class="fixed bottom-24 right-6 w-16 h-16 rounded-full bg-primary text-on-primary shadow-[0_12px_40px_rgba(21,105,102,0.3)] flex items-center justify-center transition-all hover:scale-110 active:scale-90 z-50">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+<!-- Bottom Navigation Shell -->
+<nav class="lg:hidden fixed bottom-0 w-full z-50 rounded-t-2xl bg-surface-glass backdrop-blur-[14px] border-t border-white/50 shadow-[0_-4px_16px_0_rgba(21,105,102,0.12)]">
+<div class="flex justify-around items-center px-4 py-3 w-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary/10 transition-transform active:scale-90 px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed bg-primary-container/20 rounded-xl px-4 py-1 font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-md text-label-md">Patients</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary/10 transition-transform active:scale-90 px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="videocam">videocam</span>
+<span class="font-label-md text-label-md">AR</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-primary/10 transition-transform active:scale-90 px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span class="font-label-md text-label-md">Stats</span>
+</a>
+</div>
+</nav>
+<script>
+        // Micro-interactions and effects
+        document.querySelectorAll('.glass-panel').forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.style.transform = 'scale(0.98)';
+                card.style.transition = 'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+            card.addEventListener('touchend', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+
+        // Search highlight effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+
+        // Simple category switching logic (visual only)
+        const chips = document.querySelectorAll('.flex.gap-3 button');
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                chips.forEach(c => {
+                    c.className = "px-6 py-2 rounded-full font-label-sm text-label-sm glass-panel text-on-surface-variant hover:bg-white/60 transition-all active:scale-95";
+                });
+                chip.className = "px-6 py-2 rounded-full font-label-sm text-label-sm bg-primary text-on-primary shadow-lg shadow-primary/20 transition-transform active:scale-95";
+            });
+        });
+    </script>
+</body></html>

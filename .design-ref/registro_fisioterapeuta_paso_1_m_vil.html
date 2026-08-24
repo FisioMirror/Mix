@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>FisioMirror v2.0 | Registro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9fc;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .glass-sheet {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0px -12px 40px rgba(0, 0, 0, 0.08);
+            border-radius: 40px 40px 0 0;
+            height: 92vh;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .input-glass {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 80, 77, 0.1);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .input-glass:focus-within {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: #156966;
+            box-shadow: 0 0 0 4px rgba(21, 105, 102, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .haptic-btn:active {
+            transform: scale(0.96);
+            transition: transform 0.1s ease-out;
+        }
+
+        .ios-pull-bar {
+            width: 36px;
+            height: 5px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        /* Custom scrollbar for glass */
+        .glass-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .glass-scroll::-webkit-scrollbar-thumb {
+            background: rgba(0, 80, 77, 0.15);
+            border-radius: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-stagger > * {
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#8ad3cf",
+                        "on-primary-container": "#9ce6e1",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#156966",
+                        "outline-variant": "#bec9c7",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e2e2e5",
+                        "tertiary-container": "#8a4f32",
+                        "primary-container": "#156966",
+                        "on-secondary-container": "#576867",
+                        "on-background": "#1a1c1e",
+                        "tertiary": "#6e381d",
+                        "surface-dim": "#dadadc",
+                        "secondary-fixed": "#d4e6e5",
+                        "surface-bright": "#f9f9fc",
+                        "on-surface": "#1a1c1e",
+                        "secondary-fixed-dim": "#b8cac9",
+                        "on-tertiary-fixed-variant": "#6e381d",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-low": "#f3f3f6",
+                        "on-surface-variant": "#3f4948",
+                        "on-secondary-fixed-variant": "#3a4a49",
+                        "on-tertiary-container": "#ffceb8",
+                        "inverse-surface": "#2f3133",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "on-primary-fixed-variant": "#00504d",
+                        "secondary-container": "#d4e6e5",
+                        "on-secondary-fixed": "#0e1e1e",
+                        "primary-fixed-dim": "#8ad3cf",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#a6f0eb",
+                        "inverse-on-surface": "#f0f0f3",
+                        "secondary": "#516161",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "surface": "#f9f9fc",
+                        "surface-variant": "#e2e2e5",
+                        "primary": "#00504d",
+                        "error": "#ba1a1a",
+                        "surface-container": "#eeeef0",
+                        "on-tertiary-fixed": "#351000",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e8ea",
+                        "background": "#f9f9fc",
+                        "outline": "#6f7978",
+                        "on-primary-fixed": "#00201f"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "label-sm": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "display-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Atmospheric Animated Background -->
+<div class="fixed inset-0 z-0">
+
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-background"></div>
+</div>
+<!-- Branding Layer (Backgrounded) -->
+<div class="relative z-10 px-8 pt-12">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">FisioMirror</h2>
+<p class="text-on-surface-variant font-body-lg text-body-lg opacity-60">Professional Physical Therapy Suite</p>
+</div>
+<!-- Mobile Registration Sheet -->
+<main class="fixed bottom-0 left-0 right-0 z-50 glass-sheet animate-stagger">
+<!-- Handle & Header -->
+<div class="flex flex-col items-center pt-3 pb-6">
+<div class="ios-pull-bar mb-6"></div>
+<div class="w-full px-8">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface leading-tight mb-2">Crea tu perfil profesional</h1>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest opacity-70">Paso 1 de 3: Identidad</span>
+</div>
+</div>
+</div>
+<!-- Registration Form Scrollable Container -->
+<form class="h-full overflow-y-auto pb-40 px-8 glass-scroll flex flex-col gap-6" id="registrationForm">
+<!-- Personal Info Section -->
+<div class="space-y-4">
+<div class="group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 ml-1">Nombre Completo</label>
+<div class="input-glass rounded-2xl flex items-center px-4 py-4">
+<span class="material-symbols-outlined text-primary/60 mr-3">person</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-body-lg text-body-lg placeholder:text-on-surface-variant/30 text-on-surface" placeholder="Dr. Julian Casablancas" required="" type="text"/>
+</div>
+</div>
+<div class="group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 ml-1">Email Institucional</label>
+<div class="input-glass rounded-2xl flex items-center px-4 py-4">
+<span class="material-symbols-outlined text-primary/60 mr-3">mail</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-body-lg text-body-lg placeholder:text-on-surface-variant/30 text-on-surface" placeholder="julian@clinic.physio" required="" type="email"/>
+</div>
+</div>
+<div class="group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 ml-1">Contraseña</label>
+<div class="input-glass rounded-2xl flex items-center px-4 py-4">
+<span class="material-symbols-outlined text-primary/60 mr-3">lock</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-body-lg text-body-lg placeholder:text-on-surface-variant/30 text-on-surface" placeholder="••••••••••••" required="" type="password"/>
+<span class="material-symbols-outlined text-on-surface-variant/40 ml-2 cursor-pointer haptic-btn">visibility</span>
+</div>
+</div>
+</div>
+<!-- Professional Credentials Section -->
+<div class="pt-2 border-t border-on-surface-variant/10">
+<h3 class="font-label-sm text-label-sm text-primary mb-4 uppercase tracking-widest">Credenciales Médicas</h3>
+<div class="grid grid-cols-1 gap-4">
+<div class="group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 ml-1">Número de Cédula</label>
+<div class="input-glass rounded-2xl flex items-center px-4 py-4">
+<span class="material-symbols-outlined text-primary/60 mr-3">badge</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-body-lg text-body-lg placeholder:text-on-surface-variant/30 text-on-surface" placeholder="ID-772819-TX" required="" type="text"/>
+</div>
+</div>
+<div class="group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 ml-1">Universidad / Institución</label>
+<div class="input-glass rounded-2xl flex items-center px-4 py-4">
+<span class="material-symbols-outlined text-primary/60 mr-3">school</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-body-lg text-body-lg placeholder:text-on-surface-variant/30 text-on-surface" placeholder="Universidad Iberoamericana" required="" type="text"/>
+</div>
+</div>
+<div class="group">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2 ml-1">Año de Graduación</label>
+<div class="input-glass rounded-2xl flex items-center px-4 py-4">
+<span class="material-symbols-outlined text-primary/60 mr-3">event</span>
+<select class="bg-transparent border-none focus:ring-0 w-full font-body-lg text-body-lg text-on-surface appearance-none">
+<option disabled="" selected="" value="">Selecciona un año</option>
+<option>2024</option>
+<option>2023</option>
+<option>2022</option>
+<option>2021</option>
+<option>2020</option>
+<option>Anterior</option>
+</select>
+<span class="material-symbols-outlined text-on-surface-variant/40 ml-2">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Legal/Privacy Mini-Card -->
+<div class="p-4 rounded-2xl bg-primary/5 border border-primary/10 flex gap-4 items-start mb-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-relaxed">
+                    Tus datos están protegidos bajo estándares HIPAA y encriptación de nivel clínico. Solo personal autorizado tiene acceso a tu perfil.
+                </p>
+</div>
+</form>
+<!-- Fixed Action Area (Bottom Navigation Anchor) -->
+<div class="absolute bottom-0 left-0 right-0 p-8 pt-4 pb-12 bg-gradient-to-t from-white via-white/95 to-transparent">
+<button class="haptic-btn w-full bg-primary text-on-primary rounded-2xl py-5 px-6 font-title-md text-title-md flex items-center justify-center gap-3 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300" id="nextStepBtn">
+                Siguiente Paso
+                <span class="material-symbols-outlined">arrow_forward_ios</span>
+</button>
+<p class="text-center mt-6 font-label-sm text-label-sm text-on-surface-variant">
+                ¿Ya tienes cuenta? <a class="text-primary font-bold decoration-2 underline-offset-4" href="#">Inicia sesión</a>
+</p>
+</div>
+</main>
+<!-- Haptic Interaction Script -->
+<script>
+        document.querySelectorAll('.haptic-btn').forEach(button => {
+            button.addEventListener('touchstart', () => {
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(10); // Light haptic tap
+                }
+            });
+        });
+
+        // Toggle Password Visibility Logic
+        const togglePass = document.querySelector('.material-symbols-outlined.cursor-pointer');
+        const passInput = togglePass.previousElementSibling;
+        
+        togglePass.addEventListener('click', () => {
+            const type = passInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passInput.setAttribute('type', type);
+            togglePass.textContent = type === 'password' ? 'visibility' : 'visibility_off';
+        });
+
+        // Form Submission Simulation
+        const nextBtn = document.getElementById('nextStepBtn');
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            nextBtn.innerHTML = '<div class="w-6 h-6 border-2 border-on-primary/30 border-t-on-primary rounded-full animate-spin"></div>';
+            
+            setTimeout(() => {
+                // Shake feedback if empty or success state
+                nextBtn.innerHTML = 'Paso 1 Completado <span class="material-symbols-outlined">check_circle</span>';
+                nextBtn.classList.remove('bg-primary');
+                nextBtn.classList.add('bg-primary-container', 'text-on-primary-container');
+            }, 1200);
+        });
+    </script>
+</body></html>

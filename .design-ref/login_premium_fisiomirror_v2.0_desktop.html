@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FisioMirror v2.0 - Login</title>
+<!-- Google Fonts: Montserrat -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#8ad3cf",
+                        "on-primary-container": "#9ce6e1",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#156966",
+                        "outline-variant": "#bec9c7",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e2e2e5",
+                        "tertiary-container": "#8a4f32",
+                        "primary-container": "#156966",
+                        "on-secondary-container": "#576867",
+                        "on-background": "#1a1c1e",
+                        "tertiary": "#6e381d",
+                        "surface-dim": "#dadadc",
+                        "secondary-fixed": "#d4e6e5",
+                        "surface-bright": "#f9f9fc",
+                        "on-surface": "#1a1c1e",
+                        "secondary-fixed-dim": "#b8cac9",
+                        "on-tertiary-fixed-variant": "#6e381d",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-low": "#f3f3f6",
+                        "on-surface-variant": "#3f4948",
+                        "on-secondary-fixed-variant": "#3a4a49",
+                        "on-tertiary-container": "#ffceb8",
+                        "inverse-surface": "#2f3133",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "on-primary-fixed-variant": "#00504d",
+                        "secondary-container": "#d4e6e5",
+                        "on-secondary-fixed": "#0e1e1e",
+                        "primary-fixed-dim": "#8ad3cf",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#a6f0eb",
+                        "inverse-on-surface": "#f0f0f3",
+                        "secondary": "#516161",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "surface": "#f9f9fc",
+                        "surface-variant": "#e2e2e5",
+                        "primary": "#00504d",
+                        "error": "#ba1a1a",
+                        "surface-container": "#eeeef0",
+                        "on-tertiary-fixed": "#351000",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e8ea",
+                        "background": "#f9f9fc",
+                        "outline": "#6f7978",
+                        "on-primary-fixed": "#00201f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "gutter": "16px",
+                        "xl": "64px",
+                        "lg": "40px",
+                        "container-margin": "24px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "sm": "16px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "label-sm": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "display-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-input {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.2s ease-in-out;
+        }
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.5);
+            border-color: rgba(0, 80, 77, 0.5);
+            box-shadow: 0 0 0 4px rgba(0, 80, 77, 0.1);
+        }
+        .mesh-gradient {
+            background-color: #f9f9fc;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 80, 77, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(255, 182, 148, 0.2) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(166, 240, 235, 0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(255, 219, 204, 0.2) 0px, transparent 50%);
+            background-size: 200% 200%;
+            animation: mesh-move 15s ease infinite;
+        }
+        @keyframes mesh-move {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .segmented-control-active {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .slide-fade-enter {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .slide-fade-active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.4s ease-out;
+        }
+        .hidden-flow {
+            display: none;
+            opacity: 0;
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+<body class="mesh-gradient min-h-screen flex flex-col items-center justify-center font-body-lg text-on-surface overflow-hidden">
+<!-- Brand Logo Anchor -->
+<div class="fixed top-xl left-xl z-50">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">FisioMirror</h1>
+</div>
+<!-- Main Login Card -->
+<main class="glass-panel w-full max-w-[480px] p-lg rounded-[2.5rem] shadow-[0px_12px_40px_rgba(0,0,0,0.08)] flex flex-col gap-y-md relative z-10 mx-container-margin" id="login-container">
+<!-- Role Selector -->
+<div class="relative bg-surface-container-high/40 p-1.5 rounded-2xl flex items-center w-full">
+<div class="absolute h-[calc(100%-12px)] w-[calc(50%-6px)] bg-white rounded-xl shadow-sm segmented-control-active left-[6px]" id="role-indicator"></div>
+<button class="relative flex-1 py-3 font-title-md text-body-lg z-10 transition-colors text-primary" id="btn-patient" onclick="switchRole('patient')">
+                Paciente
+            </button>
+<button class="relative flex-1 py-3 font-title-md text-body-lg z-10 transition-colors text-on-surface-variant" id="btn-physio" onclick="switchRole('physio')">
+                Fisioterapeuta
+            </button>
+</div>
+<!-- Header Content -->
+<div class="text-center space-y-2">
+<h2 class="font-headline-lg text-headline-lg text-primary" id="flow-title">Comienza tu recuperación hoy</h2>
+<p class="text-on-surface-variant font-body-lg" id="flow-subtitle">Ingresa para acceder a tu plan de ejercicios personalizado.</p>
+</div>
+<!-- Flows Container -->
+<div class="relative overflow-hidden min-h-[340px]">
+<!-- Patient Flow (Default) -->
+<div class="transition-all duration-500 ease-in-out" id="patient-flow">
+<div class="flex flex-col gap-y-lg mt-sm">
+<div class="space-y-sm">
+<label class="block font-label-sm text-label-sm text-outline uppercase tracking-widest px-1">Código de Acceso (6 dígitos)</label>
+<div class="flex justify-between gap-2">
+<input class="glass-input w-12 h-16 rounded-xl text-center font-display-lg text-display-lg text-primary focus:outline-none" maxlength="1" placeholder="•" type="text"/>
+<input class="glass-input w-12 h-16 rounded-xl text-center font-display-lg text-display-lg text-primary focus:outline-none" maxlength="1" placeholder="•" type="text"/>
+<input class="glass-input w-12 h-16 rounded-xl text-center font-display-lg text-display-lg text-primary focus:outline-none" maxlength="1" placeholder="•" type="text"/>
+<input class="glass-input w-12 h-16 rounded-xl text-center font-display-lg text-display-lg text-primary focus:outline-none" maxlength="1" placeholder="•" type="text"/>
+<input class="glass-input w-12 h-16 rounded-xl text-center font-display-lg text-display-lg text-primary focus:outline-none" maxlength="1" placeholder="•" type="text"/>
+<input class="glass-input w-12 h-16 rounded-xl text-center font-display-lg text-display-lg text-primary focus:outline-none" maxlength="1" placeholder="•" type="text"/>
+</div>
+</div>
+<button class="w-full bg-primary py-lg rounded-2xl text-on-primary font-title-md text-title-md shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
+                        Ingresar con Token
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<p class="text-center text-on-surface-variant text-label-sm">
+                        ¿No tienes un token? Contacta a tu fisioterapeuta.
+                    </p>
+</div>
+</div>
+<!-- Clinician Flow (Hidden) -->
+<div class="hidden-flow absolute inset-0 transition-all duration-500 ease-in-out" id="physio-flow">
+<div class="flex flex-col gap-y-md mt-sm">
+<div class="space-y-md">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">alternate_email</span>
+<input class="glass-input w-full pl-12 pr-4 py-4 rounded-xl font-body-lg focus:outline-none" placeholder="Correo electrónico" type="email"/>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">lock</span>
+<input class="glass-input w-full pl-12 pr-12 py-4 rounded-xl font-body-lg focus:outline-none" id="pass-input" placeholder="Contraseña" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" onclick="togglePassword()">
+<span class="material-symbols-outlined" id="eye-icon">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex justify-end px-1">
+<a class="text-label-sm font-label-sm text-primary hover:underline" href="#">¿Olvidaste tu contraseña?</a>
+</div>
+<button class="w-full bg-primary py-lg rounded-2xl text-on-primary font-title-md text-title-md shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
+                        Iniciar Sesión
+                        <span class="material-symbols-outlined">login</span>
+</button>
+<div class="flex items-center gap-2 text-on-surface-variant justify-center text-label-sm mt-2">
+<span>¿Nuevo en FisioMirror?</span>
+<button class="text-primary font-bold hover:underline">Crear Cuenta</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Demo Buttons & Actions -->
+<div class="fixed bottom-lg flex flex-col items-center gap-y-sm z-10">
+<p class="text-label-sm font-label-sm text-outline uppercase tracking-[0.2em]">Explora la plataforma</p>
+<div class="flex gap-x-md">
+<button class="glass-panel px-md py-3 rounded-full flex items-center gap-2 hover:bg-white/60 active:scale-95 transition-all text-on-surface-variant font-label-sm border border-white/40" onclick="autoFill('physio')">
+<span class="material-symbols-outlined text-[18px]">medical_services</span>
+                Demo Fisio
+            </button>
+<button class="glass-panel px-md py-3 rounded-full flex items-center gap-2 hover:bg-white/60 active:scale-95 transition-all text-on-surface-variant font-label-sm border border-white/40" onclick="autoFill('patient')">
+<span class="material-symbols-outlined text-[18px]">personal_injury</span>
+                Demo Paciente
+            </button>
+</div>
+</div>
+<!-- Decorative Elements -->
+<div class="fixed top-0 right-0 w-1/3 h-screen pointer-events-none opacity-40">
+<div class="absolute top-[15%] right-[-5%] w-96 h-96 bg-primary-container blur-[100px] rounded-full"></div>
+</div>
+<div class="fixed bottom-0 left-0 w-1/3 h-screen pointer-events-none opacity-40">
+<div class="absolute bottom-[10%] left-[-5%] w-80 h-80 bg-tertiary-fixed-dim blur-[100px] rounded-full"></div>
+</div>
+<script>
+        const roleIndicator = document.getElementById('role-indicator');
+        const patientFlow = document.getElementById('patient-flow');
+        const physioFlow = document.getElementById('physio-flow');
+        const flowTitle = document.getElementById('flow-title');
+        const flowSubtitle = document.getElementById('flow-subtitle');
+        const btnPatient = document.getElementById('btn-patient');
+        const btnPhysio = document.getElementById('btn-physio');
+
+        function switchRole(role) {
+            if (role === 'patient') {
+                // UI States
+                roleIndicator.style.transform = 'translateX(0)';
+                btnPatient.classList.replace('text-on-surface-variant', 'text-primary');
+                btnPhysio.classList.replace('text-primary', 'text-on-surface-variant');
+                
+                // Content Switch
+                flowTitle.innerText = "Comienza tu recuperación hoy";
+                flowSubtitle.innerText = "Ingresa para acceder a tu plan de ejercicios personalizado.";
+                
+                // Animation
+                physioFlow.classList.add('hidden-flow');
+                setTimeout(() => {
+                    physioFlow.style.display = 'none';
+                    patientFlow.style.display = 'block';
+                    setTimeout(() => {
+                        patientFlow.classList.remove('hidden-flow');
+                        patientFlow.style.opacity = '1';
+                        patientFlow.style.transform = 'translateX(0)';
+                    }, 50);
+                }, 400);
+                
+            } else {
+                // UI States
+                roleIndicator.style.transform = 'translateX(calc(100% + 6px))';
+                btnPhysio.classList.replace('text-on-surface-variant', 'text-primary');
+                btnPatient.classList.replace('text-primary', 'text-on-surface-variant');
+
+                // Content Switch
+                flowTitle.innerText = "Gestión Clínica de Alto Rendimiento";
+                flowSubtitle.innerText = "Accede a tu panel de control y seguimiento de pacientes.";
+
+                // Animation
+                patientFlow.classList.add('hidden-flow');
+                setTimeout(() => {
+                    patientFlow.style.display = 'none';
+                    physioFlow.style.display = 'block';
+                    setTimeout(() => {
+                        physioFlow.classList.remove('hidden-flow');
+                        physioFlow.style.opacity = '1';
+                        physioFlow.style.transform = 'translateX(0)';
+                    }, 50);
+                }, 400);
+            }
+        }
+
+        function togglePassword() {
+            const input = document.getElementById('pass-input');
+            const icon = document.getElementById('eye-icon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.innerText = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.innerText = 'visibility';
+            }
+        }
+
+        function autoFill(role) {
+            switchRole(role);
+            // Simulate filling (visual only for this demo)
+            const inputs = document.querySelectorAll('.glass-input');
+            inputs.forEach(input => {
+                input.classList.add('ring-2', 'ring-primary/20');
+                setTimeout(() => input.classList.remove('ring-2', 'ring-primary/20'), 1000);
+            });
+        }
+
+        // Simple PIN input navigation
+        const pinInputs = document.querySelectorAll('#patient-flow input');
+        pinInputs.forEach((input, index) => {
+            input.addEventListener('keyup', (e) => {
+                if (e.target.value.length === 1 && index < pinInputs.length - 1) {
+                    pinInputs[index + 1].focus();
+                }
+                if (e.key === 'Backspace' && index > 0) {
+                    pinInputs[index - 1].focus();
+                }
+            });
+        });
+    </script>
+</body></html>

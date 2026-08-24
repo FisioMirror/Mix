@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FisioMirror - Validar Datos del Paciente</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#00504d",
+                    "surface-container-highest": "#e2e2e5",
+                    "tertiary-fixed-dim": "#ffb694",
+                    "primary-container": "#156966",
+                    "inverse-primary": "#8ad3cf",
+                    "secondary": "#516161",
+                    "outline-variant": "#bec9c7",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f9f9fc",
+                    "tertiary-fixed": "#ffdbcc",
+                    "outline": "#6f7978",
+                    "surface-tint": "#156966",
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#f9f9fc",
+                    "on-tertiary-container": "#ffceb8",
+                    "on-primary-fixed": "#00201f",
+                    "on-background": "#1a1c1e",
+                    "secondary-fixed": "#d4e6e5",
+                    "primary": "#00504d",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e8e8ea",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#8a4f32",
+                    "on-secondary-fixed-variant": "#3a4a49",
+                    "inverse-on-surface": "#f0f0f3",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e2e2e5",
+                    "surface-dim": "#dadadc",
+                    "on-secondary-container": "#576867",
+                    "on-primary-container": "#9ce6e1",
+                    "inverse-surface": "#2f3133",
+                    "on-surface": "#1a1c1e",
+                    "secondary-container": "#d4e6e5",
+                    "primary-fixed": "#a6f0eb",
+                    "surface-container-low": "#f3f3f6",
+                    "primary-fixed-dim": "#8ad3cf",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#6e381d",
+                    "on-secondary-fixed": "#0e1e1e",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#b8cac9",
+                    "on-tertiary-fixed": "#351000",
+                    "on-surface-variant": "#3f4948",
+                    "surface-container": "#eeeef0",
+                    "tertiary": "#6e381d",
+                    "surface": "#f9f9fc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "64px",
+                    "xs": "8px",
+                    "md": "24px",
+                    "gutter": "16px",
+                    "container-margin": "24px",
+                    "sm": "16px",
+                    "lg": "40px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Montserrat"],
+                    "body-lg": ["Montserrat"],
+                    "headline-lg": ["Montserrat"],
+                    "label-sm": ["Montserrat"],
+                    "title-md": ["Montserrat"],
+                    "headline-lg-mobile": ["Montserrat"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Montserrat', sans-serif; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .magic-scan-line {
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, #00504d, transparent);
+            box-shadow: 0 0 15px #8ad3cf;
+            z-index: 10;
+            animation: scan 4s infinite linear;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            5% { opacity: 1; }
+            95% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .hover-scale { transition: transform 0.2s ease-in-out; }
+        .hover-scale:hover { transform: scale(1.02); }
+        .active-press:active { transform: scale(0.95); }
+
+        .step-active {
+            @apply bg-primary text-on-primary shadow-lg scale-110;
+        }
+        
+        .step-completed {
+            @apply bg-primary-fixed-dim text-on-primary-fixed;
+        }
+
+        .recessed-input {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .entrance-fade {
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen overflow-x-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 h-full fixed left-0 top-0 bg-surface border-r border-outline-variant/10 shadow-sm flex flex-col py-lg px-gutter z-50">
+<div class="mb-lg flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-[32px]">clinical_notes</span>
+<div>
+<h1 class="font-display-lg text-title-md font-bold text-primary leading-tight">FisioMirror</h1>
+<p class="font-label-sm text-[10px] tracking-widest text-on-surface-variant opacity-70">CLINICAL PORTAL</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors px-4 py-3 hover:bg-surface-variant/50 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-xs bg-secondary-fixed text-on-secondary-fixed font-bold rounded-lg px-4 py-3 shadow-sm" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-label-sm">Patients</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors px-4 py-3 hover:bg-surface-variant/50 rounded-lg" href="#">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+<span class="font-label-sm text-label-sm">AR Sessions</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors px-4 py-3 hover:bg-surface-variant/50 rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-label-sm">Analytics</span>
+</a>
+<a class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors px-4 py-3 hover:bg-surface-variant/50 rounded-lg" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-sm text-label-sm">Reports</span>
+</a>
+</nav>
+<div class="mt-auto space-y-2 border-t border-outline-variant/20 pt-gutter">
+<button class="w-full bg-primary text-on-primary font-bold rounded-xl px-4 py-4 active-press transition-all mb-4 flex items-center justify-center gap-2 shadow-lg hover:shadow-primary/20">
+<span class="material-symbols-outlined">add</span>
+<span>Start New Session</span>
+</button>
+<a class="flex items-center gap-xs text-on-surface-variant px-4 py-2 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-xs text-error px-4 py-2 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Top Navigation -->
+<header class="h-20 w-full sticky top-0 z-40 bg-surface/80 backdrop-blur-3xl border-b border-white/20 flex items-center justify-between px-md ml-64 max-w-[calc(100%-16rem)]">
+<div class="flex items-center bg-surface-container-low rounded-full px-4 py-2 w-96 border border-outline-variant/30">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full" placeholder="Buscar pacientes, ejercicios..." type="text"/>
+<span class="text-xs text-on-surface-variant bg-surface-variant px-1.5 py-0.5 rounded border border-outline-variant/50">⌘K</span>
+</div>
+<div class="flex items-center gap-md">
+<button class="relative text-on-surface-variant hover:text-primary transition-all active-press">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute -top-1 -right-1 bg-error w-2.5 h-2.5 rounded-full border-2 border-surface"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-all active-press">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="flex items-center gap-sm bg-surface-container rounded-full p-1 pr-4 border border-outline-variant/20">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A professional headshot of Dr. Elena, a middle-aged woman with kind eyes and short dark hair, wearing a white clinical coat in a softly lit modern clinic background. The photo is high-resolution with shallow depth of field, emphasizing her professional yet approachable demeanor in a premium healthcare environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFCTvJGOICybIOEh5gQZnn5S3kauQ3annmm4FF_icb0ZmA026gOU3ePaH0gWwEQTPkRQlttcEQQQD2tjCHJ0eyNpJPe5MEn90e-lPc6RhBp8huCN4Qsvi55vZviblMJWeXvvV7f3OCzrkL1IbzROnlEfHFWLflMswMOodJ0RC-p_V8Ot0WqZnpo_6r_wv-ZYT7wM9FBFI-RPxNXTzVtAPFUC32xJbHhL9QHWKJg2Ua6gEmGAoh84sHdorOOB0RxriVwNcTCHs1X33Z"/>
+<span class="font-label-sm text-label-sm text-on-surface">Dr. Elena</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 p-md lg:p-xl flex flex-col gap-lg min-h-[calc(100vh-80px)] relative">
+<!-- Wizard Progress Tracker -->
+<div class="max-w-4xl mx-auto w-full mb-md entrance-fade">
+<div class="flex justify-between items-center relative">
+<div class="absolute top-1/2 left-0 w-full h-[2px] bg-outline-variant/30 -z-10 -translate-y-1/2"></div>
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-primary-fixed-dim text-on-primary-fixed font-bold border-4 border-background transition-all">
+<span class="material-symbols-outlined">check</span>
+</div>
+<span class="font-label-sm text-[10px] uppercase tracking-wider text-on-surface-variant">Captura</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded-full flex items-center justify-center bg-primary text-on-primary font-bold shadow-[0_0_15px_rgba(0,80,77,0.3)] border-4 border-background z-10 transition-all scale-110">2</div>
+<span class="font-label-sm text-[10px] uppercase tracking-wider text-primary font-bold">Validar</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-variant text-on-surface-variant font-bold border-4 border-background transition-all">3</div>
+<span class="font-label-sm text-[10px] uppercase tracking-wider text-on-surface-variant opacity-50">Planificación</span>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-variant text-on-surface-variant font-bold border-4 border-background transition-all">4</div>
+<span class="font-label-sm text-[10px] uppercase tracking-wider text-on-surface-variant opacity-50">Finalizar</span>
+</div>
+</div>
+</div>
+<!-- Header -->
+<div class="entrance-fade" style="animation-delay: 100ms;">
+<h2 class="font-headline-lg text-headline-lg text-primary">Validar Datos del Paciente</h2>
+<p class="font-body-lg text-on-surface-variant mt-2 max-w-2xl">Hemos analizado la documentación y el audio. Por favor, confirma que la información extraída por la IA es correcta antes de continuar.</p>
+</div>
+<!-- Bento Grid of Data Cards -->
+<div class="grid grid-cols-12 gap-md entrance-fade" style="animation-delay: 200ms;">
+<!-- Card 1: Información Personal (Large) -->
+<div class="col-span-12 md:col-span-8 glass-card rounded-3xl p-lg relative overflow-hidden group">
+<div class="magic-scan-line"></div>
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-3">
+<div class="p-3 bg-primary/10 rounded-2xl text-primary">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md">Información Personal</h3>
+<p class="text-xs text-on-surface-variant">Datos básicos del perfil</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-[10px] uppercase tracking-tighter">IA Verificado</span>
+</div>
+<div class="grid grid-cols-2 gap-lg">
+<div class="space-y-1">
+<label class="font-label-sm text-xs text-on-surface-variant/70 block ml-2">Nombre Completo</label>
+<input class="w-full recessed-input border-none rounded-xl px-4 py-3 font-title-md text-on-surface focus:ring-2 focus:ring-primary/20" type="text" value="Mateo Rodriguez"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-xs text-on-surface-variant/70 block ml-2">Edad</label>
+<input class="w-full recessed-input border-none rounded-xl px-4 py-3 font-title-md text-on-surface focus:ring-2 focus:ring-primary/20" type="text" value="34 años"/>
+</div>
+<div class="col-span-2 space-y-1">
+<label class="font-label-sm text-xs text-on-surface-variant/70 block ml-2">Email</label>
+<input class="w-full recessed-input border-none rounded-xl px-4 py-3 font-title-md text-on-surface focus:ring-2 focus:ring-primary/20" type="email" value="mateo.rod@clinicalmail.com"/>
+</div>
+</div>
+</div>
+<!-- Card 2: Metricas Detectadas (Sidebar Style) -->
+<div class="col-span-12 md:col-span-4 glass-card rounded-3xl p-lg relative overflow-hidden">
+<div class="magic-scan-line" style="animation-delay: 1.5s;"></div>
+<div class="flex items-center gap-3 mb-6">
+<div class="p-3 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-2xl">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<h3 class="font-title-md text-title-md">Foco Anatómico</h3>
+</div>
+<div class="space-y-md">
+<div class="flex items-center justify-between p-4 bg-white/40 rounded-2xl border border-white/40 shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">accessibility_new</span>
+<span class="font-label-sm">Rodilla Derecha</span>
+</div>
+<span class="font-bold text-primary">98% Match</span>
+</div>
+<div class="flex flex-col gap-2 p-4 bg-white/20 rounded-2xl border border-dashed border-outline-variant/30">
+<p class="text-xs text-on-surface-variant italic">Patrones detectados en la marcha:</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface rounded-lg text-[10px] font-bold border border-outline-variant/10">Inestabilidad Lateral</span>
+<span class="px-2 py-1 bg-surface rounded-lg text-[10px] font-bold border border-outline-variant/10">Rotación Limitada</span>
+</div>
+</div>
+<div class="h-32 w-full rounded-2xl relative overflow-hidden mt-4">
+<div class="absolute inset-0 bg-primary/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary/20 text-6xl">body_system</span>
+<div class="absolute top-1/2 left-2/3 w-3 h-3 bg-error rounded-full animate-ping"></div>
+<div class="absolute top-1/2 left-2/3 w-2 h-2 bg-error rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3: Diagnóstico Clínico (Wide) -->
+<div class="col-span-12 glass-card rounded-3xl p-lg relative overflow-hidden">
+<div class="magic-scan-line" style="animation-delay: 0.8s;"></div>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="p-3 bg-primary/10 rounded-2xl text-primary">
+<span class="material-symbols-outlined">medical_information</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md">Diagnóstico Clínico Extraído</h3>
+<p class="text-xs text-on-surface-variant">Síntesis generada a partir de documentos OCR y notas de voz</p>
+</div>
+</div>
+<button class="flex items-center gap-2 text-primary font-bold text-xs hover:underline active-press">
+<span class="material-symbols-outlined text-sm">edit</span>
+                        Editar Texto
+                    </button>
+</div>
+<div class="p-6 recessed-input rounded-2xl text-on-surface leading-relaxed italic border-l-4 border-primary">
+                    "Paciente presenta **rotura parcial de ligamento cruzado anterior (LCA)** en la rodilla derecha. Se observa edema moderado y limitación en la flexión máxima. Antecedentes de cirugía de meniscos hace 5 años. Se recomienda protocolo de fortalecimiento de cuádriceps y propiocepción antes de decidir intervención quirúrgica."
+                </div>
+<div class="mt-6 flex items-center gap-4">
+<p class="text-xs font-bold text-on-surface-variant/60 uppercase tracking-widest">Fuentes Analizadas:</p>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-variant/50 text-[10px] border border-outline-variant/20">
+<span class="material-symbols-outlined text-[12px]">picture_as_pdf</span> RM_Rodilla.pdf
+                        </span>
+<span class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-variant/50 text-[10px] border border-outline-variant/20">
+<span class="material-symbols-outlined text-[12px]">mic</span> Nota_Voz_Dr.mp3
+                        </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="max-w-4xl mx-auto w-full flex items-center justify-between mt-lg pb-xl entrance-fade" style="animation-delay: 300ms;">
+<button class="flex items-center gap-2 px-8 py-4 rounded-2xl bg-surface-variant/30 text-on-surface-variant font-bold hover-scale active-press transition-all">
+<span class="material-symbols-outlined">arrow_back</span>
+                Volver
+            </button>
+<div class="flex items-center gap-md">
+<p class="text-xs text-right text-on-surface-variant/60 hidden md:block">
+                    Al confirmar, se generará automáticamente<br/>un plan de recuperación basado en estos datos.
+                </p>
+<button class="flex items-center gap-3 px-10 py-4 rounded-2xl bg-primary text-on-primary font-bold shadow-xl shadow-primary/30 hover-scale active-press transition-all">
+<span>Confirmar y Continuar</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Background Elements for Atmospheric Feel -->
+<div class="fixed top-0 right-0 -z-10 w-[500px] h-[500px] bg-primary-fixed/20 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="fixed bottom-0 left-64 -z-10 w-[300px] h-[300px] bg-secondary-fixed/20 blur-[100px] rounded-full pointer-events-none"></div>
+<script>
+        // Micro-interaction for input highlighting
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.closest('.glass-card').classList.add('ring-2', 'ring-primary/10');
+            });
+            input.addEventListener('blur', () => {
+                input.closest('.glass-card').classList.remove('ring-2', 'ring-primary/10');
+            });
+        });
+
+        // Simulating the "Wow" scan effect restart on scroll for interactivity
+        window.addEventListener('scroll', () => {
+            const lines = document.querySelectorAll('.magic-scan-line');
+            lines.forEach(line => {
+                const rect = line.getBoundingClientRect();
+                if(rect.top > 0 && rect.top < window.innerHeight) {
+                    // Effect happens naturally through CSS animation
+                }
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-blur: blur(24px);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f9f9fc;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .clinical-shadow {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .skeleton-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #00504d;
+            border: 2px solid #a6f0eb;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00504d;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .skeleton-line {
+            position: absolute;
+            background: rgba(0, 80, 77, 0.4);
+            transform-origin: left center;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        .status-pulse {
+            animation: ring-pulse 2s infinite;
+        }
+
+        @keyframes ring-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 80, 77, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 80, 77, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 80, 77, 0); }
+        }
+
+        .gauge-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .gauge-fill {
+            height: 100%;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#d4e6e5",
+                      "outline": "#6f7978",
+                      "secondary": "#516161",
+                      "on-primary-container": "#9ce6e1",
+                      "on-error-container": "#93000a",
+                      "secondary-container": "#d4e6e5",
+                      "primary-fixed-dim": "#8ad3cf",
+                      "inverse-on-surface": "#f0f0f3",
+                      "on-secondary-container": "#576867",
+                      "on-surface": "#1a1c1e",
+                      "primary-fixed": "#a6f0eb",
+                      "background": "#f9f9fc",
+                      "on-tertiary-fixed": "#351000",
+                      "on-secondary": "#ffffff",
+                      "surface": "#f9f9fc",
+                      "on-secondary-fixed": "#0e1e1e",
+                      "tertiary": "#6e381d",
+                      "surface-container-highest": "#e2e2e5",
+                      "on-secondary-fixed-variant": "#3a4a49",
+                      "surface-container": "#eeeef0",
+                      "surface-bright": "#f9f9fc",
+                      "tertiary-container": "#8a4f32",
+                      "surface-dim": "#dadadc",
+                      "inverse-primary": "#8ad3cf",
+                      "tertiary-fixed-dim": "#ffb694",
+                      "surface-container-high": "#e8e8ea",
+                      "surface-variant": "#e2e2e5",
+                      "primary-container": "#156966",
+                      "outline-variant": "#bec9c7",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed-variant": "#6e381d",
+                      "tertiary-fixed": "#ffdbcc",
+                      "surface-container-low": "#f3f3f6",
+                      "primary": "#00504d",
+                      "on-tertiary-container": "#ffceb8",
+                      "on-background": "#1a1c1e",
+                      "surface-tint": "#156966",
+                      "on-primary-fixed": "#00201f",
+                      "error-container": "#ffdad6",
+                      "inverse-surface": "#2f3133",
+                      "on-surface-variant": "#3f4948",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed-variant": "#00504d",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#b8cac9"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "8px",
+                      "gutter": "16px",
+                      "container-margin": "24px",
+                      "xl": "64px",
+                      "sm": "16px",
+                      "md": "24px",
+                      "base": "4px",
+                      "lg": "40px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Montserrat"],
+                      "title-md": ["Montserrat"],
+                      "label-sm": ["Montserrat"],
+                      "body-lg": ["Montserrat"],
+                      "display-lg": ["Montserrat"],
+                      "headline-lg-mobile": ["Montserrat"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col">
+<!-- SideNavBar (Shared Component) -->
+<aside class="w-64 h-full fixed left-0 top-0 hidden md:block bg-surface-glass backdrop-blur-[14px] border-r border-white/50 shadow-sm shadow-primary/10 transition-all duration-200 ease-in-out z-[60]">
+<div class="flex flex-col h-screen py-gutter px-4">
+<div class="mb-10 px-2">
+<h1 class="font-headline-md text-headline-md text-primary font-bold">FisioMirror</h1>
+<p class="text-label-sm text-on-surface-variant/70 uppercase tracking-widest mt-1">Clinical Dashboard</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant transition-colors hover:bg-white/40 group" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-lg">Patients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary font-bold border-r-4 border-primary bg-primary/5 group" href="#">
+<span class="material-symbols-outlined">fitness_center</span>
+<span class="font-label-lg">Exercises</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant transition-colors hover:bg-white/40 group" href="#">
+<span class="material-symbols-outlined">key</span>
+<span class="font-label-lg">Tokens</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant transition-colors hover:bg-white/40 group" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-lg">Statistics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant transition-colors hover:bg-white/40 group" href="#">
+<span class="material-symbols-outlined">build</span>
+<span class="font-label-lg">Tools</span>
+</a>
+</nav>
+<div class="mt-auto space-y-2 pt-4 border-t border-outline-variant/20">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg">Settings</span>
+</a>
+<div class="flex items-center gap-3 px-4 py-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a middle-aged physiotherapist with short graying hair and a confident, empathetic smile. He is wearing a minimalist white clinical scrub top. The background is a soft-focus high-end medical facility with teal glass accents and bright, clean lighting, consistent with a premium clinical aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl6CfTlEuSCxP-Q09sbft1fCp931IRHcDFbg5Uz6p4tIC5cc3GIlSkpOCGQB-3g6aZ0DbIsDhvaDZmgvU-X8mDiugE2jVrhrQxrNoEiDb8VkhaAyMX4SZYYH1AibqKI1x4aiJ1iv0RFs-7-1Du2wGxtQcTadB1GfjeVNXhbdrMRjXoo6Z1Bk3cmM_FaKjY2_0xzNQeR7HBTFL08SuWEIIsrFv6vO_YgMYdRmxK4-Rxoo1Y6N7O5myR5u4oEF6ZcYvXUPTMJI6mdBDC"/>
+</div>
+<div class="flex-1">
+<p class="text-label-sm font-bold truncate">Dr. Aris Thorne</p>
+<p class="text-[10px] text-on-surface-variant">Profile Settings</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component) -->
+<header class="docked full-width top-0 sticky z-50 bg-surface-glass backdrop-blur-[14px] border-b border-white/50 shadow-sm shadow-primary/5 md:ml-64">
+<div class="flex justify-between items-center w-full px-gutter py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="text-headline-sm font-bold text-primary">Calibración Biomecánica</span>
+<span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-label-sm font-bold">SESIÓN AR</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 hover:bg-white/40 rounded-full text-on-surface-variant transition-all">notifications</button>
+<button class="material-symbols-outlined p-2 hover:bg-white/40 rounded-full text-on-surface-variant transition-all">mail</button>
+<button class="bg-primary text-white px-6 py-2 rounded-full font-bold text-label-lg hover:scale-105 active:scale-95 transition-all duration-300 shadow-md shadow-primary/20">
+                    Emergencia
+                </button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-gutter lg:p-md relative overflow-hidden">
+<!-- Animated Background Elements -->
+<div class="absolute inset-0 pointer-events-none opacity-20">
+
+</div>
+<div class="relative z-10 max-w-6xl mx-auto space-y-md">
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-md">
+<!-- Left Column: Check Controls -->
+<div class="lg:col-span-4 flex flex-col gap-sm">
+<div class="glass-panel p-md rounded-3xl space-y-6">
+<div class="space-y-1">
+<h2 class="text-title-md font-bold text-primary">Estado del Entorno</h2>
+<p class="text-body-sm text-on-surface-variant">Verifique los parámetros antes de iniciar.</p>
+</div>
+<!-- Check 1: Lighting -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" id="light_icon">light_mode</span>
+<span class="font-bold text-label-lg">Iluminación</span>
+</div>
+<span class="text-label-sm font-bold text-primary" id="light_value">85%</span>
+</div>
+<div class="gauge-container">
+<div class="gauge-fill bg-primary w-[85%]" id="light_bar"></div>
+</div>
+<p class="text-[11px] text-on-surface-variant">Intensidad óptima para detección facial y articular.</p>
+</div>
+<!-- Check 2: Visibility / Skeletal -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">accessibility_new</span>
+<span class="font-bold text-label-lg">Visibilidad Ósea</span>
+</div>
+<span class="text-label-sm font-bold text-primary">12/12 Puntos</span>
+</div>
+<div class="flex gap-1 h-2">
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-primary rounded-full"></div>
+</div>
+<p class="text-[11px] text-on-surface-variant">Todos los marcadores anatómicos detectados.</p>
+</div>
+<!-- Check 3: Background Contrast -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">contrast</span>
+<span class="font-bold text-label-lg">Contraste de Fondo</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-green-500 shadow-sm shadow-green-500"></span>
+<span class="text-label-sm font-bold text-green-600">ESTABLE</span>
+</div>
+</div>
+<p class="text-[11px] text-on-surface-variant">El sujeto se diferencia claramente del fondo clínico.</p>
+</div>
+</div>
+<!-- Instruction Card -->
+<div class="glass-panel p-md rounded-3xl bg-primary/5 border-primary/20">
+<h3 class="font-bold text-primary flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined">info</span>
+                            Instrucciones
+                        </h3>
+<ul class="text-body-sm text-on-surface-variant space-y-2">
+<li class="flex gap-2">
+<span class="text-primary font-bold">1.</span>
+<span>Póngase a 2 metros de la cámara.</span>
+</li>
+<li class="flex gap-2">
+<span class="text-primary font-bold">2.</span>
+<span>Asegúrese de que sus extremidades estén visibles.</span>
+</li>
+<li class="flex gap-2">
+<span class="text-primary font-bold">3.</span>
+<span>Evite luces directas detrás de usted.</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Right Column: Live Feed Area -->
+<div class="lg:col-span-8">
+<div class="glass-panel rounded-[2rem] overflow-hidden aspect-video relative clinical-shadow border-white/60">
+<!-- Simulated Camera Feed Placeholder -->
+<div class="absolute inset-0 bg-slate-200">
+<img class="w-full h-full object-cover" data-alt="A clean, high-resolution view from a medical AR camera. A silhouette of a patient standing in a bright, modern physical therapy room with soft glass partitions and light teal walls. The lighting is perfectly balanced, creating a serene, professional environment. The image should be slightly desaturated to allow UI overlays to stand out." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjPM0YK2PMFHiWTulBV6hVCUDkFpE4MTl1ZBQEHz1dnOP6Otw-DD9xOJm8WkZX5RiWFtzPFYsDNPXIvcI9929xjgvLfJwQ9ODJOHN4HUspsjuczAIcvJEmWTUxn50wGEu4C6CIc6YHvhLX48mYkRgoJa5zWDDRhFp8kRwlketcod0EzCakRbVFWDn_716jDKLTr_Oh2LEGiwKy4AvpkEaZij6OGQiMz8CwYTekoTj24_F8uzrJi0XDwcxW92IwLJLpTCqalZ8zRXzF"/>
+</div>
+<!-- Skeletal Overlay Layer -->
+<div class="absolute inset-0 pointer-events-none z-20">
+<!-- SVG lines for skeletal structure -->
+<svg class="w-full h-full opacity-60" viewbox="0 0 800 450">
+<!-- Torso -->
+<line stroke="#00504d" stroke-width="2" x1="400" x2="400" y1="100" y2="220"></line>
+<line stroke="#00504d" stroke-width="2" x1="350" x2="450" y1="120" y2="120"></line>
+<line stroke="#00504d" stroke-width="2" x1="360" x2="440" y1="220" y2="220"></line>
+<!-- Arms -->
+<line stroke="#00504d" stroke-width="2" x1="350" x2="310" y1="120" y2="180"></line>
+<line stroke="#00504d" stroke-width="2" x1="450" x2="490" y1="120" y2="180"></line>
+<!-- Legs -->
+<line stroke="#00504d" stroke-width="2" x1="360" x2="340" y1="220" y2="340"></line>
+<line stroke="#00504d" stroke-width="2" x1="440" x2="460" y1="220" y2="340"></line>
+</svg>
+<!-- Landmark Points -->
+<div class="skeleton-dot" style="top: 22%; left: 50%; transform: translate(-50%, -50%);"></div> <!-- Head -->
+<div class="skeleton-dot" style="top: 26%; left: 43.75%;"></div> <!-- L Shoulder -->
+<div class="skeleton-dot" style="top: 26%; left: 56.25%;"></div> <!-- R Shoulder -->
+<div class="skeleton-dot" style="top: 40%; left: 38.75%;"></div> <!-- L Elbow -->
+<div class="skeleton-dot" style="top: 40%; left: 61.25%;"></div> <!-- R Elbow -->
+<div class="skeleton-dot" style="top: 49%; left: 45%;"></div> <!-- L Hip -->
+<div class="skeleton-dot" style="top: 49%; left: 55%;"></div> <!-- R Hip -->
+<div class="skeleton-dot" style="top: 75%; left: 42.5%;"></div> <!-- L Knee -->
+<div class="skeleton-dot" style="top: 75%; left: 57.5%;"></div> <!-- R Knee -->
+</div>
+<!-- Calibration UI Overlays -->
+<div class="absolute top-6 right-6 flex flex-col gap-3">
+<div class="glass-panel px-4 py-2 rounded-full flex items-center gap-2 border-white/80">
+<span class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+<span class="text-label-sm font-bold text-on-surface">REC 1080p 60fps</span>
+</div>
+</div>
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-full max-w-md">
+<div class="glass-panel mx-4 p-4 rounded-2xl flex items-center justify-between border-white/80">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">face</span>
+</div>
+<div>
+<p class="text-label-sm font-bold">Identidad Confirmada</p>
+<p class="text-[10px] text-on-surface-variant">Paciente: Mateo Valenzuela</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-green-600">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Action Button Bar -->
+<div class="mt-md flex justify-between items-center px-4">
+<button class="flex items-center gap-2 text-on-surface-variant font-bold hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                            Volver al Menú
+                        </button>
+<div class="flex gap-4">
+<button class="px-8 py-4 rounded-2xl border border-primary/30 text-primary font-bold hover:bg-white/40 transition-all active:scale-95">
+                                Recalibrar
+                            </button>
+<button class="px-12 py-4 rounded-2xl bg-primary text-white font-bold text-title-md status-pulse hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl shadow-primary/30 flex items-center gap-3" id="startButton">
+<span class="material-symbols-outlined">play_arrow</span>
+                                Iniciar Ejercicio
+                            </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-8 border-t border-outline-variant/20 md:ml-64 opacity-60 flex flex-col md:flex-row justify-between items-center px-gutter">
+<div class="text-body-sm text-on-surface-variant">
+            © 2026 FisioMirror. Tele-rehabilitación con espejo AR.
+        </div>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="font-body-sm text-on-surface-variant hover:text-primary hover:underline" href="#">Privacy Policy</a>
+<a class="font-body-sm text-on-surface-variant hover:text-primary hover:underline" href="#">Terms of Service</a>
+<a class="font-body-sm text-on-surface-variant hover:text-primary hover:underline" href="#">Clinical Guidelines</a>
+</div>
+</footer>
+<!-- Mobile Navigation (Shared Component) -->
+<nav class="fixed bottom-0 w-full z-50 md:hidden rounded-t-xl bg-surface-glass backdrop-blur-[20px] border-t border-white/30 shadow-lg flex justify-around items-center px-4 py-3">
+<div class="flex flex-col items-center justify-center text-on-surface-variant/70 active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant/70 active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md">Patients</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary font-bold active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-md">Stats</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant/70 active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined">handyman</span>
+<span class="font-label-md">Tools</span>
+</div>
+</nav>
+<script>
+        // Micro-interactions for the calibration screen
+        document.addEventListener('DOMContentLoaded', () => {
+            const lightValue = document.getElementById('light_value');
+            const lightBar = document.getElementById('light_bar');
+            const startBtn = document.getElementById('startButton');
+            const lightIcon = document.getElementById('light_icon');
+
+            // Simulate slight fluctuations in environment parameters
+            setInterval(() => {
+                const newValue = Math.floor(82 + Math.random() * 8);
+                lightValue.textContent = `${newValue}%`;
+                lightBar.style.width = `${newValue}%`;
+                
+                if(newValue < 40) {
+                    lightIcon.className = 'material-symbols-outlined text-error';
+                } else {
+                    lightIcon.className = 'material-symbols-outlined text-primary';
+                }
+            }, 3000);
+
+            // Button press interaction
+            startBtn.addEventListener('click', () => {
+                startBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Cargando Sesión...';
+                startBtn.classList.remove('status-pulse');
+                setTimeout(() => {
+                    alert('Iniciando sesión de Tele-rehabilitación AR...');
+                    window.location.reload();
+                }, 1500);
+            });
+        });
+    </script>
+</body></html>

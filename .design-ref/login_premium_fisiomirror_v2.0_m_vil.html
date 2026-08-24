@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FisioMirror - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#8ad3cf",
+                        "on-primary-container": "#9ce6e1",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#156966",
+                        "outline-variant": "#bec9c7",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e2e2e5",
+                        "tertiary-container": "#8a4f32",
+                        "primary-container": "#156966",
+                        "on-secondary-container": "#576867",
+                        "on-background": "#1a1c1e",
+                        "tertiary": "#6e381d",
+                        "surface-dim": "#dadadc",
+                        "secondary-fixed": "#d4e6e5",
+                        "surface-bright": "#f9f9fc",
+                        "on-surface": "#1a1c1e",
+                        "secondary-fixed-dim": "#b8cac9",
+                        "on-tertiary-fixed-variant": "#6e381d",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-low": "#f3f3f6",
+                        "on-surface-variant": "#3f4948",
+                        "on-secondary-fixed-variant": "#3a4a49",
+                        "on-tertiary-container": "#ffceb8",
+                        "inverse-surface": "#2f3133",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "on-primary-fixed-variant": "#00504d",
+                        "secondary-container": "#d4e6e5",
+                        "on-secondary-fixed": "#0e1e1e",
+                        "primary-fixed-dim": "#8ad3cf",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#a6f0eb",
+                        "inverse-on-surface": "#f0f0f3",
+                        "secondary": "#516161",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "surface": "#f9f9fc",
+                        "surface-variant": "#e2e2e5",
+                        "primary": "#00504d",
+                        "error": "#ba1a1a",
+                        "surface-container": "#eeeef0",
+                        "on-tertiary-fixed": "#351000",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e8ea",
+                        "background": "#f9f9fc",
+                        "outline": "#6f7978",
+                        "on-primary-fixed": "#00201f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.5rem",
+                        "3xl": "2.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "gutter": "16px",
+                        "xl": "64px",
+                        "lg": "40px",
+                        "container-margin": "24px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "sm": "16px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "label-sm": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "display-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            background-color: #f9f9fc;
+        }
+
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-color: #f9f9fc;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(166, 240, 235, 0.4) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(21, 105, 102, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(166, 240, 235, 0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(0, 80, 77, 0.08) 0px, transparent 50%);
+            filter: blur(80px);
+        }
+
+        .glass-sheet {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-bottom: none;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.05);
+            border-radius: 40px 40px 0 0;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .haptic-tap {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .haptic-tap:active {
+            transform: scale(0.94);
+        }
+
+        .numpad-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .numpad-btn {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            font-size: 20px;
+            color: #3f4948;
+        }
+
+        .otp-input-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1.5px solid #6f7978;
+            transition: all 0.2s ease;
+        }
+        .otp-input-dot.filled {
+            background-color: #00504d;
+            border-color: #00504d;
+            transform: scale(1.1);
+        }
+
+        .role-pill {
+            transition: all 0.3s ease;
+        }
+        .role-pill.active {
+            background-color: #156966;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(21, 105, 102, 0.3);
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .float-logo {
+            animation: floating 4s ease-in-out infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex flex-col h-screen overflow-hidden">
+<div class="mesh-gradient"></div>
+<!-- Header Section -->
+<header class="flex flex-col items-center pt-xl px-gutter z-10">
+<div class="float-logo mb-4">
+<div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-on-primary text-[40px]">architecture</span>
+</div>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">FisioMirror</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Bienvenido a FisioMirror</p>
+</header>
+<!-- Main Content Canvas (Spacer) -->
+<main class="flex-grow"></main>
+<!-- Login Glass Sheet -->
+<section class="glass-sheet w-full px-lg pt-10 pb-12 z-20">
+<!-- Handle for iOS sheet look -->
+<div class="absolute top-3 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-outline-variant/40 rounded-full"></div>
+<div class="max-w-md mx-auto space-y-8">
+<!-- Role Selection -->
+<div class="flex justify-center p-1 bg-surface-container-high/40 backdrop-blur-md rounded-full border border-white/20">
+<button class="role-pill active flex-1 py-2 px-6 rounded-full font-label-sm text-label-sm haptic-tap" id="role-patient" onclick="switchRole('patient')">
+                    Paciente
+                </button>
+<button class="role-pill flex-1 py-2 px-6 rounded-full font-label-sm text-label-sm text-on-surface-variant haptic-tap" id="role-pro" onclick="switchRole('pro')">
+                    Profesional
+                </button>
+</div>
+<!-- Patient Token Section -->
+<div class="space-y-8" id="patient-auth">
+<div class="text-center">
+<p class="font-title-md text-title-md text-on-surface">Ingresa tu código de sesión</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant/80 mt-1">Proporcionado por tu fisioterapeuta</p>
+</div>
+<!-- OTP Dots -->
+<div class="flex justify-center gap-6 py-2">
+<div class="otp-input-dot" id="dot-0"></div>
+<div class="otp-input-dot" id="dot-1"></div>
+<div class="otp-input-dot" id="dot-2"></div>
+<div class="otp-input-dot" id="dot-3"></div>
+</div>
+<!-- Custom Numeric Keypad -->
+<div class="numpad-grid">
+<button class="numpad-btn haptic-tap" onclick="appendDigit('1')">1</button>
+<button class="numpad-btn haptic-tap" onclick="appendDigit('2')">2</button>
+<button class="numpad-btn haptic-tap" onclick="appendDigit('3')">3</button>
+<button class="numpad-btn haptic-tap" onclick="appendDigit('4')">4</button>
+<button class="numpad-btn haptic-tap" onclick="appendDigit('5')">5</button>
+<button class="numpad-btn haptic-tap" onclick="appendDigit('6')">6</button>
+<button class="numpad-btn haptic-tap" onclick="appendDigit('7')">7</button>
+<button class="numpad-btn haptic-tap" onclick="appendDigit('8')">8</button>
+<button class="numpad-btn haptic-tap" onclick="appendDigit('9')">9</button>
+<button class="numpad-btn haptic-tap opacity-50" disabled="">
+<span class="material-symbols-outlined">face</span>
+</button>
+<button class="numpad-btn haptic-tap" onclick="appendDigit('0')">0</button>
+<button class="numpad-btn haptic-tap text-primary" onclick="deleteDigit()">
+<span class="material-symbols-outlined">backspace</span>
+</button>
+</div>
+</div>
+<!-- Professional Auth Section (Hidden by default) -->
+<div class="hidden space-y-6" id="pro-auth">
+<div class="text-center">
+<p class="font-title-md text-title-md text-on-surface">Panel Profesional</p>
+</div>
+<div class="space-y-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">mail</span>
+<input class="w-full pl-12 pr-4 py-4 bg-white/40 border border-white/60 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-lg text-body-lg" placeholder="Correo electrónico" type="email"/>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">lock</span>
+<input class="w-full pl-12 pr-4 py-4 bg-white/40 border border-white/60 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-lg text-body-lg" placeholder="Contraseña" type="password"/>
+</div>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary font-title-md text-title-md rounded-2xl shadow-xl shadow-primary/20 haptic-tap">
+                    Iniciar Sesión
+                </button>
+<div class="flex flex-col items-center gap-4 mt-6">
+<button class="flex items-center gap-2 text-primary font-label-sm text-label-sm haptic-tap">
+<span class="material-symbols-outlined text-[20px]">fingerprint</span>
+                        Usar Biometría
+                    </button>
+<a class="text-on-surface-variant/70 font-label-sm text-label-sm hover:text-primary transition-colors" href="#">¿Olvidaste tu contraseña?</a>
+</div>
+</div>
+<div class="text-center pt-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant/60">© 2024 FisioMirror v2.0</p>
+</div>
+</div>
+</section>
+<!-- Overlay for interactions -->
+<div class="fixed top-12 left-1/2 -translate-x-1/2 z-50 bg-inverse-surface text-inverse-on-surface px-6 py-3 rounded-full font-label-sm text-label-sm opacity-0 transition-all pointer-events-none transform translate-y-[-20px]" id="toast">
+        Código incorrecto
+    </div>
+<script>
+        let currentToken = "";
+        const maxTokenLength = 4;
+
+        function switchRole(role) {
+            const patientBtn = document.getElementById('role-patient');
+            const proBtn = document.getElementById('role-pro');
+            const patientSection = document.getElementById('patient-auth');
+            const proSection = document.getElementById('pro-auth');
+
+            if (role === 'patient') {
+                patientBtn.classList.add('active');
+                patientBtn.classList.remove('text-on-surface-variant');
+                proBtn.classList.remove('active');
+                proBtn.classList.add('text-on-surface-variant');
+                
+                patientSection.classList.remove('hidden');
+                proSection.classList.add('hidden');
+            } else {
+                proBtn.classList.add('active');
+                proBtn.classList.remove('text-on-surface-variant');
+                patientBtn.classList.remove('active');
+                patientBtn.classList.add('text-on-surface-variant');
+
+                proSection.classList.remove('hidden');
+                patientSection.classList.add('hidden');
+            }
+            
+            // Reset state
+            currentToken = "";
+            updateDots();
+        }
+
+        function appendDigit(digit) {
+            if (currentToken.length < maxTokenLength) {
+                currentToken += digit;
+                updateDots();
+                
+                if (currentToken.length === maxTokenLength) {
+                    validateToken();
+                }
+            }
+        }
+
+        function deleteDigit() {
+            if (currentToken.length > 0) {
+                currentToken = currentToken.slice(0, -1);
+                updateDots();
+            }
+        }
+
+        function updateDots() {
+            for (let i = 0; i < maxTokenLength; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (i < currentToken.length) {
+                    dot.classList.add('filled');
+                } else {
+                    dot.classList.remove('filled');
+                }
+            }
+        }
+
+        function validateToken() {
+            // Simulated validation
+            setTimeout(() => {
+                showToast("Autenticando...");
+                // Success visual feedback
+                const dots = document.querySelectorAll('.otp-input-dot');
+                dots.forEach(dot => {
+                    dot.style.borderColor = "#156966";
+                    dot.style.backgroundColor = "#156966";
+                });
+                
+                // Final haptic success simulation
+                if (window.navigator.vibrate) {
+                    window.navigator.vibrate([10, 30, 10]);
+                }
+            }, 300);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.remove('opacity-0', 'translate-y-[-20px]');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-[-20px]');
+                toast.classList.remove('opacity-100', 'translate-y-0');
+            }, 2000);
+        }
+
+        // Handle generic haptic feedback on class-based selector
+        document.querySelectorAll('.haptic-tap').forEach(el => {
+            el.addEventListener('click', () => {
+                if (window.navigator.vibrate) {
+                    window.navigator.vibrate(5);
+                }
+            });
+        });
+    </script>
+</body></html>

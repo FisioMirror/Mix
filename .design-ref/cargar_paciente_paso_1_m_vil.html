@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FisioMirror - Cargar Paciente</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#156966",
+                        "inverse-primary": "#8ad3cf",
+                        "background": "#f9f9fc",
+                        "on-primary-container": "#9ce6e1",
+                        "inverse-on-surface": "#f0f0f3",
+                        "primary": "#00504d",
+                        "on-secondary-fixed-variant": "#3a4a49",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#d4e6e5",
+                        "on-surface": "#1a1c1e",
+                        "primary-fixed-dim": "#8ad3cf",
+                        "on-tertiary-fixed-variant": "#6e381d",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1a1c1e",
+                        "inverse-surface": "#2f3133",
+                        "on-secondary-container": "#576867",
+                        "surface-variant": "#e2e2e5",
+                        "secondary-fixed-dim": "#b8cac9",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#516161",
+                        "surface-container": "#eeeef0",
+                        "outline-variant": "#bec9c7",
+                        "surface-bright": "#f9f9fc",
+                        "surface": "#f9f9fc",
+                        "outline": "#6f7978",
+                        "surface-container-low": "#f3f3f6",
+                        "on-tertiary-container": "#ffceb8",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-dim": "#dadadc",
+                        "primary-container": "#156966",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#a6f0eb",
+                        "on-tertiary-fixed": "#351000",
+                        "tertiary-container": "#8a4f32",
+                        "on-secondary-fixed": "#0e1e1e",
+                        "surface-container-high": "#e8e8ea",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#00504d",
+                        "on-primary-fixed": "#00201f",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "on-surface-variant": "#3f4948",
+                        "surface-container-highest": "#e2e2e5",
+                        "tertiary": "#6e381d",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#d4e6e5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "8px",
+                        "gutter": "16px",
+                        "base": "4px",
+                        "md": "24px",
+                        "lg": "40px",
+                        "xl": "64px",
+                        "container-margin": "24px",
+                        "sm": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "title-md": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9fc;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.33); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: scale(1.2); opacity: 0; }
+        }
+
+        .animate-pulse-ring::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid #00504d;
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .active-recording {
+            animation: haptic-pulse 0.4s ease-in-out infinite alternate;
+        }
+
+        @keyframes haptic-pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+
+        .slide-up {
+            animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .step-active {
+            @apply bg-primary text-on-primary;
+        }
+
+        .step-inactive {
+            @apply bg-surface-container-high text-on-surface-variant;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="antialiased text-on-background min-h-screen flex flex-col items-center">
+<!-- Global Layout Container (Mobile Focused) -->
+<div class="w-full max-w-md min-h-screen bg-background relative flex flex-col overflow-hidden">
+<!-- Animated Background Mesh -->
+<div class="fixed inset-0 z-0 pointer-events-none opacity-40">
+
+</div>
+<!-- Header: Progress & Close -->
+<header class="relative z-10 px-gutter pt-lg pb-md flex items-center justify-between">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-lowest/80 backdrop-blur-md shadow-sm hover:scale-95 transition-transform" onclick="window.history.back()">
+<span class="material-symbols-outlined text-on-surface">close</span>
+</button>
+<div class="flex gap-xs items-center">
+<div class="w-8 h-8 rounded-full flex items-center justify-center font-label-sm text-label-sm step-active">1</div>
+<div class="w-8 h-1 rounded-full bg-surface-container-high"></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center font-label-sm text-label-sm step-inactive">2</div>
+<div class="w-8 h-1 rounded-full bg-surface-container-high"></div>
+<div class="w-8 h-8 rounded-full flex items-center justify-center font-label-sm text-label-sm step-inactive">3</div>
+</div>
+<div class="w-10 h-10"></div> <!-- Spacer for balance -->
+</header>
+<!-- Main Content Canvas -->
+<main class="relative z-10 flex-1 px-gutter flex flex-col gap-md">
+<!-- Title Section -->
+<div class="slide-up" style="animation-delay: 0.1s;">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Nuevo Registro</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-xs">Captura la información clínica o sube un archivo diagnóstico.</p>
+</div>
+<!-- Upload Bento Card -->
+<div class="glass-card rounded-[32px] p-lg flex flex-col items-center justify-center text-center gap-md slide-up" style="animation-delay: 0.2s;">
+<div class="w-20 h-20 bg-primary-fixed rounded-3xl flex items-center justify-center mb-xs">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">upload_file</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-on-surface">Subir Documentos</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-base">PDF, Imágenes o Historial Médico</p>
+</div>
+<button class="w-full py-sm px-md rounded-xl bg-surface-container-highest text-primary font-label-sm text-label-sm hover:bg-surface-variant transition-all active:scale-95">
+                    Seleccionar Archivo
+                </button>
+</div>
+<!-- Audio/Voice Assistant Section -->
+<div class="flex-1 flex flex-col items-center justify-center gap-lg slide-up" style="animation-delay: 0.3s;">
+<div class="text-center">
+<h3 class="font-title-md text-title-md text-on-surface mb-xs">Dictado Clínico</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Describe los síntomas del paciente por voz</p>
+</div>
+<!-- Recorder Button -->
+<div class="relative flex items-center justify-center">
+<div class="absolute w-32 h-32 rounded-full pointer-events-none" id="ring"></div>
+<button class="relative z-20 w-24 h-24 bg-primary text-on-primary rounded-full shadow-lg shadow-primary/30 flex items-center justify-center transition-all active:scale-90 overflow-hidden" id="record-btn">
+<span class="material-symbols-outlined text-4xl" id="mic-icon">mic</span>
+<div class="hidden absolute inset-0 bg-error flex items-center justify-center" id="recording-indicator">
+<span class="material-symbols-outlined text-4xl animate-pulse">stop</span>
+</div>
+</button>
+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant opacity-60" id="status-text">Toque para iniciar grabación</div>
+</div>
+</main>
+<!-- Bottom Action Dock -->
+<footer class="relative z-10 bg-surface/80 backdrop-blur-3xl px-gutter pt-md pb-xl rounded-t-[40px] shadow-[0_-10px_40px_rgba(0,0,0,0.05)] slide-up" style="animation-delay: 0.4s;">
+<div class="flex flex-col gap-sm">
+<div class="flex items-center gap-sm p-sm bg-primary-container/10 rounded-2xl border border-primary/10">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-sm text-label-sm text-primary">La IA está lista para procesar los datos</span>
+</div>
+<button class="w-full bg-primary text-on-primary py-lg rounded-2xl flex items-center justify-center gap-xs font-title-md text-title-md shadow-lg shadow-primary/20 hover:brightness-110 transition-all active:scale-[0.98]">
+<span>Procesar con IA</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</footer>
+</div>
+<!-- Micro-interactions Script -->
+<script>
+        const recordBtn = document.getElementById('record-btn');
+        const micIcon = document.getElementById('mic-icon');
+        const ring = document.getElementById('ring');
+        const statusText = document.getElementById('status-text');
+        const recordingIndicator = document.getElementById('recording-indicator');
+        let isRecording = false;
+
+        recordBtn.addEventListener('click', () => {
+            isRecording = !isRecording;
+            
+            if (isRecording) {
+                micIcon.classList.add('hidden');
+                recordingIndicator.classList.remove('hidden');
+                ring.classList.add('animate-pulse-ring');
+                recordBtn.classList.add('active-recording');
+                recordBtn.classList.replace('bg-primary', 'bg-error');
+                statusText.innerText = "Grabando... Toque para finalizar";
+                statusText.classList.remove('opacity-60');
+                statusText.classList.add('text-error', 'font-bold');
+                
+                // Add haptic feedback simulation
+                if (window.navigator.vibrate) {
+                    window.navigator.vibrate(50);
+                }
+            } else {
+                micIcon.classList.remove('hidden');
+                recordingIndicator.classList.add('hidden');
+                ring.classList.remove('animate-pulse-ring');
+                recordBtn.classList.remove('active-recording');
+                recordBtn.classList.replace('bg-error', 'bg-primary');
+                statusText.innerText = "Grabación pausada";
+                statusText.classList.add('opacity-60');
+                statusText.classList.remove('text-error', 'font-bold');
+            }
+        });
+    </script>
+<!-- UI Background Decoration Images -->
+<div class="hidden">
+<img data-alt="A clean high-end medical clinic interior with soft wooden textures and glass partitions. The lighting is bright and natural, coming from large windows. Minimalist aesthetic with a clinical yet warm feel, featuring blurred figures of physical therapists in the background. High-key lighting, soft teal and white color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZyVyUsw98vdih9xSGdtfQi6XouGQ-WeV08hnfL0IFr6lNz40RzECBB0fGI1_kOZljt06VMIgh5tYGSbm-dnINy8kPQOZCFEtcoxaG9so1MFU3oiB7jKJU2dWxeg8IwnW99_zA_NOw2KlXGZOT_RiU6J6onTZUUAdKbBK1m3U9dGj6y8ZE79R36uGgZhD-oXs_9yLVGsD2PHwgw8QFIux-275KZmP7bSi9WyxtxEciuChRRzNcQ6RxegtzZDiro3Qtga85JkrVrjAH"/>
+<img data-alt="An ultra-modern medical tablet showing a clinical interface with 3D human anatomy visualizations. The tablet is held by a healthcare professional in a clean white laboratory coat. Soft blue and teal neon glow from the screen illuminates the scene. Premium photography style, shallow depth of field, focused on the digital interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVqR4O-ZvyGjm9R4YHyDrR7ZFtHTtsNA6eRFWDOxabLK3YpCvm29nHj-5kt00A8DuelxX3gDdZ7bFNx9DDrregOLLSfjwCEBQ46YhfSbqgOMeuVNVi8to2wUqOOOYZ45mqTa-V1YcPqbkUTZjKJ2NdESZaCnzcvqaaFV37UXQLhh9Z0L6x7TrMaKI3JbBhGSJTE3KQR0qSlTa0KtgiCk4JigtoozyTKsncFd4sXRVFTIQhqcLLqlKVJemBwmdGZi9N5PtSURcoAED-"/>
+</div>
+</body></html>

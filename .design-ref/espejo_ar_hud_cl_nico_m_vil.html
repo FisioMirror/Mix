@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Espejo AR - HUD Clínico (Móvil)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Custom styles to bridge design system and AR HUD specific needs */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #000; /* Camera background base */
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+        }
+
+        .glass-hud {
+            backdrop-filter: blur(24px);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        /* Skeletal Point Pulse */
+        @keyframes pulse-teal {
+            0% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 0 0 rgba(166, 240, 235, 0.7); }
+            70% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 0 10px rgba(166, 240, 235, 0); }
+            100% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 0 0 rgba(166, 240, 235, 0); }
+        }
+
+        .landmark-dot {
+            width: 12px;
+            height: 12px;
+            background: #a6f0eb; /* primary-fixed */
+            border-radius: 50%;
+            position: absolute;
+            animation: pulse-teal 2s infinite;
+        }
+
+        .skeletal-line {
+            position: absolute;
+            background: rgba(166, 240, 235, 0.4);
+            height: 2px;
+            transform-origin: left center;
+        }
+
+        .progress-gradient {
+            background: linear-gradient(to top, #00504d, #8ad3cf);
+        }
+        
+        .voice-wave {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        
+        .wave-bar {
+            width: 3px;
+            background: #a6f0eb;
+            border-radius: 2px;
+            animation: wave-anim 1.2s infinite ease-in-out;
+        }
+        
+        @keyframes wave-anim {
+            0%, 100% { height: 4px; }
+            50% { height: 16px; }
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#d4e6e5",
+                    "outline": "#6f7978",
+                    "secondary": "#516161",
+                    "on-primary-container": "#9ce6e1",
+                    "on-error-container": "#93000a",
+                    "secondary-container": "#d4e6e5",
+                    "primary-fixed-dim": "#8ad3cf",
+                    "inverse-on-surface": "#f0f0f3",
+                    "on-secondary-container": "#576867",
+                    "on-surface": "#1a1c1e",
+                    "primary-fixed": "#a6f0eb",
+                    "background": "#f9f9fc",
+                    "on-tertiary-fixed": "#351000",
+                    "on-secondary": "#ffffff",
+                    "surface": "#f9f9fc",
+                    "on-secondary-fixed": "#0e1e1e",
+                    "tertiary": "#6e381d",
+                    "surface-container-highest": "#e2e2e5",
+                    "on-secondary-fixed-variant": "#3a4a49",
+                    "surface-container": "#eeeef0",
+                    "surface-bright": "#f9f9fc",
+                    "tertiary-container": "#8a4f32",
+                    "surface-dim": "#dadadc",
+                    "inverse-primary": "#8ad3cf",
+                    "tertiary-fixed-dim": "#ffb694",
+                    "surface-container-high": "#e8e8ea",
+                    "surface-variant": "#e2e2e5",
+                    "primary-container": "#156966",
+                    "outline-variant": "#bec9c7",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#6e381d",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-container-low": "#f3f3f6",
+                    "primary": "#00504d",
+                    "on-tertiary-container": "#ffceb8",
+                    "on-background": "#1a1c1e",
+                    "surface-tint": "#156966",
+                    "on-primary-fixed": "#00201f",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#2f3133",
+                    "on-surface-variant": "#3f4948",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#00504d",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#b8cac9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "gutter": "16px",
+                    "container-margin": "24px",
+                    "xl": "64px",
+                    "sm": "16px",
+                    "md": "24px",
+                    "base": "4px",
+                    "lg": "40px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Montserrat"],
+                    "title-md": ["Montserrat"],
+                    "label-sm": ["Montserrat"],
+                    "body-lg": ["Montserrat"],
+                    "display-lg": ["Montserrat"],
+                    "headline-lg-mobile": ["Montserrat"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="relative h-screen w-full flex flex-col justify-between p-gutter">
+<!-- FULLSCREEN CAMERA FEED SIMULATION -->
+<div class="fixed inset-0 z-0">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A cinematic, high-quality vertical mobile camera POV of a patient performing physiotherapy exercises in a bright, minimalist modern apartment. The lighting is soft and natural, emphasizing a professional clinical atmosphere. In the center, a person is shown from the torso up, maintaining a steady posture. The aesthetic is clean and premium, utilizing a cool-toned color palette with subtle clinical teal highlights." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDlv352ov7A8mC5dvICwlEYNryAm_Mw6hV4YVOR1zp3JD9HjaZGRKfJwHGgqFtNRDa5DzLudFzI-GFLAIa1GDxPNGm4ABGfrNcwuhnmAWRP-C8CdSzUEHJWCG-c4TFSHWO-5QyYytdf63TI13jrfZNd8ZNFISjJx1ibE_6EbVlONB5a1_yGthGR1KwTCWGWdYfoXz1R5FVLH5HMNcN1PB_8-sTsiwq25Yyyb56Fnwush0vk5b6FJYOZd1PR-6UUIYKHD07TDd1sGqDr')"></div>
+<!-- DARK OVERLAY FOR UI LEGIBILITY -->
+<div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+</div>
+<!-- AR OVERLAY (Skeletal landmarks) -->
+<div class="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+<!-- Shoulder -->
+<div class="landmark-dot" style="top: 35%; left: 35%;"></div>
+<div class="landmark-dot" style="top: 35%; left: 65%;"></div>
+<div class="skeletal-line" style="top: 35%; left: 35%; width: 30%; transform: rotate(0deg);"></div>
+<!-- Elbow -->
+<div class="landmark-dot" style="top: 55%; left: 30%;"></div>
+<div class="skeletal-line" style="top: 35%; left: 35%; width: 25%; transform: rotate(105deg);"></div>
+<!-- Wrist (Active Exercise Focus) -->
+<div class="landmark-dot" style="top: 70%; left: 32%; background: #ffffff; border: 2px solid #00504d;"></div>
+<div class="skeletal-line" style="top: 55%; left: 30%; width: 16%; transform: rotate(80deg); background: #a6f0eb;"></div>
+<!-- Arc visualization for joint angle -->
+<svg class="absolute" style="top: 48%; left: 22%; width: 100px; height: 100px;">
+<circle cx="50" cy="50" fill="none" r="40" stroke="rgba(166, 240, 235, 0.4)" stroke-dasharray="251" stroke-dashoffset="100" stroke-width="4"></circle>
+<text class="font-label-sm text-label-sm" fill="white" style="font-size: 10px;" x="35" y="55">85°</text>
+</svg>
+</div>
+<!-- HUD TOP ROW -->
+<header class="relative z-20 flex justify-between items-start w-full">
+<!-- Rep Counter -->
+<div class="glass-hud rounded-xl px-4 py-3 flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-fixed text-headline-sm" data-icon="fitness_center">fitness_center</span>
+</div>
+<div>
+<p class="text-white/60 font-label-sm text-label-sm uppercase tracking-wider">Repeticiones</p>
+<h1 class="text-white font-headline-lg-mobile text-headline-lg-mobile leading-tight">5 <span class="text-white/40 text-title-md font-title-md">/ 10</span></h1>
+</div>
+</div>
+<!-- Timer & Battery -->
+<div class="flex flex-col gap-2 items-end">
+<div class="glass-hud rounded-xl px-4 py-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-white/80" data-icon="timer">timer</span>
+<span class="text-white font-title-md text-title-md">04:12</span>
+</div>
+<div class="glass-hud rounded-full px-3 py-1 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-error animate-pulse"></div>
+<span class="text-white/90 font-label-sm text-label-sm">REC</span>
+</div>
+</div>
+</header>
+<!-- RIGHT EDGE: PROGRESS BAR (Joint Angle Intensity) -->
+<aside class="absolute right-gutter top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-4">
+<div class="w-10 h-64 glass-hud rounded-full flex flex-col items-center justify-end p-1 relative overflow-hidden">
+<div class="absolute inset-x-0 bottom-0 progress-gradient w-full transition-all duration-500" style="height: 65%;"></div>
+<div class="relative z-10 mb-2">
+<span class="material-symbols-outlined text-white" data-icon="expand_less" style="font-size: 18px;">expand_less</span>
+</div>
+</div>
+<div class="glass-hud rounded-full w-12 h-12 flex items-center justify-center">
+<span class="text-white font-label-sm text-label-sm">85%</span>
+</div>
+</aside>
+<!-- HUD BOTTOM SECTION -->
+<footer class="relative z-20 flex flex-col gap-4">
+<!-- AI Voice Guidance Bar -->
+<div class="glass-hud rounded-2xl p-4 flex items-center gap-4 border-l-4 border-primary-fixed">
+<div class="voice-wave">
+<div class="wave-bar" style="animation-delay: 0.1s;"></div>
+<div class="wave-bar" style="animation-delay: 0.3s; height: 12px;"></div>
+<div class="wave-bar" style="animation-delay: 0.2s; height: 20px;"></div>
+<div class="wave-bar" style="animation-delay: 0.4s; height: 10px;"></div>
+<div class="wave-bar" style="animation-delay: 0.5s;"></div>
+</div>
+<div class="flex-1">
+<p class="text-primary-fixed font-label-sm text-label-sm font-bold uppercase tracking-widest mb-0.5">Asistente AI</p>
+<p class="text-white font-body-lg text-body-lg italic">"¡Excelente forma! Mantén la posición un segundo más."</p>
+</div>
+</div>
+<!-- Action Row -->
+<div class="flex justify-between items-center">
+<div class="flex gap-2">
+<button class="glass-hud p-4 rounded-full flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-white" data-icon="videocam_off">videocam_off</span>
+</button>
+<button class="glass-hud p-4 rounded-full flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-white" data-icon="mic">mic</span>
+</button>
+</div>
+<button class="bg-error text-white h-14 px-8 rounded-full font-title-md text-title-md flex items-center gap-2 shadow-lg shadow-error/20 active:scale-95 transition-all">
+<span class="material-symbols-outlined fill-icon" data-icon="stop">stop</span>
+                Finalizar
+            </button>
+<button class="glass-hud p-4 rounded-full flex items-center justify-center active:rotate-90 transition-all duration-300" id="menu-btn">
+<span class="material-symbols-outlined text-white" data-icon="grid_view">grid_view</span>
+</button>
+</div>
+</footer>
+<!-- INTERACTION SCRIPTS -->
+<script>
+        // Simple UI pulse for landmarks
+        const dots = document.querySelectorAll('.landmark-dot');
+        dots.forEach(dot => {
+            const randomDelay = Math.random() * 2;
+            dot.style.animationDelay = `${randomDelay}s`;
+        });
+
+        // Click effect for the Action Menu
+        document.getElementById('menu-btn').addEventListener('click', () => {
+            // Ripple or menu simulation could go here
+            console.log('Opening Clinical Settings Menu');
+        });
+        
+        // Dynamic Voice Wave animation
+        const bars = document.querySelectorAll('.wave-bar');
+        setInterval(() => {
+            bars.forEach(bar => {
+                const height = 4 + Math.random() * 20;
+                bar.style.height = `${height}px`;
+            });
+        }, 150);
+    </script>
+</body></html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - FisioMirror</title>
+<!-- Montserrat Font -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#3f4948",
+                        "primary-fixed-dim": "#8ad3cf",
+                        "on-secondary-fixed-variant": "#3a4a49",
+                        "surface-container-highest": "#e2e2e5",
+                        "primary-container": "#156966",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#b8cac9",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2f3133",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface": "#f9f9fc",
+                        "primary": "#00504d",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#d4e6e5",
+                        "on-secondary-fixed": "#0e1e1e",
+                        "on-primary-fixed": "#00201f",
+                        "on-primary-container": "#9ce6e1",
+                        "outline-variant": "#bec9c7",
+                        "surface-variant": "#e2e2e5",
+                        "surface-tint": "#156966",
+                        "inverse-on-surface": "#f0f0f3",
+                        "outline": "#6f7978",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "background": "#f9f9fc",
+                        "on-primary-fixed-variant": "#00504d",
+                        "on-tertiary-fixed-variant": "#6e381d",
+                        "on-tertiary-container": "#ffceb8",
+                        "surface-container": "#eeeef0",
+                        "on-surface": "#1a1c1e",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#d4e6e5",
+                        "primary-fixed": "#a6f0eb",
+                        "secondary": "#516161",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#576867",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#dadadc",
+                        "on-background": "#1a1c1e",
+                        "tertiary-container": "#8a4f32",
+                        "tertiary": "#6e381d",
+                        "surface-container-high": "#e8e8ea",
+                        "inverse-primary": "#8ad3cf",
+                        "surface-container-low": "#f3f3f6",
+                        "surface-bright": "#f9f9fc",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "sm": "16px",
+                        "lg": "40px",
+                        "container-margin": "24px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "xl": "64px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "title-md": ["Montserrat"],
+                        "label-sm": ["Montserrat"],
+                        "display-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .glass {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(30, 30, 30, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .shadow-clinical {
+            box-shadow: 0px 12px 40px rgba(0,0,0,0.08);
+        }
+        .skiper3-toggle {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .active-tab-glow {
+            box-shadow: 0 0 15px rgba(0, 80, 77, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface transition-colors duration-300">
+<div class="flex min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<aside class="h-screen w-64 sticky left-0 top-0 bg-surface/80 dark:bg-on-surface-variant/20 backdrop-blur-3xl border-r border-white/20 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] flex flex-col py-md px-sm z-50">
+<div class="mb-lg px-xs">
+<h1 class="font-headline-lg text-primary dark:text-primary-fixed-dim font-bold tracking-tight">FisioMirror</h1>
+<p class="text-label-sm text-on-surface-variant opacity-70">Clinical Portal</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-sm p-sm rounded-xl transition-all duration-200 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-white/10 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-Montserrat text-body-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm p-sm rounded-xl transition-all duration-200 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-white/10 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-Montserrat text-body-lg">Patients</span>
+</a>
+<a class="flex items-center gap-sm p-sm rounded-xl transition-all duration-200 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-white/10 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+<span class="font-Montserrat text-body-lg">Routines</span>
+</a>
+<a class="flex items-center gap-sm p-sm rounded-xl transition-all duration-200 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-white/10 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-Montserrat text-body-lg">Statistics</span>
+</a>
+<a class="flex items-center gap-sm p-sm rounded-xl text-primary dark:text-primary-fixed-dim font-bold border-r-4 border-primary dark:border-primary-fixed-dim bg-primary-container/10 transition-all duration-200 active:scale-95 active-tab-glow" href="#">
+<span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-Montserrat text-body-lg">Settings</span>
+</a>
+</nav>
+<div class="mt-auto space-y-md">
+<div class="flex items-center gap-sm p-xs bg-surface-container rounded-xl">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of Dr. Elena Rodriguez, a sophisticated female physiotherapist with warm, intelligent eyes and dark hair tied back. She is wearing a crisp medical white coat over a navy blue blouse. The background is a softly blurred modern clinical office with soft teal and white lighting, maintaining a premium healthcare aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFwgo6givWzFEEODQ9Y71xgeVYGw1ogNWIgjiKV7vr7_2eUabbOcvQ5o-9wO5jQikB0Qq7By5ilFzdfudFDnxw_D-fu4rdaUKuUFk_T5ND_tCookuBm3o3rb_1kh_WcKMRnFQ72VviEMfs9bOTZBlnSD11tGJ1tYzEG5F_CTWpf16u1lnbT7lhWe-Wlr4VIluSTmlHAcJ_nn8nTwNMvKReAxRBf_j6z5MFTFH2WZTGAUzv2jPH0eARVq2ChUSqQzpfHL7a1H0_p3UP"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-label-sm font-bold truncate">Dr. Elena Rodriguez</p>
+<p class="text-[10px] text-on-surface-variant truncate">Clinical Director</p>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-sm rounded-xl font-bold flex items-center justify-center gap-xs hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>New Patient</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 relative">
+<!-- Animated Background -->
+
+<!-- TopNavBar (Shared Component Fragment) -->
+<header class="sticky top-0 w-full glass z-40 flex justify-between items-center px-lg py-sm shadow-sm border-b border-white/20">
+<div class="flex items-center gap-md">
+<h2 class="font-headline-lg-mobile text-primary font-bold">Settings</h2>
+<div class="hidden md:flex gap-md ml-lg">
+<a class="text-on-surface-variant font-Montserrat text-title-md hover:opacity-80 transition-opacity" href="#">Account</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-Montserrat text-title-md" href="#">Preferences</a>
+<a class="text-on-surface-variant font-Montserrat text-title-md hover:opacity-80 transition-opacity" href="#">Devices</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative group hidden md:block">
+<span class="absolute left-sm top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="pl-xl pr-md py-xs rounded-full bg-white/40 border-none focus:ring-2 focus:ring-primary/20 w-64 text-body-lg glass transition-all group-hover:w-80" placeholder="Search settings..." type="text"/>
+</div>
+<div class="flex items-center gap-sm">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-white/20 transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="max-w-6xl mx-auto p-md space-y-md">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-md">
+<!-- Profile Card -->
+<div class="lg:col-span-4 glass rounded-[32px] p-md shadow-clinical flex flex-col items-center text-center">
+<div class="relative mb-md">
+<div class="w-32 h-32 rounded-full ring-4 ring-primary-container/20 p-1 overflow-hidden shadow-xl">
+<img class="w-full h-full object-cover rounded-full" data-alt="Close up portrait of Dr. Elena Rodriguez looking professional and confident. The lighting is soft and directional, highlighting her professional demeanor in a high-end medical setting. Pristine white background with subtle teal glass reflections." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBglvAtaWGJUy93ew36pRv42OcBY9LFbdf1DXyHnFy1W8O831ZCvLvLf875RsnlNg_mQAFil5OsN3dghA-S-8AYmu7RcrEaDhbshRWYdK3WYcQHXCV_zfaZ4s2kkUBa31lvRJ_2uXl4yo61DeJF6lmrR6DFKMVfzgI7AGOS2GHe34oGrJo3WceuRUoCewbK5uaMU1XHvjbbqGJxFf6uInOQWI7aE4GJ1A3-SJcS8xrgz6684S5oaCFxFFWX6vnq0vLpsVoEjQA7nZyj"/>
+</div>
+<button class="absolute bottom-0 right-0 w-10 h-10 bg-primary text-on-primary rounded-full flex items-center justify-center border-4 border-surface shadow-lg hover:scale-110 active:scale-95 transition-transform" onclick="openModal('avatarModal')">
+<span class="material-symbols-outlined text-[20px]" data-icon="photo_camera">photo_camera</span>
+</button>
+</div>
+<h3 class="font-headline-lg text-on-surface mb-xs">Dr. Elena Rodriguez</h3>
+<p class="font-title-md text-primary bg-primary-container/10 px-md py-xs rounded-full">Clinical Director</p>
+<div class="w-full mt-lg space-y-sm text-left">
+<div class="p-sm bg-white/40 rounded-2xl border border-white/20">
+<p class="text-label-sm text-on-surface-variant">Email</p>
+<p class="font-body-lg font-bold">e.rodriguez@fisiomirror.health</p>
+</div>
+<div class="p-sm bg-white/40 rounded-2xl border border-white/20">
+<p class="text-label-sm text-on-surface-variant">Employee ID</p>
+<p class="font-body-lg font-bold">FM-992-ER</p>
+</div>
+</div>
+</div>
+<!-- Main Settings Bento Area -->
+<div class="lg:col-span-8 space-y-md">
+<!-- Personal Info -->
+<div class="glass rounded-[32px] p-md shadow-clinical">
+<div class="flex justify-between items-center mb-md">
+<h4 class="font-headline-lg-mobile text-on-surface">Personal Information</h4>
+<button class="text-primary flex items-center gap-xs font-bold hover:underline" onclick="openModal('editProfileModal')">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span> Edit
+                                </button>
+</div>
+<div class="grid md:grid-cols-2 gap-md">
+<div class="space-y-sm">
+<label class="text-label-sm uppercase tracking-widest text-outline">Full Name</label>
+<div class="p-md rounded-2xl bg-white/40 border border-white/20 font-body-lg">Elena Rodriguez</div>
+</div>
+<div class="space-y-sm">
+<label class="text-label-sm uppercase tracking-widest text-outline">Specialty</label>
+<div class="p-md rounded-2xl bg-white/40 border border-white/20 font-body-lg">Neurological Rehabilitation</div>
+</div>
+</div>
+</div>
+<!-- Clinic Settings -->
+<div class="glass rounded-[32px] p-md shadow-clinical">
+<h4 class="font-headline-lg-mobile text-on-surface mb-md">Clinic Configuration</h4>
+<div class="space-y-sm">
+<div class="flex items-center justify-between p-md rounded-2xl bg-white/40 border border-white/20">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+</div>
+<div>
+<p class="font-body-lg font-bold">Clinic Name</p>
+<p class="text-label-sm text-on-surface-variant">Santa Maria Wellness Center</p>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</button>
+</div>
+<div class="p-md rounded-2xl bg-white/40 border border-white/20">
+<p class="font-body-lg font-bold mb-sm">Active Mirror Identifiers</p>
+<div class="flex flex-wrap gap-sm">
+<span class="px-sm py-xs bg-primary-container/20 text-primary rounded-lg text-label-sm font-bold border border-primary/20">MIRROR-01-A</span>
+<span class="px-sm py-xs bg-primary-container/20 text-primary rounded-lg text-label-sm font-bold border border-primary/20">MIRROR-02-B</span>
+<span class="px-sm py-xs bg-primary-container/20 text-primary rounded-lg text-label-sm font-bold border border-primary/20">MIRROR-04-A</span>
+<button class="px-sm py-xs border border-dashed border-outline-variant text-outline rounded-lg text-label-sm font-bold hover:bg-white/30">+ Add Unit</button>
+</div>
+</div>
+</div>
+</div>
+<!-- System Preferences & Skiper3 Toggle -->
+<div class="glass rounded-[32px] p-md shadow-clinical">
+<h4 class="font-headline-lg-mobile text-on-surface mb-md">System Preferences</h4>
+<div class="space-y-xs">
+<!-- Dark Mode Toggle -->
+<div class="flex items-center justify-between p-sm hover:bg-white/20 rounded-2xl transition-all">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="dark_mode">dark_mode</span>
+<div>
+<p class="font-body-lg font-bold">Dark Mode</p>
+<p class="text-label-sm text-on-surface-variant">Switch between light and dark interface</p>
+</div>
+</div>
+<!-- Skiper3 Toggle Component -->
+<button class="relative inline-flex h-8 w-14 items-center rounded-full bg-outline-variant transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-primary" id="darkModeToggle" onclick="toggleDarkMode()">
+<span class="skiper3-toggle inline-block h-6 w-6 translate-x-1 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out dark:translate-x-7"></span>
+</button>
+</div>
+<!-- Push Notifications -->
+<div class="flex items-center justify-between p-sm hover:bg-white/20 rounded-2xl transition-all">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications_active">notifications_active</span>
+<div>
+<p class="font-body-lg font-bold">Push Notifications</p>
+<p class="text-label-sm text-on-surface-variant">Real-time alerts for patient milestones</p>
+</div>
+</div>
+<button class="relative inline-flex h-8 w-14 items-center rounded-full bg-primary transition-colors focus:outline-none">
+<span class="inline-block h-6 w-6 translate-x-7 transform rounded-full bg-white shadow-sm ring-0"></span>
+</button>
+</div>
+<!-- Biometric Auth -->
+<div class="flex items-center justify-between p-sm hover:bg-white/20 rounded-2xl transition-all">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="fingerprint">fingerprint</span>
+<div>
+<p class="font-body-lg font-bold">Biometric Access</p>
+<p class="text-label-sm text-on-surface-variant">Use FaceID/TouchID for secure login</p>
+</div>
+</div>
+<button class="relative inline-flex h-8 w-14 items-center rounded-full bg-outline-variant transition-colors focus:outline-none">
+<span class="inline-block h-6 w-6 translate-x-1 transform rounded-full bg-white shadow-sm ring-0"></span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-md z-50 bg-surface/80 dark:bg-on-surface-variant/30 backdrop-blur-3xl rounded-full border border-white/30 shadow-xl flex justify-around items-center p-xs">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant p-xs hover:scale-110 transition-transform active:scale-90 duration-150 ease-out">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-Montserrat text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant p-xs hover:scale-110 transition-transform active:scale-90">
+<span class="material-symbols-outlined" data-icon="person_search">person_search</span>
+<span class="font-Montserrat text-label-sm">Patients</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant p-xs hover:scale-110 transition-transform active:scale-90">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-Montserrat text-label-sm">Stats</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container rounded-full p-xs hover:scale-110 transition-transform active:scale-90">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-Montserrat text-label-sm">Profile</span>
+</button>
+</nav>
+<!-- Premium Modal Placeholder (HeroUI Style) -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center hidden" id="editProfileModal">
+<div class="absolute inset-0 bg-on-surface/40 backdrop-blur-md" onclick="closeModal('editProfileModal')"></div>
+<div class="relative glass max-w-lg w-full rounded-[40px] p-xl shadow-2xl animate-in zoom-in-95 duration-200">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-headline-lg text-primary">Edit Profile</h3>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary/10" onclick="closeModal('editProfileModal')">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<div class="space-y-md">
+<div class="space-y-xs">
+<label class="text-label-sm text-outline px-xs uppercase tracking-widest">Full Name</label>
+<input class="w-full bg-white/40 border border-white/20 rounded-2xl p-md font-body-lg focus:ring-2 focus:ring-primary/20 focus:border-primary" type="text" value="Elena Rodriguez"/>
+</div>
+<div class="space-y-xs">
+<label class="text-label-sm text-outline px-xs uppercase tracking-widest">Specialty</label>
+<input class="w-full bg-white/40 border border-white/20 rounded-2xl p-md font-body-lg focus:ring-2 focus:ring-primary/20 focus:border-primary" type="text" value="Neurological Rehabilitation"/>
+</div>
+<div class="flex gap-md pt-lg">
+<button class="flex-1 py-md rounded-2xl border border-outline-variant font-bold hover:bg-white/10" onclick="closeModal('editProfileModal')">Cancel</button>
+<button class="flex-1 py-md rounded-2xl bg-primary text-on-primary font-bold shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all" onclick="closeModal('editProfileModal')">Save Changes</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const isDark = html.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Initialize theme
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</body></html>

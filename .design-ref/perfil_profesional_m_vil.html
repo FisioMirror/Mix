@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-card {
+      backdrop-filter: blur(24px);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .glass-input {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0px 2px 4px rgba(0,0,0,0.02);
+    }
+    .active-press:active {
+      transform: scale(0.95);
+      transition: transform 200ms ease-in-out;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f9f9fc;
+      overflow-x: hidden;
+    }
+    /* Custom switch styling */
+    .switch-checkbox:checked + .switch-label {
+      background-color: #00504d;
+    }
+    .switch-checkbox:checked + .switch-label .switch-dot {
+      transform: translateX(24px);
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface-variant": "#3f4948",
+            "primary-fixed-dim": "#8ad3cf",
+            "primary-container": "#156966",
+            "surface": "#f9f9fc",
+            "primary": "#00504d",
+            "on-primary-container": "#9ce6e1",
+            "outline-variant": "#bec9c7",
+            "surface-variant": "#e2e2e5",
+            "background": "#f9f9fc",
+            "on-surface": "#1a1c1e",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-container": "#576867",
+            "on-primary": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "3xl": "1.5rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "md": "24px",
+            "sm": "16px",
+            "lg": "40px",
+            "container-margin": "24px",
+            "xs": "8px",
+            "xl": "64px"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Montserrat"],
+            "body-lg": ["Montserrat"],
+            "title-md": ["Montserrat"],
+            "label-sm": ["Montserrat"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "title-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen pb-32">
+<!-- Header Area -->
+<header class="flex justify-between items-center px-md py-sm sticky top-0 z-40 bg-surface/60 backdrop-blur-2xl">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">FisioMirror</h1>
+</div>
+<div class="flex gap-sm">
+<button class="w-10 h-10 rounded-full flex items-center justify-center glass-card active-press">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+</div>
+</header>
+<!-- Profile Section -->
+<main class="px-md mt-sm space-y-md">
+<!-- Profile Hero Card -->
+<section class="flex flex-col items-center py-lg bg-surface-container-lowest rounded-3xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-white/40">
+<div class="relative active-press cursor-pointer">
+<div class="w-28 h-28 rounded-full border-4 border-primary/10 p-1">
+<img class="w-full h-full rounded-full object-cover" data-alt="A professional headshot of a middle-aged female physician, Dr. Elena Rodriguez, with dark hair tied back. She is wearing a soft grey knit sweater and has a warm, confident expression. The background is a clean, bright medical clinic setting with clinical premium aesthetics, high-key soft lighting, and a soft bokeh effect." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPJfUuh56LHE3jf9Gs3YyQ9GpJV_HUvFg3gY-x07S2lxZwxNZRo7Dtfu-4wNdVncvWH2tHE4wef4P-k8YH3Yvrhco_6QUv9-_M2tQpzIPgMUdC4jzoXZqKaOy3ulQ9SlNx2GeoU3xQF8cSosFiowH7IoF2W6yIn92VZfDvnWC3unzWTH3912My9MKk68V8ElkwjnlLZil87pEpaSDXvzjLvoUBxXehj88-FM5JHSNU3OU6UEq-hIGCs6PCsxVQ_mBLmAaddaFg-w_X"/>
+</div>
+<div class="absolute bottom-0 right-0 bg-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center border-2 border-surface shadow-md">
+<span class="material-symbols-outlined text-sm">edit</span>
+</div>
+</div>
+<div class="mt-sm text-center">
+<h2 class="font-title-md text-title-md text-on-surface">Dr. Elena Rodriguez</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Senior Physiotherapist</p>
+</div>
+</section>
+<!-- Navigation List (Bento-lite) -->
+<section class="space-y-sm">
+<div class="grid grid-cols-1 gap-sm">
+<!-- Account -->
+<button class="flex items-center justify-between p-md bg-surface-container-lowest glass-card rounded-2xl active-press w-full text-left">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<p class="font-title-md text-body-lg font-bold text-on-surface">Account</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Personal information &amp; Bio</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</button>
+<!-- Security -->
+<button class="flex items-center justify-between p-md bg-surface-container-lowest glass-card rounded-2xl active-press w-full text-left">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container/10 flex items-center justify-center text-tertiary" style="color: #6e381d;">
+<span class="material-symbols-outlined">shield_person</span>
+</div>
+<div>
+<p class="font-title-md text-body-lg font-bold text-on-surface">Security</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Password &amp; 2FA Settings</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</button>
+<!-- Notifications -->
+<button class="flex items-center justify-between p-md bg-surface-container-lowest glass-card rounded-2xl active-press w-full text-left">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<div>
+<p class="font-title-md text-body-lg font-bold text-on-surface">Notifications</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Patient alerts &amp; Routine updates</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</button>
+<!-- Clinic -->
+<button class="flex items-center justify-between p-md bg-surface-container-lowest glass-card rounded-2xl active-press w-full text-left">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">health_and_safety</span>
+</div>
+<div>
+<p class="font-title-md text-body-lg font-bold text-on-surface">Clinic Details</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Operational hours &amp; Staff</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Preferences -->
+<section class="space-y-sm">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant px-sm uppercase tracking-widest">Preferences</h3>
+<!-- Dark Mode Toggle -->
+<div class="flex items-center justify-between p-md bg-surface-container-lowest glass-card rounded-2xl">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-on-surface-variant/5 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">dark_mode</span>
+</div>
+<div>
+<p class="font-title-md text-body-lg font-bold text-on-surface">Dark Mode</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Automatic switching supported</p>
+</div>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none">
+<input class="switch-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-transparent appearance-none cursor-pointer focus:outline-none transition-transform duration-200 ease-in" id="dark-mode-toggle" name="toggle" style="top: 2px; left: 2px;" type="checkbox"/>
+<label class="switch-label block overflow-hidden h-8 rounded-full bg-outline-variant cursor-pointer transition-colors duration-200 ease-in" for="dark-mode-toggle"></label>
+</div>
+</div>
+</section>
+<!-- Logout -->
+<button class="w-full py-md rounded-2xl text-error font-bold active-press flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined">logout</span>
+      Log Out
+    </button>
+</main>
+<!-- Bottom Navigation Shell (Fixed) -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-md z-50 flex justify-around items-center p-xs bg-surface/80 backdrop-blur-3xl rounded-full border border-white/30 shadow-[0px_12px_40px_rgba(0,0,0,0.15)]">
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-xs hover:scale-110 active:scale-90 transition-all">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-xs hover:scale-110 active:scale-90 transition-all">
+<span class="material-symbols-outlined">person_search</span>
+<span class="font-label-sm text-label-sm">Patients</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-xs hover:scale-110 active:scale-90 transition-all">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-label-sm">Stats</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-full p-xs px-md shadow-lg active:scale-90 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+<script>
+    // Simple dark mode toggle behavior for visual feedback
+    const toggle = document.getElementById('dark-mode-toggle');
+    const switchLabel = document.querySelector('.switch-label');
+    const switchDot = toggle;
+
+    toggle.addEventListener('change', function() {
+      if(this.checked) {
+        document.documentElement.classList.add('dark');
+        // Specific styles for the "dot" to move
+        switchDot.style.transform = 'translateX(16px)';
+        switchLabel.style.backgroundColor = '#00504d';
+      } else {
+        document.documentElement.classList.remove('dark');
+        switchDot.style.transform = 'translateX(0px)';
+        switchLabel.style.backgroundColor = '#bec9c7';
+      }
+    });
+
+    // Add haptic-like feedback interaction to list items
+    document.querySelectorAll('.active-press').forEach(btn => {
+      btn.addEventListener('touchstart', () => {
+        // Mock haptic trigger
+      });
+    });
+  </script>
+</body></html>

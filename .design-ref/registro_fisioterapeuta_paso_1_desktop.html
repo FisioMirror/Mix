@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FisioMirror - Cadastro Fisioterapeuta</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#8ad3cf",
+                    "on-primary-container": "#9ce6e1",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#156966",
+                    "outline-variant": "#bec9c7",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e2e2e5",
+                    "tertiary-container": "#8a4f32",
+                    "primary-container": "#156966",
+                    "on-secondary-container": "#576867",
+                    "on-background": "#1a1c1e",
+                    "tertiary": "#6e381d",
+                    "surface-dim": "#dadadc",
+                    "secondary-fixed": "#d4e6e5",
+                    "surface-bright": "#f9f9fc",
+                    "on-surface": "#1a1c1e",
+                    "secondary-fixed-dim": "#b8cac9",
+                    "on-tertiary-fixed-variant": "#6e381d",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-container-low": "#f3f3f6",
+                    "on-surface-variant": "#3f4948",
+                    "on-secondary-fixed-variant": "#3a4a49",
+                    "on-tertiary-container": "#ffceb8",
+                    "inverse-surface": "#2f3133",
+                    "tertiary-fixed-dim": "#ffb694",
+                    "on-primary-fixed-variant": "#00504d",
+                    "secondary-container": "#d4e6e5",
+                    "on-secondary-fixed": "#0e1e1e",
+                    "primary-fixed-dim": "#8ad3cf",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#a6f0eb",
+                    "inverse-on-surface": "#f0f0f3",
+                    "secondary": "#516161",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "surface": "#f9f9fc",
+                    "surface-variant": "#e2e2e5",
+                    "primary": "#00504d",
+                    "error": "#ba1a1a",
+                    "surface-container": "#eeeef0",
+                    "on-tertiary-fixed": "#351000",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e8e8ea",
+                    "background": "#f9f9fc",
+                    "outline": "#6f7978",
+                    "on-primary-fixed": "#00201f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "gutter": "16px",
+                    "xl": "64px",
+                    "lg": "40px",
+                    "container-margin": "24px",
+                    "base": "4px",
+                    "xs": "8px",
+                    "sm": "16px"
+            },
+            "fontFamily": {
+                    "title-md": ["Montserrat"],
+                    "headline-lg": ["Montserrat"],
+                    "body-lg": ["Montserrat"],
+                    "label-sm": ["Montserrat"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "display-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f9f9fc;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .recessed-input {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 80, 77, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .recessed-input:focus {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: #00504d;
+            box-shadow: 0 0 0 4px rgba(0, 80, 77, 0.05);
+            outline: none;
+        }
+        .step-transition {
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s ease;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-custom {
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+<body class="font-body-lg text-on-surface antialiased min-h-screen flex flex-col">
+<!-- Background Shader -->
+
+<main class="flex-grow flex items-center justify-center p-sm md:p-lg relative">
+<div class="w-full max-w-4xl glass-card rounded-[32px] shadow-[0px_12px_40px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col md:flex-row min-h-[700px] animate-fade-in">
+<!-- Left Branding Side -->
+<div class="hidden md:flex w-2/5 bg-primary p-xl flex-col justify-between relative overflow-hidden">
+<div class="z-10">
+<h1 class="font-headline-lg text-headline-lg text-on-primary mb-xs">FisioMirror</h1>
+<p class="font-title-md text-title-md text-on-primary-container opacity-90">Sua evolução profissional começa aqui.</p>
+</div>
+<div class="z-10">
+<div class="flex items-center gap-xs mb-md">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-sm text-label-sm text-on-primary">Certificado pela Sociedade Brasileira de Fisioterapia</span>
+</div>
+<div class="h-1 w-full bg-on-primary/10 rounded-full overflow-hidden">
+<div class="h-full bg-on-primary w-1/2 transition-all duration-1000 ease-out"></div>
+</div>
+<p class="mt-xs font-label-sm text-label-sm text-on-primary/70">Passo 1 de 2: Dados Profissionais</p>
+</div>
+<!-- Abstract Visual -->
+<div class="absolute -bottom-20 -right-20 w-80 h-80 bg-on-primary-container/20 rounded-full blur-3xl"></div>
+</div>
+<!-- Right Content Side -->
+<div class="flex-1 p-md md:p-xl flex flex-col" id="registration-content">
+<header class="mb-lg">
+<div class="flex items-center justify-between md:hidden mb-md">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">FisioMirror</h1>
+<div class="px-xs py-1 bg-primary/10 rounded-full">
+<span class="font-label-sm text-label-sm text-primary">Etapa 1/2</span>
+</div>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Seja bem-vindo, Doutor.</h2>
+<p class="text-on-surface-variant font-body-lg">Preencha suas informações profissionais para validar seu acesso premium.</p>
+</header>
+<form class="space-y-md flex-grow" id="step1-form">
+<!-- Personal Info Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant px-1">Nome Completo</label>
+<input class="recessed-input w-full px-md py-sm rounded-xl font-body-lg text-on-surface placeholder:text-outline" placeholder="Ex: Dr. Roberto Silva" required="" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant px-1">Email Profissional</label>
+<input class="recessed-input w-full px-md py-sm rounded-xl font-body-lg text-on-surface placeholder:text-outline" placeholder="roberto.fisio@exemplo.com" required="" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant px-1">Senha</label>
+<input class="recessed-input w-full px-md py-sm rounded-xl font-body-lg text-on-surface placeholder:text-outline" placeholder="••••••••" required="" type="password"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant px-1">Confirmar Senha</label>
+<input class="recessed-input w-full px-md py-sm rounded-xl font-body-lg text-on-surface placeholder:text-outline" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<div class="h-px bg-on-surface/5 my-md"></div>
+<!-- Professional Info Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant px-1 flex items-center gap-1">
+                                Cédula de Identidade (CREFITO)
+                                <span class="material-symbols-outlined text-[14px]" title="Número do seu registro profissional">info</span>
+</label>
+<input class="recessed-input w-full px-md py-sm rounded-xl font-body-lg text-on-surface placeholder:text-outline" placeholder="000000-F" required="" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant px-1">Universidade</label>
+<input class="recessed-input w-full px-md py-sm rounded-xl font-body-lg text-on-surface placeholder:text-outline" placeholder="Nome da Instituição" required="" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant px-1">Ano de Formação</label>
+<select class="recessed-input w-full px-md py-sm rounded-xl font-body-lg text-on-surface appearance-none bg-transparent cursor-pointer">
+<option>2024</option>
+<option>2023</option>
+<option>2022</option>
+<option>2021</option>
+<option>Anterior</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant px-1">ID da Faculdade (MEC)</label>
+<input class="recessed-input w-full px-md py-sm rounded-xl font-body-lg text-on-surface placeholder:text-outline" placeholder="Cód. Instituição" type="text"/>
+</div>
+</div>
+<!-- Specialty Multi-Select -->
+<div class="space-y-2 mt-md">
+<label class="font-label-sm text-label-sm text-on-surface-variant px-1">Especialidades</label>
+<div class="flex flex-wrap gap-xs p-base recessed-input rounded-xl min-h-[48px] items-center">
+<!-- Selected Pills -->
+<div class="bg-primary text-on-primary flex items-center gap-1 px-3 py-1 rounded-full font-label-sm text-label-sm animate-scale-in">
+                                Ortopedia
+                                <button class="hover:opacity-70 transition-opacity" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+<div class="bg-primary text-on-primary flex items-center gap-1 px-3 py-1 rounded-full font-label-sm text-label-sm animate-scale-in">
+                                Desportiva
+                                <button class="hover:opacity-70 transition-opacity" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+<input class="bg-transparent border-none focus:ring-0 font-body-lg text-on-surface px-2 flex-grow min-w-[120px]" placeholder="Adicionar especialidade..." type="text"/>
+</div>
+</div>
+<div class="pt-lg flex items-center justify-between">
+<button class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors flex items-center gap-xs" type="button">
+<span class="material-symbols-outlined">arrow_back</span>
+                            Já possuo conta
+                        </button>
+<button class="bg-primary text-on-primary px-xl py-sm rounded-full font-title-md text-title-md shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-md relative overflow-hidden group" id="continue-btn" type="submit">
+<span id="btn-text">Continuar</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+<!-- Loading Spinner (Hidden initially) -->
+<div class="hidden absolute inset-0 bg-primary flex items-center justify-center" id="btn-loader">
+<span class="material-symbols-outlined animate-spin-custom">refresh</span>
+</div>
+</button>
+</div>
+</form>
+</div>
+</div>
+</main>
+<!-- Success Message (Post-transition Mockup) -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-md bg-surface/80 backdrop-blur-md" id="success-message">
+<div class="max-w-md w-full glass-card p-xl rounded-[40px] text-center space-y-md animate-scale-in">
+<div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto text-primary">
+<span class="material-symbols-outlined text-display-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Validando Dados...</h3>
+<p class="font-body-lg text-on-surface-variant">Quase lá! Estamos verificando seus registros profissionais para liberar seu dashboard personalizado.</p>
+</div>
+</div>
+<script>
+        document.getElementById('step1-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('continue-btn');
+            const loader = document.getElementById('btn-loader');
+            const content = document.getElementById('registration-content');
+            
+            // Show loading state
+            loader.classList.remove('hidden');
+            btn.classList.add('pointer-events-none');
+            
+            // Simulate API call and transition
+            setTimeout(() => {
+                content.classList.add('opacity-0', '-translate-x-10');
+                
+                setTimeout(() => {
+                    document.getElementById('success-message').classList.remove('hidden');
+                    
+                    // After success splash, we would normally route to Step 2
+                    setTimeout(() => {
+                         // Resetting for demo purposes
+                         location.reload();
+                    }, 3000);
+                }, 400);
+            }, 1500);
+        });
+
+        // Add some micro-interactions to inputs
+        const inputs = document.querySelectorAll('.recessed-input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('label')?.classList.add('text-primary');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('label')?.classList.remove('text-primary');
+            });
+        });
+    </script>
+</body></html>

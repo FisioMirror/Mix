@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Recovery Progress | FisioMirror Clinical Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#9ce6e1",
+                        "on-background": "#1a1c1e",
+                        "surface-variant": "#e2e2e5",
+                        "tertiary-container": "#8a4f32",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "surface-tint": "#156966",
+                        "secondary-fixed": "#d4e6e5",
+                        "inverse-on-surface": "#f0f0f3",
+                        "tertiary": "#6e381d",
+                        "background": "#f9f9fc",
+                        "on-secondary-container": "#576867",
+                        "surface-bright": "#f9f9fc",
+                        "on-surface-variant": "#3f4948",
+                        "primary-fixed": "#a6f0eb",
+                        "primary-fixed-dim": "#8ad3cf",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-high": "#e8e8ea",
+                        "surface-container-low": "#f3f3f6",
+                        "secondary-fixed-dim": "#b8cac9",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2f3133",
+                        "secondary": "#516161",
+                        "on-tertiary-fixed": "#351000",
+                        "on-secondary-fixed-variant": "#3a4a49",
+                        "inverse-primary": "#8ad3cf",
+                        "outline-variant": "#bec9c7",
+                        "surface-container": "#eeeef0",
+                        "surface": "#f9f9fc",
+                        "primary": "#00504d",
+                        "on-surface": "#1a1c1e",
+                        "on-tertiary-container": "#ffceb8",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#6e381d",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#d4e6e5",
+                        "on-secondary-fixed": "#0e1e1e",
+                        "on-primary-fixed-variant": "#00504d",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#dadadc",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#156966",
+                        "on-primary-fixed": "#00201f",
+                        "outline": "#6f7978"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "24px",
+                        "lg": "40px",
+                        "gutter": "16px",
+                        "xl": "64px",
+                        "md": "24px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "sm": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "title-md": ["Montserrat"],
+                        "display-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.98) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .animate-clinical-in {
+            animation: fadeInScale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.05);
+        }
+        .glass-accent {
+            background: linear-gradient(135deg, rgba(21, 105, 102, 0.1) 0%, rgba(21, 105, 102, 0.02) 100%);
+            border: 1px solid rgba(21, 105, 102, 0.1);
+        }
+        .number-flow {
+            font-variant-numeric: tabular-nums;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-lg overflow-x-hidden">
+<!-- Atmospheric Background -->
+
+<div class="flex min-h-screen">
+<!-- Side Navigation (Shared Component Logic) -->
+<aside class="hidden md:flex flex-col h-screen w-64 bg-surface-container-low border-r border-outline-variant/10 sticky top-0 py-xl px-md">
+<div class="mb-xl px-xs">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">FisioMirror</h1>
+<p class="text-on-surface-variant font-label-sm uppercase tracking-widest mt-1">Clinical Portal</p>
+</div>
+<nav class="flex-1 space-y-xs">
+<a class="flex items-center gap-sm px-md py-sm rounded-xl transition-colors duration-200 text-on-surface-variant hover:bg-surface-variant/50 group" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm rounded-xl transition-colors duration-200 text-on-surface-variant hover:bg-surface-variant/50" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-lg">Patients</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm rounded-xl transition-colors duration-200 text-on-surface-variant hover:bg-surface-variant/50" href="#">
+<span class="material-symbols-outlined">videocam</span>
+<span class="font-body-lg">AR Sessions</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm rounded-xl transition-colors duration-200 bg-primary/10 text-primary border-r-4 border-primary" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-body-lg font-bold">Analytics</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm rounded-xl transition-colors duration-200 text-on-surface-variant hover:bg-surface-variant/50" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-body-lg">Reports</span>
+</a>
+</nav>
+<div class="mt-auto space-y-md">
+<button class="w-full bg-primary text-on-primary font-title-md py-md rounded-xl shadow-lg hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined">add</span>
+                    Start New Session
+                </button>
+<div class="pt-md border-t border-outline-variant/10">
+<div class="flex items-center gap-sm px-xs mb-md">
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-primary/20" data-alt="A professional headshot of Dr. Elena, a medical clinical director with a warm smile, wearing a white lab coat over a professional navy dress. The background is a clean, softly lit medical office with a touch of greenery, matching the light-mode teal aesthetic of the portal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj_3Ymz6l9ti76IMpdCGsmOgHlefxTct3tHNDVg6BPBTeP8Y7R2tS6vhIO8FNboA2sSjtbYQOujfs3L_pjKdsQx7EPHLSZCzkFg856-C_FhnxIG2RzuK3MfDMApCKWBpbuWQ_068LPFKgF2DCr_pKw8RicubPAwNoPqCxvctqGm2n7kjhhbw2JR8WDGC5eav9CaKSwQ-418uJ6q-h8ujXtZnNQUWdHm-kbU3A6SioJxggAF07aUSCbg9u7uR4r3iqQejk2wReCJg_k"/>
+<div>
+<p class="font-title-md text-sm font-bold">Dr. Elena</p>
+<p class="text-xs text-on-surface-variant">Clinical Director</p>
+</div>
+</div>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-sm">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- Top Navigation (Shared Component Logic) -->
+<header class="w-full h-20 sticky top-0 z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/10 flex justify-between items-center px-xl">
+<div class="flex items-center w-full max-w-xl">
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-variant/30 border-none rounded-full py-sm pl-xl pr-md text-on-surface placeholder:text-on-surface-variant focus:ring-2 focus:ring-primary/20 transition-all outline-none" placeholder="Search analytics, patients, or biomechanical data..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md ml-xl">
+<div class="flex items-center gap-xs bg-primary/5 px-md py-xs rounded-full">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-primary font-label-sm">Synced</span>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all active:scale-90">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all active:scale-90">settings</button>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<div class="p-xl space-y-xl animate-clinical-in">
+<!-- 1. Header Section -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-end gap-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-xs">Recovery Progress</h2>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-xs bg-surface-container-highest px-md py-xs rounded-full">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-bold text-on-surface">30-Day Streak</span>
+</div>
+<p class="text-on-surface-variant font-title-md">Level 14 • <span class="text-primary font-bold">Advanced Mobility</span></p>
+</div>
+</div>
+<div class="glass-card px-md py-sm rounded-xl flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">calendar_today</span>
+<span class="font-bold text-on-surface">June 14, 2024</span>
+</div>
+</section>
+<!-- 2. KPI Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="glass-card p-md rounded-2xl relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-base bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">fitness_center</span>
+</div>
+<span class="text-xs font-bold text-primary">+12%</span>
+</div>
+<p class="text-on-surface-variant text-sm font-semibold uppercase tracking-wider">Total Sessions</p>
+<h3 class="font-display-lg text-display-lg number-flow mt-xs">124</h3>
+</div>
+<div class="glass-card p-md rounded-2xl relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-base bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">timer</span>
+</div>
+<span class="text-xs font-bold text-primary">+4h</span>
+</div>
+<p class="text-on-surface-variant text-sm font-semibold uppercase tracking-wider">Total Minutes</p>
+<h3 class="font-display-lg text-display-lg number-flow mt-xs">2,480</h3>
+</div>
+<div class="glass-card p-md rounded-2xl relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-base bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">target</span>
+</div>
+<span class="text-xs font-bold text-primary">Optimal</span>
+</div>
+<p class="text-on-surface-variant text-sm font-semibold uppercase tracking-wider">Avg. Precision</p>
+<h3 class="font-display-lg text-display-lg number-flow mt-xs">94.2<span class="text-title-md">%</span></h3>
+</div>
+<div class="glass-card p-md rounded-2xl relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-base bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">local_fire_department</span>
+</div>
+<span class="text-xs font-bold text-error">Active</span>
+</div>
+<p class="text-on-surface-variant text-sm font-semibold uppercase tracking-wider">Calories Burned</p>
+<h3 class="font-display-lg text-display-lg number-flow mt-xs">15.8k</h3>
+</div>
+</section>
+<!-- 3. Bento Layout: Main Chart & Milestones -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Main Chart Section -->
+<section class="lg:col-span-2 glass-card p-xl rounded-[2rem] flex flex-col">
+<div class="flex justify-between items-start mb-xl">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Biomechanical Evolution</h3>
+<p class="text-on-surface-variant text-sm">Range of Motion &amp; Stability tracking (6 Weeks)</p>
+</div>
+<div class="flex gap-xs">
+<button class="px-md py-xs rounded-full bg-primary text-on-primary text-xs font-bold">Monthly</button>
+<button class="px-md py-xs rounded-full bg-surface-container-highest text-on-surface-variant text-xs font-bold">Weekly</button>
+</div>
+</div>
+<div class="flex-1 w-full min-h-[300px] relative">
+<!-- Chart Placeholder via Styled Divs/SVG -->
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 100 40">
+<defs>
+<lineargradient id="gradient-primary" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#156966" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#156966" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- ROM Line -->
+<path d="M0,35 Q10,32 20,25 T40,15 T60,20 T80,8 T100,5" fill="none" stroke="#156966" stroke-linecap="round" stroke-width="0.5"></path>
+<path d="M0,35 Q10,32 20,25 T40,15 T60,20 T80,8 T100,5 V40 H0 Z" fill="url(#gradient-primary)"></path>
+<!-- Stability Line -->
+<path d="M0,38 Q15,36 30,37 T50,32 T70,35 T90,28 T100,25" fill="none" stroke="#6f7978" stroke-dasharray="1,1" stroke-width="0.3"></path>
+</svg>
+<!-- Axis Labels -->
+<div class="absolute bottom-0 w-full flex justify-between text-[10px] text-on-surface-variant font-bold px-2">
+<span>WK 1</span><span>WK 2</span><span>WK 3</span><span>WK 4</span><span>WK 5</span><span>WK 6</span>
+</div>
+</div>
+<div class="mt-xl flex gap-xl pt-md border-t border-outline-variant/10">
+<div class="flex items-center gap-xs">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-xs font-bold">Range of Motion (+18.4%)</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="w-3 h-3 rounded-full bg-outline"></span>
+<span class="text-xs font-bold text-on-surface-variant">Core Stability (+4.2%)</span>
+</div>
+</div>
+</section>
+<!-- Recent Milestones List -->
+<section class="glass-card p-xl rounded-[2rem] flex flex-col">
+<h3 class="font-title-md text-title-md text-on-surface mb-md">Recent Milestones</h3>
+<div class="space-y-md flex-1">
+<div class="flex gap-md group cursor-default">
+<div class="w-12 h-12 rounded-xl glass-accent flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">trending_up</span>
+</div>
+<div class="flex-1 pb-md border-b border-outline-variant/10">
+<p class="font-bold text-sm">Shoulder Extension</p>
+<div class="flex items-center justify-between mt-xs">
+<span class="text-xs text-on-surface-variant">Clinical Gain</span>
+<span class="text-xs font-bold text-primary">+5° Achieved</span>
+</div>
+</div>
+</div>
+<div class="flex gap-md group cursor-default">
+<div class="w-12 h-12 rounded-xl glass-accent flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">bolt</span>
+</div>
+<div class="flex-1 pb-md border-b border-outline-variant/10">
+<p class="font-bold text-sm">Power Recovery</p>
+<div class="flex items-center justify-between mt-xs">
+<span class="text-xs text-on-surface-variant">Quad Contraction</span>
+<span class="text-xs font-bold text-primary">+12% Force</span>
+</div>
+</div>
+</div>
+<div class="flex gap-md group cursor-default">
+<div class="w-12 h-12 rounded-xl glass-accent flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+<div class="flex-1">
+<p class="font-bold text-sm">Session Precision</p>
+<div class="flex items-center justify-between mt-xs">
+<span class="text-xs text-on-surface-variant">Perfect Alignment</span>
+<span class="text-xs font-bold text-primary">99% Score</span>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-md py-sm border border-outline/20 rounded-xl font-bold text-sm text-on-surface-variant hover:bg-surface-variant/30 transition-all">View All History</button>
+</section>
+</div>
+<!-- 4. Recovery Wall (Achievements) -->
+<section>
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-title-md text-title-md text-on-surface">Recovery Wall</h3>
+<a class="text-primary font-bold text-sm flex items-center gap-xs" href="#">Expand Trophy Case <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-md">
+<!-- Achievement Badge -->
+<div class="glass-card p-md rounded-2xl flex flex-col items-center text-center gap-sm group hover:-translate-y-1 transition-all duration-300">
+<div class="w-16 h-16 rounded-full glass-accent flex items-center justify-center relative mb-xs">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<div class="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<p class="text-xs font-bold">Perfect Week</p>
+<p class="text-[10px] text-on-surface-variant">7/7 Sessions Done</p>
+</div>
+<div class="glass-card p-md rounded-2xl flex flex-col items-center text-center gap-sm group hover:-translate-y-1 transition-all duration-300">
+<div class="w-16 h-16 rounded-full glass-accent flex items-center justify-center relative mb-xs">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+<p class="text-xs font-bold">Precision Pro</p>
+<p class="text-[10px] text-on-surface-variant">95%+ Form Quality</p>
+</div>
+<div class="glass-card p-md rounded-2xl flex flex-col items-center text-center gap-sm group hover:-translate-y-1 transition-all duration-300">
+<div class="w-16 h-16 rounded-full glass-accent flex items-center justify-center relative mb-xs opacity-40 grayscale">
+<span class="material-symbols-outlined text-primary text-3xl">verified</span>
+</div>
+<p class="text-xs font-bold text-on-surface-variant">Milestone Master</p>
+<p class="text-[10px] text-on-surface-variant">2/5 Targets Hit</p>
+</div>
+<div class="glass-card p-md rounded-2xl flex flex-col items-center text-center gap-sm group hover:-translate-y-1 transition-all duration-300">
+<div class="w-16 h-16 rounded-full glass-accent flex items-center justify-center relative mb-xs">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">chronic</span>
+</div>
+<p class="text-xs font-bold">Consistency King</p>
+<p class="text-[10px] text-on-surface-variant">30 Day Streak</p>
+</div>
+<div class="glass-card p-md rounded-2xl flex flex-col items-center text-center gap-sm group hover:-translate-y-1 transition-all duration-300">
+<div class="w-16 h-16 rounded-full glass-accent flex items-center justify-center relative mb-xs">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">speed</span>
+</div>
+<p class="text-xs font-bold">Early Bird</p>
+<p class="text-[10px] text-on-surface-variant">5 AM Session Done</p>
+</div>
+<div class="glass-card p-md rounded-2xl flex flex-col items-center text-center gap-sm group hover:-translate-y-1 transition-all duration-300">
+<div class="w-16 h-16 rounded-full glass-accent flex items-center justify-center relative mb-xs">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<p class="text-xs font-bold">Brain-Body Sync</p>
+<p class="text-[10px] text-on-surface-variant">Advanced Focus</p>
+</div>
+</div>
+</section>
+<!-- 5. Bottom Insights Context -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="glass-card p-xl rounded-[2rem] bg-primary/5 border-primary/10">
+<div class="flex gap-md items-start">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary">bolt</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface mb-xs">AI Copilot Recommendation</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Based on the recent <span class="font-bold text-primary">+5° Shoulder Extension</span> gain, we recommend increasing resistance levels in the next session by <span class="font-bold">15%</span> to maximize strength consolidation.</p>
+<button class="mt-md text-primary font-bold text-sm underline decoration-primary/30">Adjust Routine Automatically</button>
+</div>
+</div>
+</div>
+<div class="glass-card p-xl rounded-[2rem] border-dashed border-2 border-outline-variant/30 flex items-center justify-center">
+<div class="text-center space-y-sm">
+<span class="material-symbols-outlined text-outline text-4xl">add_chart</span>
+<p class="font-bold text-on-surface-variant">Custom Progress Report</p>
+<p class="text-xs text-on-surface-variant max-w-xs mx-auto">Generate a clinical PDF with gait analysis and joint mobility metrics for your next insurance review.</p>
+<button class="px-xl py-sm bg-surface-container-highest text-on-surface font-bold rounded-full text-xs">Generate Report</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- Floating Action for Quick Access (Contextual FAB Suppression as per rules, this is a dashboard context) -->
+<button class="fixed bottom-10 right-10 w-16 h-16 bg-primary text-on-primary rounded-2xl shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-[60] group">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-90 transition-transform">bolt</span>
+</button>
+<script>
+        // Simple Micro-interaction for numbers
+        document.addEventListener('DOMContentLoaded', () => {
+            const flows = document.querySelectorAll('.number-flow');
+            flows.forEach(el => {
+                const target = parseFloat(el.innerText.replace(/,/g, ''));
+                if(isNaN(target)) return;
+                
+                let count = 0;
+                const duration = 1500;
+                const increment = target / (duration / 16);
+                
+                const update = () => {
+                    count += increment;
+                    if(count < target) {
+                        el.innerText = Math.floor(count).toLocaleString();
+                        requestAnimationFrame(update);
+                    } else {
+                        el.innerText = target.toLocaleString() + (el.innerText.includes('.') ? el.innerText.split('.')[1] : '');
+                    }
+                };
+                update();
+            });
+        });
+    </script>
+</body></html>

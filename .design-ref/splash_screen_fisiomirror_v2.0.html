@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FisioMirror - Splash Loader</title>
+<!-- Google Fonts: Montserrat for the premium clinical feel -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols for icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Design System Implementation -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-primary": "#ffffff",
+                "inverse-primary": "#8ad3cf",
+                "on-primary-container": "#9ce6e1",
+                "surface-container-lowest": "#ffffff",
+                "surface-tint": "#156966",
+                "outline-variant": "#bec9c7",
+                "on-error": "#ffffff",
+                "surface-container-highest": "#e2e2e5",
+                "tertiary-container": "#8a4f32",
+                "primary-container": "#156966",
+                "on-secondary-container": "#576867",
+                "on-background": "#1a1c1e",
+                "tertiary": "#6e381d",
+                "surface-dim": "#dadadc",
+                "secondary-fixed": "#d4e6e5",
+                "surface-bright": "#f9f9fc",
+                "on-surface": "#1a1c1e",
+                "secondary-fixed-dim": "#b8cac9",
+                "on-tertiary-fixed-variant": "#6e381d",
+                "tertiary-fixed": "#ffdbcc",
+                "surface-container-low": "#f3f3f6",
+                "on-surface-variant": "#3f4948",
+                "on-secondary-fixed-variant": "#3a4a49",
+                "on-tertiary-container": "#ffceb8",
+                "inverse-surface": "#2f3133",
+                "tertiary-fixed-dim": "#ffb694",
+                "on-primary-fixed-variant": "#00504d",
+                "secondary-container": "#d4e6e5",
+                "on-secondary-fixed": "#0e1e1e",
+                "primary-fixed-dim": "#8ad3cf",
+                "on-tertiary": "#ffffff",
+                "primary-fixed": "#a6f0eb",
+                "inverse-on-surface": "#f0f0f3",
+                "secondary": "#516161",
+                "error-container": "#ffdad6",
+                "on-error-container": "#93000a",
+                "surface": "#f9f9fc",
+                "surface-variant": "#e2e2e5",
+                "primary": "#00504d",
+                "error": "#ba1a1a",
+                "surface-container": "#eeeef0",
+                "on-tertiary-fixed": "#351000",
+                "on-secondary": "#ffffff",
+                "surface-container-high": "#e8e8ea",
+                "background": "#f9f9fc",
+                "outline": "#6f7978",
+                "on-primary-fixed": "#00201f"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "md": "24px",
+                "gutter": "16px",
+                "xl": "64px",
+                "lg": "40px",
+                "container-margin": "24px",
+                "base": "4px",
+                "xs": "8px",
+                "sm": "16px"
+            },
+            "fontFamily": {
+                "title-md": ["Montserrat"],
+                "headline-lg": ["Montserrat"],
+                "body-lg": ["Montserrat"],
+                "label-sm": ["Montserrat"],
+                "display-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Glassmorphism utility */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Mesh Gradient Animation */
+        .mesh-gradient {
+            background-color: #f9f9fc;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(166, 240, 235, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(21, 105, 102, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(166, 240, 235, 0.12) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(21, 105, 102, 0.05) 0px, transparent 50%);
+            background-size: 200% 200%;
+            animation: meshMove 15s ease infinite;
+        }
+
+        @keyframes meshMove {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* Circular Progress Animation */
+        .loader-ring {
+            stroke-dasharray: 283;
+            stroke-dashoffset: 283;
+            animation: progress-fill 3s ease-in-out forwards;
+        }
+
+        @keyframes progress-fill {
+            0% { stroke-dashoffset: 283; }
+            100% { stroke-dashoffset: 40; }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .pulse-scale {
+            animation: pulseScale 4s ease-in-out infinite;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseScale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        /* Content Masking for Logo Text */
+        .brand-text {
+            background: linear-gradient(135deg, #00504d 0%, #156966 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-background overflow-hidden font-body-lg text-on-surface">
+<!-- Minimalist Mesh Gradient Background -->
+<div class="fixed inset-0 mesh-gradient z-0"></div>
+<!-- Background Atmosphere Overlay -->
+<div class="fixed inset-0 z-10 flex items-center justify-center opacity-40">
+<!-- Floating glass spheres for depth -->
+<div class="absolute w-96 h-96 bg-primary/5 rounded-full blur-[80px] -top-20 -left-20"></div>
+<div class="absolute w-[500px] h-[500px] bg-secondary-container/20 rounded-full blur-[100px] bottom-0 right-0"></div>
+</div>
+<!-- Main Content Layer -->
+<main class="relative z-20 flex flex-col items-center justify-center min-h-screen p-container-margin">
+<!-- Logo & Loader Container -->
+<div class="relative flex flex-col items-center">
+<!-- Circular Loader Wrapper -->
+<div class="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center">
+<!-- Clinical Precision Ring -->
+<svg class="absolute inset-0 w-full h-full -rotate-90 transform" viewbox="0 0 100 100">
+<!-- Background Track -->
+<circle class="text-outline-variant/10" cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-width="1.5"></circle>
+<!-- Active Teal Line -->
+<circle class="text-primary-container loader-ring" cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></circle>
+</svg>
+<!-- Central Logo Core -->
+<div class="pulse-scale glass-card rounded-full w-32 h-32 md:w-44 md:h-44 flex items-center justify-center shadow-2xl">
+<div class="flex flex-col items-center text-center p-4">
+<span class="material-symbols-outlined text-primary text-[48px] md:text-[64px]" style="font-variation-settings: 'FILL' 1;">hevc</span>
+</div>
+</div>
+</div>
+<!-- Branding & Status (Fade-in Entrance) -->
+<div class="mt-lg text-center fade-in-up" style="animation-delay: 0.5s;">
+<h1 class="font-headline-lg text-headline-lg md:text-display-lg tracking-tight mb-xs">
+<span class="brand-text">FisioMirror</span>
+</h1>
+<div class="flex items-center justify-center gap-2 mb-md">
+<span class="w-8 h-[1px] bg-outline-variant/30"></span>
+<span class="font-label-sm text-label-sm text-secondary tracking-[0.2em] uppercase">Clinical Intelligence</span>
+<span class="w-8 h-[1px] bg-outline-variant/30"></span>
+</div>
+<!-- Verbatim Status Text -->
+<p class="font-body-lg text-on-surface-variant/80 tracking-wide">
+                    Sincronizando inteligencia biomecánica...
+                </p>
+</div>
+</div>
+<!-- Footnote / Versioning -->
+<div class="absolute bottom-12 fade-in-up w-full text-center" style="animation-delay: 1.2s;">
+<div class="inline-flex items-center px-4 py-2 rounded-full glass-card border-white/10">
+<span class="font-label-sm text-on-surface-variant/60">Version 2.0.4 Premium Enterprise</span>
+</div>
+</div>
+</main>
+<!-- Subtle Lighting Reflection (Overlay) -->
+<div class="pointer-events-none fixed inset-0 z-50 bg-gradient-to-tr from-white/10 via-transparent to-primary/5"></div>
+<script>
+        // Micro-interaction for logo scale on mouse movement
+        document.addEventListener('mousemove', (e) => {
+            const logo = document.querySelector('.pulse-scale');
+            if (logo) {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 45;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 45;
+                logo.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            }
+        });
+
+        // Simulate status updates
+        const statusText = document.querySelector('p');
+        const stages = [
+            "Sincronizando inteligencia biomecánica...",
+            "Calibrando sensores de profundidad...",
+            "Cargando modelos cinemáticos...",
+            "Estableciendo entorno seguro..."
+        ];
+        let currentStage = 0;
+
+        setInterval(() => {
+            currentStage = (currentStage + 1) % stages.length;
+            statusText.style.opacity = '0';
+            setTimeout(() => {
+                statusText.innerText = stages[currentStage];
+                statusText.style.opacity = '0.8';
+            }, 500);
+        }, 4000);
+    </script>
+</body></html>

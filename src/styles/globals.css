@@ -1,0 +1,190 @@
+/* Estilos base del tema y superficies — hereda del nuevo design system clínico iOS glassmorphism */
+
+/* Token variables para componentes legacy que aún referencian surface.* */
+:root {
+  --bg-primary: #f9f9fc;
+  --bg-secondary: rgba(255, 255, 255, 0.72);
+  --bg-tertiary: rgba(255, 255, 255, 0.45);
+  --text-primary: #1a1c1e;
+  --text-secondary: #3f4948;
+  --text-muted: #6f7978;
+  --border-color: rgba(190, 201, 199, 0.5);
+}
+
+.dark {
+  --bg-primary: #0d1b1a;
+  --bg-secondary: rgba(22, 35, 34, 0.9);
+  --bg-tertiary: rgba(22, 35, 34, 0.7);
+  --text-primary: #e8f0ef;
+  --text-secondary: #b0c4c2;
+  --text-muted: #8a9d9b;
+  --border-color: rgba(72, 90, 88, 0.5);
+}
+
+/* Skeleton con shimmer clínico */
+.skeleton {
+  background: linear-gradient(90deg, #e8e8ea 25%, #f3f3f6 50%, #e8e8ea 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s infinite;
+  border-radius: 12px;
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.dark .skeleton {
+  background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+  background-size: 200% 100%;
+}
+
+/* Física de botones mejorada */
+.btn-press-effect {
+  transition: transform 0.1s ease-out;
+}
+.btn-press-effect:active {
+  transform: scale(0.97);
+}
+
+/* Texto con degradado de marca — clínico teal */
+.text-gradient-brand {
+  background-image: linear-gradient(135deg, #00504d 0%, #156966 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* === Magic UI animations === */
+@keyframes aurora {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animate-aurora {
+  animation: aurora 8s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes shine {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 300% 0%; }
+}
+.animate-shine {
+  animation: shine var(--duration, 14s) linear infinite;
+}
+
+/* === Accessibility modes === */
+.high-contrast {
+  --text-primary: #000000;
+  --text-secondary: #1a1a1a;
+  --text-muted: #333333;
+  --border-color: rgba(0, 0, 0, 0.3);
+}
+.dark.high-contrast {
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --text-muted: #b0b0b0;
+  --border-color: rgba(255, 255, 255, 0.4);
+}
+.high-contrast .glass-panel,
+.high-contrast .glass-card {
+  border-width: 2px !important;
+  backdrop-filter: none !important;
+  background: var(--bg-primary) !important;
+}
+
+.easy-reading {
+  font-size: 1.1em;
+  line-height: 1.8 !important;
+  letter-spacing: 0.02em;
+}
+.easy-reading p,
+.easy-reading li {
+  font-size: 1.15rem !important;
+  line-height: 1.8 !important;
+}
+
+.large-touch button,
+.large-touch a,
+.large-touch [role="button"] {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+/* === Reduce motion === */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* === Talkback mode === */
+.talkback [aria-label]::after {
+  content: attr(aria-label);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+.talkback button:focus-visible,
+.talkback a:focus-visible,
+.talkback [role="button"]:focus-visible {
+  outline: 3px solid #0D9488;
+  outline-offset: 2px;
+}
+
+/* === High contrast enhancements === */
+.high-contrast button,
+.high-contrast a,
+.high-contrast [role="button"] {
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+}
+.dark.high-contrast button,
+.dark.high-contrast a,
+.dark.high-contrast [role="button"] {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+.high-contrast input,
+.high-contrast textarea,
+.high-constant select {
+  border: 2px solid rgba(0, 0, 0, 0.5) !important;
+}
+.high-contrast .text-outline,
+.high-contrast .text-on-surface-variant {
+  color: #333 !important;
+  opacity: 1 !important;
+}
+.dark.high-contrast .text-outline,
+.dark.high-contrast .text-on-surface-variant {
+  color: #ccc !important;
+  opacity: 1 !important;
+}
+
+/* === Easy reading enhancements === */
+.easy-reading h1, .easy-reading h2, .easy-reading h3 {
+  letter-spacing: 0.01em !important;
+  line-height: 1.4 !important;
+}
+.easy-reading button,
+.easy-reading a {
+  font-size: 1.05em !important;
+}
+
+/* === Large touch enhancements === */
+.large-touch button:not(.auto-scale),
+.large-touch a:not(.auto-scale) {
+  padding-block: min(max(0.5rem, 0.5rem), 0.75rem) !important;
+}

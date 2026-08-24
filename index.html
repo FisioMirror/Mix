@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/64x64.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/512x512.png" />
+    <link rel="apple-touch-icon" href="/192x192.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="/512x512.png" />
+    <meta name="theme-color" content="#14b8a6" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- Anti-flicker: aplica tamaño de fuente y zoom antes del primer render -->
+    <script>
+      (function () {
+        try {
+          var fs = localStorage.getItem('fisio-font-size');
+          if (fs) {
+            var fsVal = parseInt(fs, 10);
+            if (fsVal === 14 || fsVal === 16 || fsVal === 18 || fsVal === 20) {
+              document.documentElement.style.setProperty('--font-size-base', fsVal + 'px');
+            }
+          }
+          var z = localStorage.getItem('fisio-zoom');
+          if (z) {
+            var zVal = parseInt(z, 10);
+            if (zVal === 80 || zVal === 90 || zVal === 100 || zVal === 110 || zVal === 120) {
+              document.documentElement.style.setProperty('--app-scale', zVal / 100);
+            }
+          }
+        } catch (e) { /* localStorage no disponible */ }
+      })();
+    </script>
+    <title>FisioMirror | Tele-rehabilitación con Espejo AR para Fisioterapia en Casa</title>
+    <meta name="description" content="FisioMirror es una plataforma de tele-rehabilitación con espejo de realidad aumentada para fisioterapia en casa. Gestión de pacientes, rutinas personalizadas, seguimiento de progreso y análisis clínico con IA." />
+    <meta name="keywords" content="fisioterapia, tele-rehabilitación, realidad aumentada, espejo AR, rehabilitación en casa, fisioterapeuta online, ejercicios terapéuticos, recuperación motora, telemedicina fisica, AR mirror physiotherapy" />
+    <meta name="author" content="FisioMirror" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://fisiomirror.app/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="FisioMirror" />
+    <meta property="og:title" content="FisioMirror | Tele-rehabilitación con Espejo AR" />
+    <meta property="og:description" content="Plataforma de tele-rehabilitación con realidad aumentada para fisioterapia en casa. Gestión clínica, rutinas personalizadas y seguimiento de progreso con IA." />
+    <meta property="og:url" content="https://fisiomirror.app/" />
+    <meta property="og:image" content="/logo.png" />
+    <meta property="og:image:alt" content="Logo de FisioMirror - Tele-rehabilitación con AR" />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FisioMirror | Tele-rehabilitación con Espejo AR" />
+    <meta name="twitter:description" content="Plataforma de tele-rehabilitación con realidad aumentada para fisioterapia en casa." />
+    <meta name="twitter:image" content="/logo.png" />
+
+    <!-- Structured Data: Medical Web Application -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "FisioMirror",
+      "description": "Plataforma de tele-rehabilitación con espejo de realidad aumentada para fisioterapia en casa.",
+      "url": "https://fisiomirror.app/",
+      "applicationCategory": "MedicalApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "es-ES",
+      "audience": {
+        "@type": "MedicalAudience",
+        "audienceType": "patients and physiotherapists"
+      },
+      "featureList": [
+        "Espejo AR para rehabilitación",
+        "Gestión de pacientes",
+        "Rutinas personalizadas",
+        "Seguimiento de progreso",
+        "Análisis clínico con IA",
+        "Exportación de reportes PDF"
+      ],
+      "provider": {
+        "@type": "Organization",
+        "name": "FisioMirror"
+      }
+    }
+    </script>
+    <!-- Google Fonts: Montserrat (primary) + Inter (fallback) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <!-- Material Symbols (clinical iconography) -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <!-- MediaPipe Pose Detection for AR Mirror -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/pose.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3.1675466124/drawing_utils.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

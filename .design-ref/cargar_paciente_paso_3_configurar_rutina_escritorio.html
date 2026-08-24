@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PhysioPortal | Routine Configuration</title>
+<!-- Montserrat Font -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#eeeef0",
+                      "surface-dim": "#dadadc",
+                      "secondary-fixed": "#d4e6e5",
+                      "on-primary-fixed": "#00201f",
+                      "inverse-on-surface": "#f0f0f3",
+                      "on-primary-container": "#9ce6e1",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#e2e2e5",
+                      "surface-container-high": "#e8e8ea",
+                      "primary": "#00504d",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#516161",
+                      "tertiary": "#6e381d",
+                      "primary-container": "#156966",
+                      "on-background": "#1a1c1e",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed-variant": "#3a4a49",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed-dim": "#b8cac9",
+                      "on-secondary-fixed": "#00201f",
+                      "outline": "#6f7978",
+                      "error": "#ba1a1a",
+                      "inverse-primary": "#8ad3cf",
+                      "on-primary-fixed-variant": "#00504d",
+                      "surface-variant": "#e2e2e5",
+                      "tertiary-fixed-dim": "#ffb694",
+                      "tertiary-container": "#8a4f32",
+                      "secondary-container": "#d4e6e5",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed-dim": "#8ad3cf",
+                      "primary-fixed": "#a6f0eb",
+                      "surface-bright": "#f9f9fc",
+                      "background": "#f9f9fc",
+                      "on-surface": "#1a1c1e",
+                      "surface": "#f9f9fc",
+                      "on-secondary-container": "#576867",
+                      "surface-tint": "#156966",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed": "#351000",
+                      "outline-variant": "#bec9c7",
+                      "tertiary-fixed": "#ffdbcc",
+                      "surface-container-low": "#f3f3f6",
+                      "on-tertiary-container": "#ffceb8",
+                      "on-tertiary-fixed-variant": "#6e381d",
+                      "error-container": "#ffdad6",
+                      "on-surface-variant": "#3f4948",
+                      "inverse-surface": "#2f3133"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "64px",
+                      "base": "4px",
+                      "xs": "8px",
+                      "lg": "40px",
+                      "gutter": "16px",
+                      "sm": "16px",
+                      "md": "24px",
+                      "container-margin": "24px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Montserrat"],
+                      "display-lg": ["Montserrat"],
+                      "body-lg": ["Montserrat"],
+                      "title-md": ["Montserrat"],
+                      "label-sm": ["Montserrat"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.05);
+        }
+        .recessed-input {
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: inset 0px 2px 4px rgba(0,0,0,0.02);
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .shimmer-wave {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-wave::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+        .drag-placeholder {
+            border: 2px dashed #bec9c7;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-Montserrat min-h-screen flex flex-col">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-md h-16 bg-white/40 backdrop-blur-xl border-b border-white/20 shadow-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
+<span class="font-Montserrat text-title-md font-bold text-primary">PhysioPortal</span>
+</div>
+<!-- Wizard Progress Bar -->
+<nav class="hidden md:flex items-center gap-xl">
+<div class="flex items-center gap-sm">
+<div class="flex flex-col items-center gap-xs">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-primary font-bold text-sm">1</div>
+<span class="text-label-sm text-secondary">Capture</span>
+</div>
+<div class="h-0.5 w-12 bg-outline-variant"></div>
+<div class="flex flex-col items-center gap-xs">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-primary font-bold text-sm">2</div>
+<span class="text-label-sm text-secondary">Validate</span>
+</div>
+<div class="h-0.5 w-12 bg-primary"></div>
+<div class="flex flex-col items-center gap-xs">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-sm shadow-md ring-4 ring-primary/20">3</div>
+<span class="text-label-sm text-primary font-bold">Routine</span>
+</div>
+<div class="h-0.5 w-12 bg-outline-variant"></div>
+<div class="flex flex-col items-center gap-xs opacity-50">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-secondary font-bold text-sm">4</div>
+<span class="text-label-sm text-secondary">Finalize</span>
+</div>
+</div>
+</nav>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-secondary hover:text-primary transition-colors">notifications</button>
+<div class="w-10 h-10 rounded-full bg-cover bg-center border-2 border-white" data-alt="A professional headshot of a senior clinical director in a bright, modern medical facility. The lighting is high-key and optimistic, reflecting a clinical premium aesthetic with soft highlights and a clean, high-value look." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBPFrKHw8At8730f6Cg-jVbV_TFrLj8mVfo6gJY1i5T-ZZyTksbTvfnyuF8oBsrZJQ5Oe8Jvvcof340mhRrFemDNRLyuu6Vc-feKagj6JjwKdW9lYEBu5ETOHGBWw7TNU7wnut12nVRyC2UwFWfksZo-I4k8ZrhpGk5lqEF72M9olhFF0_rD3AN3LoGrGSK0DqbhrPn2qbsCJKPh5ES5-2ssUpoRYOpyY4_LPOXMgzn32Fx_Rk4FRSvyv_Cj-eYD2yPqf6QwgGUimbW')"></div>
+</div>
+</header>
+<main class="mt-16 flex flex-1 overflow-hidden">
+<!-- Side Navigation (Suppressed for Onboarding Wizard context) -->
+<!-- Left: Exercise Library -->
+<section class="w-full lg:w-3/5 p-md flex flex-col gap-md overflow-y-auto border-r border-white/20">
+<div class="flex flex-col gap-xs">
+<span class="text-primary font-semibold text-label-sm uppercase tracking-wider">Onboarding • Step 3</span>
+<h1 class="font-headline-lg text-headline-lg text-primary">Routine Configuration</h1>
+<p class="text-body-lg text-secondary">Search and select exercises to build the recovery plan for Arthur Vance (Rotator Cuff Tear).</p>
+</div>
+<!-- Search and Filters -->
+<div class="glass-panel p-sm rounded-2xl flex flex-col md:flex-row gap-sm">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-xl border-none recessed-input focus:ring-2 focus:ring-primary/20 placeholder:text-outline font-body-lg text-on-surface" placeholder="Search exercises, body parts, or tags..." type="text"/>
+</div>
+<div class="flex gap-xs">
+<button class="px-md py-2 rounded-xl bg-primary text-on-primary font-semibold transition-all active:scale-95">All Exercises</button>
+<button class="px-md py-2 rounded-xl bg-white/20 hover:bg-white/40 text-secondary font-semibold transition-all">Mobility</button>
+<button class="px-md py-2 rounded-xl bg-white/20 hover:bg-white/40 text-secondary font-semibold transition-all">Strength</button>
+</div>
+</div>
+<!-- Exercise Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md pb-24">
+<!-- Recommendation 1: AI Suggested -->
+<div class="glass-panel rounded-[2rem] overflow-hidden group hover:shadow-xl transition-all duration-300 relative border-2 border-primary/20">
+<div class="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-primary text-on-primary text-[10px] font-bold uppercase tracking-widest shimmer-wave">AI Recommended</div>
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A focused female patient performing shoulder external rotation exercises with a clinical resistance band in a bright, modern physical therapy studio. Soft sunlight filters through large windows, highlighting the high-quality glass and wood textures of the facility." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDI8qYuaDII-X6LDeBhfo955TkEQjNPKIOIpusgHe0NnE8EI-gXyKdukXtqMGUvgt9fJ_gK3vZfw6S3BCyhCjEiNnn2e9rmcDvmmYRZfv41qgiMEhsTjA6N9QTKjlqcb19SGSRjteoHuJ_r_NQwQgb6aYswZbMnIuyJX2EhaByMEkwR1-Z9Gs5NzobZpsiLERTWtj14vGdH_gkEDzXZ38GeCSSjFKEP2y3kvMyvdSl72VcqUw7to5L05C6dNzFORD15mqr8ILYzGE4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div>
+<h3 class="font-title-md text-title-md text-primary">Shoulder External Rotation</h3>
+<p class="text-label-sm text-secondary">Rotator Cuff Stability</p>
+</div>
+<div class="flex justify-between items-center py-sm border-y border-white/10">
+<div>
+<span class="text-[10px] text-outline uppercase font-bold block">Difficulty</span>
+<span class="text-label-sm font-semibold">Intermediate</span>
+</div>
+<div>
+<span class="text-[10px] text-outline uppercase font-bold block">Duration</span>
+<span class="text-label-sm font-semibold">8-12 min</span>
+</div>
+</div>
+<button class="w-full py-3 rounded-xl bg-primary text-on-primary font-bold hover:bg-primary-container active:scale-95 transition-all flex items-center justify-center gap-xs" onclick="addToRoutine('Shoulder External Rotation', '8-12 min')">
+<span class="material-symbols-outlined">add_circle</span>
+                            Add to Routine
+                        </button>
+</div>
+</div>
+<!-- Recommendation 2: AI Suggested -->
+<div class="glass-panel rounded-[2rem] overflow-hidden group hover:shadow-xl transition-all duration-300 relative border-2 border-primary/20">
+<div class="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-primary text-on-primary text-[10px] font-bold uppercase tracking-widest shimmer-wave">AI Recommended</div>
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up of a clinician's hands guiding a patient through scapular stability movements using specialized medical equipment. The lighting is sterile yet warm, typical of a high-end rehabilitation clinic with a focus on precision and patient care." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwGPR_dQI5bQNHWAXl9bW18DU91cgR3nwWyIz-6lFFt9c6xRsTED5mQufqxSPeOudfa4KguQyKjCkxkMbkayXPQq0MJy-Z98lNUky6BPYu-TREL0egnpSbsuVaTeMzOI_urPkpA7GxE6SzuxTcWHptPpO9vmf-_BBdtgt09MgBGxyM8p9fno4-lJbpbVh5xxx_T0XFnFxslJaIOY6Y-fTMA0niWel_FrnOy29hBTCtefnxeij7gfdUxGVn6JnTn9FCqoIKFRH_zhS5"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div>
+<h3 class="font-title-md text-title-md text-primary">Scapular Stability</h3>
+<p class="text-label-sm text-secondary">Upper Back Mobility</p>
+</div>
+<div class="flex justify-between items-center py-sm border-y border-white/10">
+<div>
+<span class="text-[10px] text-outline uppercase font-bold block">Difficulty</span>
+<span class="text-label-sm font-semibold">Beginner</span>
+</div>
+<div>
+<span class="text-[10px] text-outline uppercase font-bold block">Duration</span>
+<span class="text-label-sm font-semibold">10 min</span>
+</div>
+</div>
+<button class="w-full py-3 rounded-xl bg-primary text-on-primary font-bold hover:bg-primary-container active:scale-95 transition-all flex items-center justify-center gap-xs" onclick="addToRoutine('Scapular Stability', '10 min')">
+<span class="material-symbols-outlined">add_circle</span>
+                            Add to Routine
+                        </button>
+</div>
+</div>
+<!-- Standard Card -->
+<div class="glass-panel rounded-[2rem] overflow-hidden group hover:shadow-xl transition-all duration-300">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A patient on all fours performing thoracic extension exercises on a grey yoga mat in a clinical setting. The background is softly blurred, showing a high-tech facility with minimalist white walls and premium medical aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpufc2a9mrNrwWx3n_lD73sFWg2hwFKr6_LVGbUvPUpCZcyrui4U41BIwLumzk93KJJcFvF893dBR1YiSd0IWlGERTKRkkcZCozw17i5sMb_QNNLVeGUlje1Jrs-1BHPo6-7Kj_cNLqJFZdTnBW3oVAckzWGwhPIwYo-l2hd6N5VbRG1eVTPKq06_WfTlYT-moHdnStgKGJSXbfeSuvlfS55HUCcv3YNt1gv0vTekvJNVnq-4D0SiuCM3B5IWKJGPyw93FCtomlwFI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<button class="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div>
+<h3 class="font-title-md text-title-md text-primary">Thoracic Extension</h3>
+<p class="text-label-sm text-secondary">Spinal Mobility</p>
+</div>
+<div class="flex justify-between items-center py-sm border-y border-white/10">
+<div>
+<span class="text-[10px] text-outline uppercase font-bold block">Difficulty</span>
+<span class="text-label-sm font-semibold">Beginner</span>
+</div>
+<div>
+<span class="text-[10px] text-outline uppercase font-bold block">Duration</span>
+<span class="text-label-sm font-semibold">6 min</span>
+</div>
+</div>
+<button class="w-full py-3 rounded-xl bg-primary text-on-primary font-bold hover:bg-primary-container active:scale-95 transition-all flex items-center justify-center gap-xs" onclick="addToRoutine('Thoracic Extension', '6 min')">
+<span class="material-symbols-outlined">add_circle</span>
+                            Add to Routine
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Right: Current Prescription Builder -->
+<aside class="hidden lg:flex w-2/5 flex-col bg-surface-container-low p-md gap-md overflow-y-auto">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">list_alt</span>
+<h2 class="font-title-md text-title-md text-primary">Current Prescription</h2>
+</div>
+<span class="px-3 py-1 bg-primary/10 text-primary text-label-sm font-bold rounded-full" id="routine-count">3 Exercises</span>
+</div>
+<!-- AI Insight Panel -->
+<div class="glass-panel p-md rounded-2xl bg-primary/5 border-primary/20 flex gap-md items-start">
+<span class="material-symbols-outlined text-primary mt-1">lightbulb</span>
+<div class="flex flex-col gap-xs">
+<p class="text-label-sm font-bold text-primary">AI CLINICAL INSIGHT</p>
+<p class="text-body-lg text-on-surface-variant">Recommended volume for Rotator Cuff Stage 1 is <span class="font-bold text-primary">2 sets, 12 reps</span> twice daily.</p>
+</div>
+</div>
+<div class="flex flex-col gap-md" id="prescription-list">
+<!-- Prescribed Item -->
+<div class="glass-panel p-md rounded-2xl flex flex-col gap-md border-l-4 border-l-primary animate-in fade-in slide-in-from-right-4 duration-300">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-sm">
+<div class="w-12 h-12 rounded-lg bg-cover bg-center" data-alt="Small thumbnail of shoulder exercise." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA_2yFHnLaeaKu-UdIu4TJaVlSlGHi37MTZVThF6a6VJ-RJGEFriFuSgqwmSkKkZItzZblSDX0Ss5Dfumm7QkU2sjDGjbHRd3iHWrZZKVE2ldoElUr7Sk77vVbbAmrzDmH16s8GoM7VIGbFk6uwsg4dJN2pauxtVjHczQ6lXSRQkPWY9fb0B9Jg-VQg8Lcv0kmPNh8aVxrcDpAqszRJ9xL9qFdyPNbUfX0S1Bx9cwkCtunrTgQLxRUo_VJ29LxqvrQ2g0VYdiOUCSfX')"></div>
+<div>
+<h4 class="font-semibold text-primary">Shoulder Ext. Rotation</h4>
+<span class="text-label-sm text-secondary">Intensity: Low</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-error transition-colors">delete</button>
+</div>
+<div class="grid grid-cols-3 gap-sm">
+<div class="flex flex-col gap-xs">
+<label class="text-[10px] font-bold text-outline uppercase">Sets</label>
+<div class="flex items-center justify-between recessed-input px-3 py-2 rounded-lg">
+<button class="material-symbols-outlined text-sm text-primary" onclick="changeVal(this, -1)">remove</button>
+<span class="font-bold text-primary text-body-lg">3</span>
+<button class="material-symbols-outlined text-sm text-primary" onclick="changeVal(this, 1)">add</button>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="text-[10px] font-bold text-outline uppercase">Reps</label>
+<div class="flex items-center justify-between recessed-input px-3 py-2 rounded-lg">
+<button class="material-symbols-outlined text-sm text-primary" onclick="changeVal(this, -1)">remove</button>
+<span class="font-bold text-primary text-body-lg">12</span>
+<button class="material-symbols-outlined text-sm text-primary" onclick="changeVal(this, 1)">add</button>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="text-[10px] font-bold text-outline uppercase">Freq</label>
+<div class="flex items-center justify-between recessed-input px-3 py-2 rounded-lg">
+<button class="material-symbols-outlined text-sm text-primary" onclick="changeVal(this, -1)">remove</button>
+<span class="font-bold text-primary text-body-lg">2</span>
+<button class="material-symbols-outlined text-sm text-primary" onclick="changeVal(this, 1)">add</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State / Dropzone -->
+<div class="drag-placeholder h-32 rounded-2xl flex flex-col items-center justify-center text-outline gap-xs p-md text-center">
+<span class="material-symbols-outlined text-3xl">add_circle</span>
+<p class="text-label-sm font-semibold">Drag exercises here or use the "Add" button to build the routine.</p>
+</div>
+</div>
+</aside>
+</main>
+<!-- Bottom Actions Bar -->
+<footer class="h-24 bg-white/60 backdrop-blur-2xl border-t border-white/20 px-xl flex items-center justify-between z-50">
+<button class="flex items-center gap-xs px-md py-3 rounded-xl hover:bg-surface-container transition-all text-secondary font-semibold group">
+<span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
+            Back to Validation
+        </button>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex flex-col items-end mr-4">
+<span class="text-[10px] font-bold text-outline uppercase">Estimated Daily Time</span>
+<span class="text-body-lg font-bold text-primary">24 - 30 Minutes</span>
+</div>
+<button class="px-xl py-4 rounded-2xl bg-primary text-on-primary font-headline-lg text-body-lg shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all flex items-center gap-sm">
+                Generate Patient Token
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</button>
+</div>
+</footer>
+<script>
+        function changeVal(btn, delta) {
+            const span = btn.parentElement.querySelector('span');
+            let val = parseInt(span.innerText);
+            val = Math.max(1, val + delta);
+            
+            // Simple Animation for Number Flow feel
+            span.style.transform = 'translateY(' + (delta > 0 ? '-10px' : '10px') + ')';
+            span.style.opacity = '0';
+            
+            setTimeout(() => {
+                span.innerText = val;
+                span.style.transform = 'translateY(0)';
+                span.style.opacity = '1';
+                span.style.transition = 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            }, 50);
+        }
+
+        function addToRoutine(name, duration) {
+            const list = document.getElementById('prescription-list');
+            const placeholder = list.querySelector('.drag-placeholder');
+            
+            const newItem = document.createElement('div');
+            newItem.className = 'glass-panel p-md rounded-2xl flex flex-col gap-md border-l-4 border-l-primary animate-in fade-in slide-in-from-right-4 duration-300';
+            newItem.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <div class="flex items-center gap-sm">
+                        <div class="w-12 h-12 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined">fitness_center</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-primary">${name}</h4>
+                            <span class="text-label-sm text-secondary">${duration} • Standard Intensity</span>
+                        </div>
+                    </div>
+                    <button onclick="this.closest('.glass-panel').remove()" class="material-symbols-outlined text-outline hover:text-error transition-colors">delete</button>
+                </div>
+                <div class="grid grid-cols-3 gap-sm">
+                    <div class="flex flex-col gap-xs">
+                        <label class="text-[10px] font-bold text-outline uppercase">Sets</label>
+                        <div class="flex items-center justify-between recessed-input px-3 py-2 rounded-lg">
+                            <button onclick="changeVal(this, -1)" class="material-symbols-outlined text-sm text-primary">remove</button>
+                            <span class="font-bold text-primary text-body-lg">2</span>
+                            <button onclick="changeVal(this, 1)" class="material-symbols-outlined text-sm text-primary">add</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-xs">
+                        <label class="text-[10px] font-bold text-outline uppercase">Reps</label>
+                        <div class="flex items-center justify-between recessed-input px-3 py-2 rounded-lg">
+                            <button onclick="changeVal(this, -1)" class="material-symbols-outlined text-sm text-primary">remove</button>
+                            <span class="font-bold text-primary text-body-lg">10</span>
+                            <button onclick="changeVal(this, 1)" class="material-symbols-outlined text-sm text-primary">add</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-xs">
+                        <label class="text-[10px] font-bold text-outline uppercase">Freq</label>
+                        <div class="flex items-center justify-between recessed-input px-3 py-2 rounded-lg">
+                            <button onclick="changeVal(this, -1)" class="material-symbols-outlined text-sm text-primary">remove</button>
+                            <span class="font-bold text-primary text-body-lg">1</span>
+                            <button onclick="changeVal(this, 1)" class="material-symbols-outlined text-sm text-primary">add</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            list.insertBefore(newItem, placeholder);
+            
+            // Update counter
+            const count = list.querySelectorAll('.glass-panel').length;
+            document.getElementById('routine-count').innerText = `${count} Exercises`;
+        }
+    </script>
+</body></html>

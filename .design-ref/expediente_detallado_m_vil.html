@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Arthur Vance - FisioMirror Clinical Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#3f4948",
+                        "primary-fixed-dim": "#8ad3cf",
+                        "on-secondary-fixed-variant": "#3a4a49",
+                        "surface-container-highest": "#e2e2e5",
+                        "primary-container": "#156966",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#b8cac9",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2f3133",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface": "#f9f9fc",
+                        "primary": "#00504d",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#d4e6e5",
+                        "on-secondary-fixed": "#0e1e1e",
+                        "on-primary-fixed": "#00201f",
+                        "on-primary-container": "#9ce6e1",
+                        "outline-variant": "#bec9c7",
+                        "surface-variant": "#e2e2e5",
+                        "surface-tint": "#156966",
+                        "inverse-on-surface": "#f0f0f3",
+                        "outline": "#6f7978",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "background": "#f9f9fc",
+                        "on-primary-fixed-variant": "#00504d",
+                        "on-tertiary-fixed-variant": "#6e381d",
+                        "on-tertiary-container": "#ffceb8",
+                        "surface-container": "#eeeef0",
+                        "on-surface": "#1a1c1e",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#d4e6e5",
+                        "primary-fixed": "#a6f0eb",
+                        "secondary": "#516161",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#576867",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#dadadc",
+                        "on-background": "#1a1c1e",
+                        "tertiary-container": "#8a4f32",
+                        "tertiary": "#6e381d",
+                        "surface-container-high": "#e8e8ea",
+                        "inverse-primary": "#8ad3cf",
+                        "surface-container-low": "#f3f3f6",
+                        "surface-bright": "#f9f9fc",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "sm": "16px",
+                        "lg": "40px",
+                        "container-margin": "24px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "xl": "64px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "title-md": ["Montserrat"],
+                        "label-sm": ["Montserrat"],
+                        "display-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f9f9fc 0%, #e8eef2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .status-ring {
+            background: radial-gradient(closest-side, white 79%, transparent 80% 100%),
+                        conic-gradient(#00504d 72%, #d4e6e5 0);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.9; }
+        }
+
+        .animate-pulse-soft {
+            animation: pulse-soft 3s ease-in-out infinite;
+        }
+
+        /* Hide scrollbars but keep functionality */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface pb-32">
+<!-- Top AppBar (Mobile Sub-page variant) -->
+<header class="sticky top-0 z-50 w-full px-sm py-sm bg-surface/60 backdrop-blur-2xl flex justify-between items-center transition-all">
+<button class="p-xs active:scale-95 duration-200 text-primary">
+<span class="material-symbols-outlined text-[28px]">arrow_back_ios_new</span>
+</button>
+<div class="flex flex-col items-center">
+<h1 class="font-headline-lg-mobile text-title-md text-on-surface">Arthur Vance</h1>
+<span class="text-[10px] font-bold tracking-widest uppercase text-on-surface-variant opacity-60">Patient ID: #FM-9021</span>
+</div>
+<button class="p-xs active:scale-95 duration-200 text-primary">
+<span class="material-symbols-outlined text-[28px]">settings</span>
+</button>
+</header>
+<main class="px-container-margin mt-md space-y-md max-w-lg mx-auto">
+<!-- Recovery Status Overview -->
+<section class="flex flex-col items-center text-center">
+<div class="relative w-48 h-48 flex items-center justify-center">
+<div class="status-ring w-full h-full rounded-full absolute shadow-lg"></div>
+<div class="relative z-10 flex flex-col items-center">
+<span class="text-display-lg font-display-lg text-primary leading-none">72<span class="text-title-md">%</span></span>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-tighter opacity-70">Recovery</span>
+</div>
+</div>
+<p class="mt-sm font-body-lg text-on-surface-variant max-w-[280px]">Arthur is showing consistent improvement in mobility post-rehab.</p>
+</section>
+<!-- Secondary Navigation (Tabs) -->
+<nav class="glass-card rounded-full p-xs flex justify-between items-center">
+<button class="flex-1 py-xs rounded-full bg-primary text-on-primary font-title-md text-[14px] shadow-md transition-all">History</button>
+<button class="flex-1 py-xs rounded-full text-on-surface-variant font-title-md text-[14px] hover:bg-white/20 transition-all">Routine</button>
+<button class="flex-1 py-xs rounded-full text-on-surface-variant font-title-md text-[14px] hover:bg-white/20 transition-all">Stats</button>
+</nav>
+<!-- Next Session Card -->
+<div class="space-y-sm">
+<div class="flex justify-between items-end px-xs">
+<h3 class="font-title-md text-on-surface">Next Session</h3>
+<span class="font-label-sm text-primary">View Details</span>
+</div>
+<div class="glass-card rounded-[32px] overflow-hidden p-md relative border border-white/40 shadow-xl group">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h4 class="font-headline-lg-mobile text-title-md text-primary mb-xs">Shoulder Rotation</h4>
+<div class="flex gap-sm">
+<span class="flex items-center gap-xs text-[12px] text-on-surface-variant/80 font-medium bg-white/40 px-sm py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]">timer</span> 15 mins
+                            </span>
+<span class="flex items-center gap-xs text-[12px] text-on-surface-variant/80 font-medium bg-white/40 px-sm py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]">fitness_center</span> High
+                            </span>
+</div>
+</div>
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:scale-110 duration-300">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+</div>
+<div class="relative w-full h-48 rounded-2xl overflow-hidden shadow-inner">
+<img class="w-full h-full object-cover" data-alt="A clinical but modern overhead photo of a person performing a controlled shoulder rotation exercise with a resistance band in a bright, sun-lit studio. The lighting is soft and high-key with a focus on form and muscular tension. The color palette features clean teals and soft whites, consistent with a premium medical and fitness brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBMWsbLfuY-btuiMPsPWvADWDjl0t9i5UccH3yxlo5a6cn_pkPEKQNBcZ5cbanlTGXyavazEa4B0jBs1zK-wK0QON2jQ2_yR35x3sxnv5leVYqql5oshq3DeciXB7o2duJ1FvIh5QF3_I5iR4WW_GKq0C16pE8Y6R4SpHr59wJ90RRx1nh1tO1_LhFzAy4IKwZ613gFCoXwhX-8g7qW_YMcemRXW92A1h45hXPuLM_IFuNz6lu0G9qxeQPxJsHkws4b4w4PcI8nnO7"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<div class="absolute bottom-sm left-sm right-sm flex justify-between items-center text-white">
+<span class="text-[12px] font-bold uppercase tracking-widest">Interactive AI Guide</span>
+<span class="material-symbols-outlined text-[20px]">videocam</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Progress Metrics (Bento-lite) -->
+<div class="grid grid-cols-2 gap-sm">
+<div class="glass-card p-sm rounded-[24px] flex flex-col gap-xs">
+<span class="material-symbols-outlined text-primary">monitoring</span>
+<span class="text-label-sm text-on-surface-variant uppercase tracking-widest opacity-60">ROM Gain</span>
+<span class="text-title-md font-bold text-on-surface">+12° <span class="text-primary text-[12px] font-normal">↑</span></span>
+</div>
+<div class="glass-card p-sm rounded-[24px] flex flex-col gap-xs">
+<span class="material-symbols-outlined text-primary">priority_high</span>
+<span class="text-label-sm text-on-surface-variant uppercase tracking-widest opacity-60">Pain Level</span>
+<span class="text-title-md font-bold text-on-surface">2/10 <span class="text-error text-[12px] font-normal">↓</span></span>
+</div>
+</div>
+</main>
+<!-- FAB for Quick Action -->
+<button class="fixed bottom-[100px] right-sm w-16 h-16 bg-primary text-on-primary rounded-[24px] shadow-2xl flex items-center justify-center active:scale-90 transition-transform duration-150 z-50 animate-pulse-soft">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</button>
+<!-- Bottom Navigation Bar (Contextual) -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-md z-50 glass-card rounded-full flex justify-around items-center p-xs shadow-[0px_12px_40px_rgba(0,0,0,0.15)] border-white/30">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-xs hover:scale-110 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined text-[24px]">home</span>
+<span class="font-label-sm text-[10px] mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-full px-sm py-xs hover:scale-110 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-[10px] mt-1">Patients</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-xs hover:scale-110 transition-transform active:scale-90" href="#">
+<div class="bg-primary/10 rounded-full p-2">
+<span class="material-symbols-outlined text-[24px] text-primary">videocam</span>
+</div>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-xs hover:scale-110 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined text-[24px]">analytics</span>
+<span class="font-label-sm text-[10px] mt-1">Stats</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for active state on secondary tabs
+        const tabButtons = document.querySelectorAll('nav:not(.fixed) button');
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabButtons.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-on-primary', 'shadow-md');
+                    b.classList.add('text-on-surface-variant', 'hover:bg-white/20');
+                });
+                btn.classList.add('bg-primary', 'text-on-primary', 'shadow-md');
+                btn.classList.remove('text-on-surface-variant', 'hover:bg-white/20');
+            });
+        });
+
+        // Sticky Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-md', 'py-xs');
+                header.classList.remove('py-sm');
+            } else {
+                header.classList.remove('shadow-md', 'py-xs');
+                header.classList.add('py-sm');
+            }
+        });
+    </script>
+</body></html>

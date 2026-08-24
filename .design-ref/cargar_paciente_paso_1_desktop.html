@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FisioMirror - Cargar Paciente</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#156966",
+                    "inverse-primary": "#8ad3cf",
+                    "background": "#f9f9fc",
+                    "on-primary-container": "#9ce6e1",
+                    "inverse-on-surface": "#f0f0f3",
+                    "primary": "#00504d",
+                    "on-secondary-fixed-variant": "#3a4a49",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#d4e6e5",
+                    "on-surface": "#1a1c1e",
+                    "primary-fixed-dim": "#8ad3cf",
+                    "on-tertiary-fixed-variant": "#6e381d",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1a1c1e",
+                    "inverse-surface": "#2f3133",
+                    "on-secondary-container": "#576867",
+                    "surface-variant": "#e2e2e5",
+                    "secondary-fixed-dim": "#b8cac9",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#516161",
+                    "surface-container": "#eeeef0",
+                    "outline-variant": "#bec9c7",
+                    "surface-bright": "#f9f9fc",
+                    "surface": "#f9f9fc",
+                    "outline": "#6f7978",
+                    "surface-container-low": "#f3f3f6",
+                    "on-tertiary-container": "#ffceb8",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-dim": "#dadadc",
+                    "primary-container": "#156966",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#a6f0eb",
+                    "on-tertiary-fixed": "#351000",
+                    "tertiary-container": "#8a4f32",
+                    "on-secondary-fixed": "#0e1e1e",
+                    "surface-container-high": "#e8e8ea",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#00504d",
+                    "on-primary-fixed": "#00201f",
+                    "tertiary-fixed-dim": "#ffb694",
+                    "on-surface-variant": "#3f4948",
+                    "surface-container-highest": "#e2e2e5",
+                    "tertiary": "#6e381d",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#d4e6e5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "gutter": "16px",
+                    "base": "4px",
+                    "md": "24px",
+                    "lg": "40px",
+                    "xl": "64px",
+                    "container-margin": "24px",
+                    "sm": "16px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Montserrat"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "body-lg": ["Montserrat"],
+                    "headline-lg": ["Montserrat"],
+                    "display-lg": ["Montserrat"],
+                    "title-md": ["Montserrat"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Montserrat', sans-serif; background: #f9f9fc; }
+        .glass {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .glass-dark {
+            background: rgba(0, 80, 77, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2.5s infinite linear;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .pulse-teal {
+            animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.2; }
+            100% { transform: scale(1.3); opacity: 0; }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .dropzone-active {
+            border-color: #156966;
+            background: rgba(21, 105, 102, 0.05);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Side Navigation Shell -->
+<aside class="w-64 h-full fixed left-0 top-0 bg-surface border-r border-outline-variant/10 shadow-sm flex flex-col py-lg px-gutter z-50">
+<div class="mb-xl px-2">
+<h1 class="font-display-lg text-[24px] font-bold text-primary tracking-tight">FisioMirror</h1>
+<p class="font-label-sm text-label-sm text-outline tracking-widest mt-1">CLINICAL PORTAL</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors px-4 py-3 font-label-sm text-label-sm group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-xs bg-secondary-fixed text-on-secondary-fixed font-bold rounded-lg px-4 py-3 font-label-sm text-label-sm shadow-sm scale-95" href="#">
+<span class="material-symbols-outlined">group</span>
+                Patients
+            </a>
+<a class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors px-4 py-3 font-label-sm text-label-sm group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">precision_manufacturing</span>
+                AR Sessions
+            </a>
+<a class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors px-4 py-3 font-label-sm text-label-sm group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">analytics</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors px-4 py-3 font-label-sm text-label-sm group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">description</span>
+                Reports
+            </a>
+</nav>
+<div class="mt-auto space-y-4">
+<button class="w-full bg-primary text-white py-3 rounded-xl font-bold font-label-sm text-label-sm shadow-lg hover:shadow-primary/20 hover:scale-[1.02] transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                Start New Session
+            </button>
+<div class="border-t border-outline-variant/10 pt-4 space-y-1">
+<a class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors px-4 py-2 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Support
+                </a>
+<a class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors px-4 py-2 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">logout</span>
+                    Logout
+                </a>
+</div>
+</div>
+</aside>
+<!-- Top App Bar -->
+<header class="h-20 w-full sticky top-0 z-40 bg-surface/80 backdrop-blur-3xl border-b border-white/20 flex items-center justify-between px-md ml-64 max-w-[calc(100%-16rem)]">
+<div class="flex items-center flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 font-label-sm text-label-sm focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all" placeholder="Type / to search patients, sessions..." type="text"/>
+<kbd class="absolute right-4 top-1/2 -translate-y-1/2 bg-surface-variant/50 px-2 py-0.5 rounded text-[10px] font-bold text-outline">⌘K</kbd>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="relative p-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant/50 rounded-full transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="flex items-center gap-3 ml-2 pl-4 border-l border-outline-variant/20">
+<div class="text-right">
+<p class="font-label-sm text-label-sm font-bold text-on-surface leading-tight">Dr. Elena</p>
+<p class="text-[10px] text-outline uppercase tracking-wider font-bold">Clinical Director</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-white shadow-sm object-cover" data-alt="A professional portrait of a female doctor, Dr. Elena, looking confident and approachable. She is wearing a white medical coat in a brightly lit, modern clinical environment with soft bokeh background and cool teal color grading matching the brand's aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9xaSHsVXE7q2khtzMU5S8N7UXFKbQVBnTlyYUwyryfi-s7lask5rHidQKvkLfE3NFuEMjbz06QF7lSImc3zDbCn3a6dx45zrcM-VdqdQBV5GNN0_lNam7s41zS04VARse2XTonKZ2FvYr7ALAFEG8P3QIXyY63lgkSEwV4PNb2KFwIOEW0va6nTIaHnAqWwZHdZSlCdQPQP5jNzvsSUstiZ1c4EmB0cq3kpIiM2iqn1cBhGTa0mj1M3QMK14X8Bw18Gw38Z87eyQm"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 p-lg min-h-[calc(100vh-80px)] relative overflow-hidden">
+<!-- Ambient Atmospheric Elements -->
+<div class="absolute -top-64 -right-64 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="absolute -bottom-64 -left-64 w-[500px] h-[500px] bg-secondary-fixed-dim/10 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="max-w-4xl mx-auto space-y-md relative z-10">
+<!-- Header Section -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+                    Nuevo Paciente
+                </div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Cargar Prescripción</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Inicie el alta del paciente procesando su historial clínico con nuestra IA.</p>
+</div>
+<!-- Wizard Progress Stepper -->
+<div class="flex justify-between items-center px-lg py-4 glass rounded-2xl">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs ring-4 ring-primary/10">1</div>
+<span class="font-label-sm text-label-sm font-bold text-primary">Cargar</span>
+</div>
+<div class="h-px bg-outline-variant/30 flex-1 mx-4"></div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-outline flex items-center justify-center font-bold text-xs">2</div>
+<span class="font-label-sm text-label-sm text-outline">Analizar</span>
+</div>
+<div class="h-px bg-outline-variant/30 flex-1 mx-4"></div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-outline flex items-center justify-center font-bold text-xs">3</div>
+<span class="font-label-sm text-label-sm text-outline">Prescribir</span>
+</div>
+<div class="h-px bg-outline-variant/30 flex-1 mx-4"></div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-outline flex items-center justify-center font-bold text-xs">4</div>
+<span class="font-label-sm text-label-sm text-outline">Finalizar</span>
+</div>
+</div>
+<!-- Central Content Card -->
+<div class="glass p-lg rounded-[32px] space-y-lg border border-white/50 shadow-2xl">
+<!-- Dropzone Section -->
+<div class="relative group cursor-pointer border-2 border-dashed border-outline-variant/40 rounded-3xl p-12 transition-all duration-300 hover:border-primary/50 flex flex-col items-center text-center gap-4 bg-white/10 hover:bg-white/30" id="dropzone">
+<div class="w-20 h-20 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary mb-2 shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl">cloud_upload</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface">Arrastra tu prescripción o receta médica</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-sm">PDF, JPG o escaneo de alta resolución. Nuestra IA extraerá automáticamente ejercicios y plazos.</p>
+<div class="mt-4 flex gap-3">
+<span class="px-4 py-1.5 rounded-full bg-surface-container-high text-[10px] font-bold text-outline-variant uppercase tracking-widest border border-white/20">Max 25MB</span>
+<span class="px-4 py-1.5 rounded-full bg-surface-container-high text-[10px] font-bold text-outline-variant uppercase tracking-widest border border-white/20">OCR Enhanced</span>
+</div>
+<!-- Kinematic Hover Shimmer Layer -->
+<div class="absolute inset-0 shimmer opacity-0 group-hover:opacity-10 pointer-events-none rounded-3xl"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Audio Recorder Section -->
+<div class="glass-dark p-md rounded-2xl flex flex-col gap-4 relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">mic</span>
+                                Nota de Voz Clínica
+                            </span>
+<span class="text-[10px] font-bold text-outline uppercase tracking-tighter">Voice AI</span>
+</div>
+<div class="flex items-center gap-6 py-4">
+<div class="relative">
+<div class="absolute inset-0 bg-primary/20 rounded-full pulse-teal"></div>
+<button class="w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-all relative z-10">
+<span class="material-symbols-outlined text-3xl">play_arrow</span>
+</button>
+</div>
+<div class="flex-1 space-y-2">
+<div class="h-1 bg-outline-variant/20 rounded-full w-full overflow-hidden">
+<div class="h-full bg-primary w-1/3 rounded-full"></div>
+</div>
+<div class="flex justify-between text-[10px] font-bold text-outline uppercase">
+<span>0:14</span>
+<span>Grabar Resumen</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Info / Hints -->
+<div class="p-md rounded-2xl border border-outline-variant/10 flex flex-col gap-4">
+<div class="flex items-center gap-3 text-secondary">
+<span class="material-symbols-outlined">auto_awesome</span>
+<p class="font-label-sm text-label-sm font-bold">Consejo de FisioMirror</p>
+</div>
+<p class="text-on-surface-variant text-[13px] leading-relaxed">
+                            Asegúrate de que la firma del médico y el diagnóstico principal sean legibles para una precisión del <span class="text-primary font-bold">99.8%</span> en el procesamiento.
+                        </p>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-primary-fixed border-2 border-white flex items-center justify-center text-[10px] font-bold text-primary">PDF</div>
+<div class="w-8 h-8 rounded-full bg-secondary-fixed border-2 border-white flex items-center justify-center text-[10px] font-bold text-secondary">DOC</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border-2 border-white flex items-center justify-center text-[10px] font-bold text-outline">+3</div>
+</div>
+</div>
+</div>
+<!-- Footer Action -->
+<div class="pt-6 border-t border-outline-variant/10 flex items-center justify-between">
+<button class="px-8 py-3 text-on-surface-variant font-bold font-label-sm text-label-sm hover:bg-surface-variant/30 rounded-xl transition-all">
+                        Cancelar
+                    </button>
+<button class="relative overflow-hidden px-10 py-4 bg-primary text-white rounded-xl font-bold font-label-sm text-label-sm shadow-xl shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all active:scale-95 flex items-center gap-3" id="processBtn">
+<span class="relative z-10 flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+                            Procesar con IA
+                        </span>
+<div class="absolute inset-0 bg-white/20 shimmer translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+</button>
+</div>
+</div>
+<!-- Lower Section: Recent Uploads -->
+<div class="pt-md">
+<h4 class="font-label-sm text-label-sm text-outline-variant uppercase tracking-widest font-bold mb-4 px-4">Cargas Recientes</h4>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-sm">
+<div class="glass-dark p-4 rounded-2xl flex items-center gap-3 border-transparent hover:border-outline-variant/20 transition-all cursor-pointer">
+<div class="w-10 h-10 rounded-xl bg-white/40 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<p class="font-label-sm text-[13px] font-bold text-on-surface">Receta_Vance.pdf</p>
+<p class="text-[10px] text-outline">Hace 2 horas</p>
+</div>
+</div>
+<div class="glass-dark p-4 rounded-2xl flex items-center gap-3 border-transparent hover:border-outline-variant/20 transition-all cursor-pointer">
+<div class="w-10 h-10 rounded-xl bg-white/40 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">image</span>
+</div>
+<div>
+<p class="font-label-sm text-[13px] font-bold text-on-surface">Escaneo_Sterling.jpg</p>
+<p class="text-[10px] text-outline">Ayer, 14:20</p>
+</div>
+</div>
+<div class="glass-dark p-4 rounded-2xl flex items-center gap-3 border-transparent hover:border-outline-variant/20 transition-all cursor-pointer">
+<div class="w-10 h-10 rounded-xl bg-white/40 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">mic</span>
+</div>
+<div>
+<p class="font-label-sm text-[13px] font-bold text-on-surface">Nota_Voz_002.wav</p>
+<p class="text-[10px] text-outline">12 Jun 2024</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions and UI logic
+        const dropzone = document.getElementById('dropzone');
+        const processBtn = document.getElementById('processBtn');
+
+        // Dropzone highlight
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, () => dropzone.classList.add('dropzone-active'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, () => dropzone.classList.remove('dropzone-active'), false);
+        });
+
+        // Simulating Loading state
+        processBtn.addEventListener('click', function() {
+            const originalContent = this.innerHTML;
+            this.innerHTML = `
+                <span class="flex items-center gap-2">
+                    <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Analizando con IA...
+                </span>
+            `;
+            this.disabled = true;
+            this.classList.add('opacity-80', 'cursor-not-allowed');
+
+            // Reset after 3 seconds for demo purposes
+            setTimeout(() => {
+                this.innerHTML = originalContent;
+                this.disabled = false;
+                this.classList.remove('opacity-80', 'cursor-not-allowed');
+            }, 3000);
+        });
+
+        // Handle 'slash' key for search focus
+        window.addEventListener('keydown', (e) => {
+            if (e.key === '/') {
+                e.preventDefault();
+                document.querySelector('input[type="text"]').focus();
+            }
+        });
+    </script>
+</body></html>

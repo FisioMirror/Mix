@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FisioMirror | Clinical AI Toolbox</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .glass-surface {
+            background: rgba(249, 249, 252, 0.7);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+        .recessed-input {
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9fc;
+            overflow-x: hidden;
+        }
+        .cinematic-fade {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .thumb-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 32px;
+            height: 32px;
+            background: #00504d;
+            border: 4px solid white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 80, 77, 0.3);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container": "#eeeef0",
+                        "primary": "#00504d",
+                        "primary-container": "#156966",
+                        "on-primary-container": "#9ce6e1",
+                        "secondary": "#516161",
+                        "surface": "#f9f9fc",
+                        "on-surface-variant": "#3f4948",
+                        "outline-variant": "#bec9c7"
+                    },
+                    spacing: {
+                        "gutter": "16px",
+                        "md": "24px",
+                        "lg": "40px",
+                        "xs": "8px",
+                        "sm": "16px",
+                        "container-margin": "24px"
+                    },
+                    fontFamily: {
+                        "title-md": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "label-md": ["Montserrat"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen pb-24">
+<!-- Background Atmospheric Shader -->
+<div class="fixed inset-0 z-[-1] opacity-40">
+
+</div>
+<!-- Top Navigation Bar (Shared Component Strategy) -->
+<header class="w-full top-0 sticky z-50 bg-surface-glass dark:bg-surface-glass backdrop-blur-[14px] border-b border-white/50 shadow-[0_8px_32px_0_rgba(21,105,102,0.08)] flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">FisioMirror</h1>
+</div>
+<div class="flex gap-2">
+<button class="p-2 rounded-full hover:bg-primary/5 transition-colors cursor-pointer active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-primary/5 transition-colors cursor-pointer active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</button>
+</div>
+</header>
+<main class="px-6 pt-6 space-y-8">
+<!-- Welcome Section -->
+<section class="cinematic-fade">
+<p class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-semibold">Clinical Portal</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mt-1">AI Toolbox</h2>
+<p class="font-body-md text-on-surface-variant mt-2 leading-relaxed">Precision tools for modern physical therapy diagnostics.</p>
+</section>
+<!-- Tool Cards (Bento Style) -->
+<section class="grid grid-cols-2 gap-4 cinematic-fade" style="animation-delay: 0.1s;">
+<!-- OCR Scanner Card -->
+<div class="glass-card col-span-2 p-6 rounded-3xl flex items-center justify-between cursor-pointer active:scale-95 transition-transform duration-200 group" onclick="openScanner()">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 rounded-2xl bg-primary-container/10 flex items-center justify-center text-primary border border-primary/20">
+<span class="material-symbols-outlined text-[32px]">document_scanner</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-primary">OCR Scanner</h3>
+<p class="text-sm text-on-surface-variant">Digitize medical reports</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward_ios</span>
+</div>
+<!-- BMI Calculator Card -->
+<div class="glass-card p-6 rounded-3xl flex flex-col gap-4 cursor-pointer active:scale-95 transition-transform duration-200" onclick="scrollToTool('bmi-tool')">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container/10 flex items-center justify-center text-tertiary-fixed-variant border border-tertiary/20">
+<span class="material-symbols-outlined">calculate</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">BMI Calc</h3>
+<p class="text-xs text-on-surface-variant mt-1">Interactive sizing</p>
+</div>
+</div>
+<!-- AR Analysis Card -->
+<div class="glass-card p-6 rounded-3xl flex flex-col gap-4 cursor-pointer active:scale-95 transition-transform duration-200">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-secondary border border-outline-variant/30">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">AR Session</h3>
+<p class="text-xs text-on-surface-variant mt-1">Motion tracking</p>
+</div>
+</div>
+</section>
+<!-- Thumb-Optimized BMI Interface -->
+<section class="cinematic-fade space-y-6" id="bmi-tool" style="animation-delay: 0.2s;">
+<div class="glass-card p-8 rounded-[2.5rem] relative overflow-hidden">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">BMI Index</h3>
+<p class="text-on-surface-variant">Patient: John Doe</p>
+</div>
+<div class="text-right">
+<span class="text-4xl font-bold text-primary" id="bmi-value">24.2</span>
+<p class="text-sm font-semibold text-emerald-600" id="bmi-status">Healthy</p>
+</div>
+</div>
+<!-- Sliders for Thumb Interaction -->
+<div class="space-y-10 py-4">
+<div class="space-y-4">
+<div class="flex justify-between text-sm font-semibold text-on-surface-variant px-1">
+<span>Height (cm)</span>
+<span id="height-display">175 cm</span>
+</div>
+<input class="thumb-slider w-full h-2 bg-primary/10 rounded-full appearance-none cursor-pointer" id="height-slider" max="220" min="100" type="range" value="175"/>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between text-sm font-semibold text-on-surface-variant px-1">
+<span>Weight (kg)</span>
+<span id="weight-display">74 kg</span>
+</div>
+<input class="thumb-slider w-full h-2 bg-primary/10 rounded-full appearance-none cursor-pointer" id="weight-slider" max="150" min="30" type="range" value="74"/>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-white/30 flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-200" data-alt="Close up of a professional clinical environment with soft bokeh, featuring medical equipment in a light-mode aesthetic with teal accents and glass textures." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-A-Yix9YX11r-5VULf7eK4o2w9ZDjTTOX_PLSSKUyTFIbFg-Sg3ke9TtdB2_khlkJ2AC-dTeptNN6F1g_3rwg9GPBD0zIAUVNvTcDNvRKO4KvAXnnUm9HhMOW5O89yn6jQgP5f1zZAj6RUxsSijku7FxS1q5VHDo5SbGtD66ca_lwaY0_h1fbeugzdn-y3P9y8qzVaVDMFMnrEE75aM4QTR3IHiF0Cxj3JS2VZDGSgjArPUnkG4aUoLSu0PtUe6ZLSgbTxR2QNWQ7')"></div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-300" data-alt="Abstract medical concept illustration showing interconnected nodes of data, glowing in primary teal and soft white, representing AI analysis in a premium healthcare setting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBddgvl-TJxsuQ6X64lRJK4YpHmLtqrYWEMTJyvvTNaRrtk_bgnU4iuenumu0bG5mtr_WyUnlQjC5QOrK48axb_H4SxH90EZBvmFht6mc5NJlTCZ7--CARfIKZZL62izDV9z5XY_SCGfG4iCcyWF-Q7qsKdCa0o_W4AINv2eV_iRAehfTisnmvgPZz-QyplDSVV0Wzyahlg1tDELVXQVTCLO-o5DQAaaB5beQj-ZW0GQ_DX5jbgDWM3_7IQ_Ucr6y2Z6ctPlPKQSHF-')"></div>
+</div>
+<button class="bg-primary text-white px-6 py-3 rounded-full font-bold shadow-lg active:scale-95 transition-all">Update Chart</button>
+</div>
+</div>
+</section>
+<!-- Scanning Preview (Simulated Camera UI) -->
+<section class="hidden cinematic-fade" id="camera-section">
+<div class="relative w-full aspect-[3/4] rounded-[2rem] overflow-hidden bg-black shadow-2xl">
+<img class="w-full h-full object-cover opacity-80" data-alt="High-detail medical report document laid out on a clean white medical table. The lighting is bright and clinical, with high-key soft shadows. A smartphone screen is visible in the corner showing a sophisticated OCR scanning interface with teal tracking lines and glassmorphic overlays." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfY5_8PjKeMQ_qwoNJUCUJzxqJ6xVvbA1iGeqxidpaVxpozgvpxNuNX5iazApEnkB4vHT4P8loifHVE5NW44Vhf5Ji3mb3_WQyB0f1MbUcfPXnB7GndneOh5bnoQ7XK97ToofKRWR6LCnL23cUVQhPqJqkUiuPWI61dYn-HUDRIUYKF-BLPrrOWXWHNvO9z8NvD6ikZbw-FisJMqVnjThJPtre_RVnFCmVcHo4fr8FyxO5-pcoONmOcg6xfYPzlq65UIPE_XHHKBXy"/>
+<!-- Scanning Overlays -->
+<div class="absolute inset-0 flex flex-col justify-between p-8">
+<div class="flex justify-between items-center">
+<button class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white" onclick="closeScanner()">
+<span class="material-symbols-outlined">close</span>
+</button>
+<div class="px-4 py-2 rounded-full bg-primary/80 backdrop-blur-md text-white text-xs font-bold uppercase tracking-widest">
+                            Scanning...
+                        </div>
+<button class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white">
+<span class="material-symbols-outlined">flash_on</span>
+</button>
+</div>
+<!-- Scanning Frame -->
+<div class="relative flex-1 my-12 border-2 border-white/20 rounded-xl">
+<div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-primary -mt-1 -ml-1"></div>
+<div class="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-primary -mt-1 -mr-1"></div>
+<div class="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-primary -mb-1 -ml-1"></div>
+<div class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-primary -mb-1 -mr-1"></div>
+<!-- Animated Scanning Bar -->
+<div class="w-full h-[2px] bg-primary shadow-[0_0_15px_#00504d] absolute top-1/2 left-0 animate-pulse"></div>
+</div>
+<div class="flex justify-center">
+<button class="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center p-1">
+<div class="w-full h-full rounded-full bg-white active:scale-90 transition-transform"></div>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating AI Assistant Bubble -->
+<div class="fixed bottom-28 right-6 z-[60] cursor-pointer" id="ai-bubble">
+<div class="w-16 h-16 rounded-full bg-primary shadow-[0_8px_32px_rgba(0,80,77,0.4)] flex items-center justify-center text-white relative overflow-hidden group">
+
+<span class="material-symbols-outlined text-3xl relative z-10 transition-transform group-hover:scale-110">auto_awesome</span>
+<!-- Notification Dot -->
+<div class="absolute top-3 right-3 w-3 h-3 bg-red-500 rounded-full border-2 border-primary z-20"></div>
+</div>
+</div>
+<!-- Bottom Navigation Bar (Shared Component Strategy) -->
+<nav class="lg:hidden fixed bottom-0 w-full z-50 rounded-t-3xl bg-surface-glass backdrop-blur-[14px] border-t border-white/50 shadow-[0_-4px_16px_0_rgba(21,105,102,0.12)] flex justify-around items-center px-4 py-3">
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-[10px] mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-[10px] mt-1">Patients</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed bg-primary-container/20 rounded-xl px-4 py-1 transition-transform active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">videocam</span>
+<span class="font-label-md text-[10px] mt-1 font-bold">AR</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-md text-[10px] mt-1">Stats</span>
+</div>
+</nav>
+<script>
+        // BMI Calculator Logic
+        const heightSlider = document.getElementById('height-slider');
+        const weightSlider = document.getElementById('weight-slider');
+        const heightDisplay = document.getElementById('height-display');
+        const weightDisplay = document.getElementById('weight-display');
+        const bmiValue = document.getElementById('bmi-value');
+        const bmiStatus = document.getElementById('bmi-status');
+
+        function updateBMI() {
+            const h = heightSlider.value / 100;
+            const w = weightSlider.value;
+            const bmi = (w / (h * h)).toFixed(1);
+            
+            heightDisplay.innerText = `${heightSlider.value} cm`;
+            weightDisplay.innerText = `${weightSlider.value} kg`;
+            bmiValue.innerText = bmi;
+
+            if (bmi < 18.5) {
+                bmiStatus.innerText = "Underweight";
+                bmiStatus.style.color = "#ef4444";
+            } else if (bmi < 25) {
+                bmiStatus.innerText = "Healthy";
+                bmiStatus.style.color = "#059669";
+            } else if (bmi < 30) {
+                bmiStatus.innerText = "Overweight";
+                bmiStatus.style.color = "#d97706";
+            } else {
+                bmiStatus.innerText = "Obese";
+                bmiStatus.style.color = "#991b1b";
+            }
+        }
+
+        heightSlider.addEventListener('input', updateBMI);
+        weightSlider.addEventListener('input', updateBMI);
+
+        // Navigation & Transitions
+        function openScanner() {
+            document.getElementById('bmi-tool').classList.add('hidden');
+            document.querySelector('section.grid').classList.add('hidden');
+            document.getElementById('camera-section').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeScanner() {
+            document.getElementById('camera-section').classList.add('hidden');
+            document.getElementById('bmi-tool').classList.remove('hidden');
+            document.querySelector('section.grid').classList.remove('hidden');
+        }
+
+        function scrollToTool(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // AI Assistant Micro-interaction
+        const aiBubble = document.getElementById('ai-bubble');
+        aiBubble.addEventListener('click', () => {
+            aiBubble.style.transform = 'scale(1.2) translateY(-10px)';
+            setTimeout(() => {
+                aiBubble.style.transform = 'scale(1) translateY(0)';
+                alert('FisioMirror AI Assistant is initializing summary...');
+            }, 300);
+        });
+
+        // Initialize
+        updateBMI();
+    </script>
+</body></html>

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" fill="none">
+  <defs>
+    <!-- Teal gradient for ribbon and border -->
+    <linearGradient id="tealGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00BFA5"/>
+      <stop offset="100%" stop-color="#007A6E"/>
+    </linearGradient>
+    <!-- Dark teal gradient for head -->
+    <radialGradient id="headGrad" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#00897B"/>
+      <stop offset="100%" stop-color="#004D40"/>
+    </radialGradient>
+    <!-- Phone screen gradient -->
+    <linearGradient id="screenGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E0F7F4" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#B2DFDB" stop-opacity="0.7"/>
+    </linearGradient>
+    <!-- Phone reflection -->
+    <linearGradient id="reflectGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="white" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Mirror figure gradient -->
+    <linearGradient id="mirrorFigGrad" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#80CBC4" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#4DB6AC" stop-opacity="0.3"/>
+    </linearGradient>
+    <!-- Spine dots gradient -->
+    <linearGradient id="spineGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFD54F"/>
+      <stop offset="100%" stop-color="#FF8F00"/>
+    </linearGradient>
+    <!-- Ribbon shadow -->
+    <filter id="ribbonShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#00695C" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- ==================== PHONE / MIRROR ==================== -->
+  <!-- Phone outer border -->
+  <rect x="195" y="52" width="178" height="350" rx="28" ry="28"
+        fill="url(#tealGrad)" filter="url(#ribbonShadow)"/>
+  <!-- Phone screen -->
+  <rect x="205" y="62" width="158" height="330" rx="20" ry="20"
+        fill="url(#screenGrad)"/>
+  <!-- Screen reflection strip -->
+  <rect x="205" y="62" width="52" height="330" rx="20" ry="0"
+        fill="url(#reflectGrad)" clip-path="url(#phoneClip)"/>
+  <clipPath id="phoneClip">
+    <rect x="205" y="62" width="158" height="330" rx="20" ry="20"/>
+  </clipPath>
+
+  <!-- ==================== MIRROR FIGURE (inside phone) ==================== -->
+  <!-- Mirror figure head -->
+  <circle cx="282" cy="130" r="22" fill="url(#mirrorFigGrad)"/>
+  <!-- Mirror figure body + arms -->
+  <!-- Left arm -->
+  <path d="M282 152 Q240 170 228 210" stroke="#80CBC4" stroke-width="18"
+        stroke-linecap="round" fill="none" stroke-opacity="0.55"/>
+  <!-- Right arm -->
+  <path d="M282 152 Q330 165 348 200" stroke="#80CBC4" stroke-width="18"
+        stroke-linecap="round" fill="none" stroke-opacity="0.55"/>
+  <!-- Torso -->
+  <path d="M282 174 Q278 240 280 310" stroke="#80CBC4" stroke-width="16"
+        stroke-linecap="round" fill="none" stroke-opacity="0.45"/>
+  <!-- Left leg -->
+  <path d="M280 310 Q265 360 258 395" stroke="#80CBC4" stroke-width="14"
+        stroke-linecap="round" fill="none" stroke-opacity="0.4"/>
+  <!-- Right leg -->
+  <path d="M280 310 Q295 360 300 395" stroke="#80CBC4" stroke-width="14"
+        stroke-linecap="round" fill="none" stroke-opacity="0.4"/>
+
+  <!-- ==================== MAIN RIBBON (S-curve wrapping phone) ==================== -->
+  <!-- Lower ribbon tail (bottom curl going left) -->
+  <path d="M175 410 Q120 430 90 390 Q60 345 100 310 Q130 280 165 295
+           Q195 308 200 340 Q205 375 175 390 Q148 405 130 385"
+        fill="url(#tealGrad)" filter="url(#ribbonShadow)" opacity="0.92"/>
+
+  <!-- Middle ribbon body -->
+  <path d="M155 155 Q100 200 115 270 Q128 330 185 330
+           Q220 330 230 295 Q240 260 210 240 Q180 220 170 190
+           Q158 158 175 135 Q195 108 225 115
+           Q255 122 258 150 Q262 178 240 190"
+        fill="url(#tealGrad)" filter="url(#ribbonShadow)" opacity="0.95"/>
+
+  <!-- Upper ribbon (wings of the figure) -->
+  <!-- Left wing -->
+  <path d="M175 88 Q120 55 75 80 Q45 98 65 130 Q82 158 120 145
+           Q155 133 162 108 Q168 88 185 82"
+        fill="url(#tealGrad)" filter="url(#ribbonShadow)"/>
+  <!-- Right wing / top bridge into phone -->
+  <path d="M205 75 Q230 48 265 52 Q295 56 305 78 Q318 105 295 120
+           Q272 133 250 118 Q228 103 222 82 Q216 64 205 75"
+        fill="url(#tealGrad)" filter="url(#ribbonShadow)"/>
+
+  <!-- ==================== MAIN FIGURE HEAD ==================== -->
+  <circle cx="185" cy="62" r="30" fill="url(#headGrad)" filter="url(#ribbonShadow)"/>
+
+  <!-- ==================== SPINE DOTS ==================== -->
+  <!-- 8 vertebra dots along center, graduating size and color -->
+  <circle cx="198" cy="222" r="6.5" fill="url(#spineGrad)"/>
+  <circle cx="198" cy="242" r="7.5" fill="url(#spineGrad)"/>
+  <circle cx="197" cy="263" r="8.5" fill="url(#spineGrad)"/>
+  <circle cx="196" cy="286" r="7"   fill="url(#spineGrad)"/>
+  <circle cx="196" cy="306" r="8"   fill="url(#spineGrad)"/>
+  <circle cx="196" cy="328" r="9"   fill="url(#spineGrad)"/>
+  <circle cx="197" cy="350" r="7.5" fill="url(#spineGrad)"/>
+  <circle cx="198" cy="370" r="6"   fill="url(#spineGrad)"/>
+</svg>

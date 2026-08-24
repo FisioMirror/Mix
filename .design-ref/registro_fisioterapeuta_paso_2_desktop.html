@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FisioMirror - Registro Fisioterapeuta</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#8ad3cf",
+                    "on-primary-container": "#9ce6e1",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#156966",
+                    "outline-variant": "#bec9c7",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e2e2e5",
+                    "tertiary-container": "#8a4f32",
+                    "primary-container": "#156966",
+                    "on-secondary-container": "#576867",
+                    "on-background": "#1a1c1e",
+                    "tertiary": "#6e381d",
+                    "surface-dim": "#dadadc",
+                    "secondary-fixed": "#d4e6e5",
+                    "surface-bright": "#f9f9fc",
+                    "on-surface": "#1a1c1e",
+                    "secondary-fixed-dim": "#b8cac9",
+                    "on-tertiary-fixed-variant": "#6e381d",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-container-low": "#f3f3f6",
+                    "on-surface-variant": "#3f4948",
+                    "on-secondary-fixed-variant": "#3a4a49",
+                    "on-tertiary-container": "#ffceb8",
+                    "inverse-surface": "#2f3133",
+                    "tertiary-fixed-dim": "#ffb694",
+                    "on-primary-fixed-variant": "#00504d",
+                    "secondary-container": "#d4e6e5",
+                    "on-secondary-fixed": "#0e1e1e",
+                    "primary-fixed-dim": "#8ad3cf",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#a6f0eb",
+                    "inverse-on-surface": "#f0f0f3",
+                    "secondary": "#516161",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "surface": "#f9f9fc",
+                    "surface-variant": "#e2e2e5",
+                    "primary": "#00504d",
+                    "error": "#ba1a1a",
+                    "surface-container": "#eeeef0",
+                    "on-tertiary-fixed": "#351000",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e8e8ea",
+                    "background": "#f9f9fc",
+                    "outline": "#6f7978",
+                    "on-primary-fixed": "#00201f"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "gutter": "16px",
+                    "xl": "64px",
+                    "lg": "40px",
+                    "container-margin": "24px",
+                    "base": "4px",
+                    "xs": "8px",
+                    "sm": "16px"
+            },
+            "fontFamily": {
+                    "title-md": ["Montserrat"],
+                    "headline-lg": ["Montserrat"],
+                    "body-lg": ["Montserrat"],
+                    "label-sm": ["Montserrat"],
+                    "display-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "title-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f9f9fc;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .drop-zone {
+            transition: all 0.3s ease;
+            border: 2px dashed rgba(0, 80, 77, 0.2);
+        }
+
+        .drop-zone.dragover {
+            border-color: #00504d;
+            background: rgba(0, 80, 77, 0.05);
+            transform: scale(1.02);
+        }
+
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple-effect {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .success-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(249, 249, 252, 0.9);
+            backdrop-filter: blur(12px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-blob {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(138, 211, 207, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(40px);
+            animation: float 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translate(-10%, -10%) scale(1); }
+            100% { transform: translate(20%, 30%) scale(1.2); }
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .btn-active:active {
+            transform: scale(0.95);
+            transition: transform 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-gutter relative">
+<!-- Atmospheric background elements -->
+<div class="floating-blob top-[-10%] left-[-10%]"></div>
+<div class="floating-blob bottom-[-10%] right-[-10%]" style="background: radial-gradient(circle, rgba(212, 230, 229, 0.5) 0%, rgba(255, 255, 255, 0) 70%); animation-delay: -5s;"></div>
+<!-- Navigation suppression: Primary flow header -->
+<header class="fixed top-0 left-0 w-full h-16 px-6 flex items-center justify-between z-40 bg-surface/40 backdrop-blur-md">
+<div class="flex items-center gap-2">
+<span class="font-headline-lg text-headline-lg text-primary">FisioMirror</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px]">help</span>
+                Soporte
+            </button>
+</div>
+</header>
+<main class="w-full max-w-2xl mt-16 mb-24 z-10">
+<!-- Progress Bar (100% State) -->
+<div class="mb-12 w-full">
+<div class="flex justify-between items-center mb-4">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Paso Final</span>
+<span class="font-label-sm text-label-sm text-primary">100% Completado</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary transition-all duration-1000 ease-out w-[100%]" id="progress-bar"></div>
+</div>
+</div>
+<!-- Registration Card -->
+<div class="glass-card rounded-[2rem] p-lg md:p-xl flex flex-col gap-md relative overflow-hidden">
+<!-- Header -->
+<div class="text-center md:text-left">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Verifica tu identidad profesional</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                    Para garantizar la seguridad de nuestros pacientes, necesitamos validar tus credenciales médicas.
+                </p>
+</div>
+<!-- Upload Area -->
+<div class="drop-zone rounded-2xl flex flex-col items-center justify-center py-12 px-6 gap-sm bg-white/20 hover:bg-white/40 cursor-pointer" id="drop-zone">
+<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container mb-2">
+<span class="material-symbols-outlined text-[32px]">upload_file</span>
+</div>
+<div class="text-center">
+<p class="font-title-md text-title-md text-primary mb-1">Cédula Profesional o Título</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Arrastra y suelta tu archivo PDF o imagen aquí</p>
+</div>
+<button class="mt-4 px-6 py-2 rounded-full border border-primary/20 text-primary font-label-sm text-label-sm hover:bg-primary/5 transition-colors">
+                    Seleccionar archivo
+                </button>
+<input accept=".pdf,image/*" class="hidden" id="file-input" type="file"/>
+</div>
+<!-- List of selected files (dynamic) -->
+<div class="hidden space-y-2" id="file-list">
+<div class="flex items-center justify-between p-4 bg-white/60 rounded-xl border border-primary/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">description</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface" id="file-name">cedula_profesional.pdf</p>
+<p class="text-[10px] text-on-surface-variant">Listo para subir</p>
+</div>
+</div>
+<button class="text-error hover:bg-error/10 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Verbatim disclaimer -->
+<div class="flex gap-4 p-4 bg-secondary-container/30 rounded-xl">
+<span class="material-symbols-outlined text-secondary text-[20px]">verified_user</span>
+<p class="font-label-sm text-label-sm text-on-secondary-container leading-relaxed">
+                    Tu cuenta se activará tras la validación administrativa. Este proceso suele tomar menos de 24 horas.
+                </p>
+</div>
+<!-- Actions -->
+<div class="flex flex-col md:flex-row items-center gap-md pt-4">
+<button class="ripple w-full md:flex-1 h-14 bg-primary text-on-primary font-title-md text-title-md rounded-2xl shadow-lg hover:shadow-primary/20 hover:translate-y-[-2px] transition-all flex items-center justify-center gap-2 btn-active" id="main-action">
+                    Crear cuenta y Finalizar
+                    <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="w-full md:w-auto h-14 px-8 text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors btn-active">
+                    Omitir por ahora
+                </button>
+</div>
+</div>
+</main>
+<!-- Success Overlay Animation -->
+<div class="success-overlay" id="success-screen">
+<div class="text-center max-w-sm flex flex-col items-center gap-md p-lg">
+<div class="w-24 h-24 rounded-full bg-primary flex items-center justify-center text-on-primary scale-0 transition-transform duration-700 ease-out" id="success-icon">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="opacity-0 transition-opacity duration-700 delay-300" id="success-text">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">¡Todo listo, Doctor!</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                    Hemos recibido tus documentos. Te notificaremos por correo una vez que tu acceso clínico sea activado.
+                </p>
+<button class="mt-8 w-full h-14 bg-primary text-on-primary rounded-2xl font-title-md text-title-md btn-active" onclick="window.location.reload()">
+                    Ir al Dashboard
+                </button>
+</div>
+</div>
+</div>
+<script>
+        // File Upload Logic
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const fileList = document.getElementById('file-list');
+        const fileNameDisplay = document.getElementById('file-name');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) handleFile(files[0]);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) handleFile(e.target.files[0]);
+        });
+
+        function handleFile(file) {
+            fileNameDisplay.textContent = file.name;
+            fileList.classList.remove('hidden');
+            dropZone.classList.add('hidden');
+        }
+
+        // Ripple and Success Animation Logic
+        const mainAction = document.getElementById('main-action');
+        const successScreen = document.getElementById('success-screen');
+        const successIcon = document.getElementById('success-icon');
+        const successText = document.getElementById('success-text');
+
+        mainAction.addEventListener('click', function(e) {
+            // Ripple effect
+            const x = e.clientX - e.target.getBoundingClientRect().left;
+            const y = e.clientY - e.target.getBoundingClientRect().top;
+            
+            const ripple = document.createElement('span');
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            ripple.classList.add('ripple-effect');
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+                showSuccess();
+            }, 600);
+        });
+
+        function showSuccess() {
+            successScreen.style.display = 'flex';
+            setTimeout(() => {
+                successIcon.style.transform = 'scale(1)';
+                successText.style.opacity = '1';
+            }, 100);
+        }
+    </script>
+</body></html>
