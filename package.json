@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.app.json"
   },
   "dependencies": {
+    "@heroui/react": "^2.8.10",
     "@number-flow/react": "^0.6.1",
     "@supabase/supabase-js": "^2.57.4",
     "@types/canvas-confetti": "^1.9.0",
