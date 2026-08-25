@@ -96,7 +96,7 @@ function getTimeGreeting(): string {
 }
 
 export function Login() {
-  const { signIn, signInWithToken, signUpFisio, loading, error, clearError } = useAuthStore();
+  const { signIn, signInWithToken, signInPatientWithEmail, linkTokenToEmail, signUpFisio, loading, error, clearError } = useAuthStore();
   const user = useAuthStore((s) => s.user);
   const { theme, toggleTheme } = useTheme();
   const toast = useToast();
@@ -125,6 +125,10 @@ export function Login() {
   const [credencialPreview, setCredencialPreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [token, setToken] = useState('');
+  const [patientEmail, setPatientEmail] = useState('');
+  const [patientPassword, setPatientPassword] = useState('');
+  const [confirmPatientPassword, setConfirmPatientPassword] = useState('');
+  const [showLinkEmailForm, setShowLinkEmailForm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showResetModal, setShowResetModal] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
@@ -267,6 +271,28 @@ export function Login() {
     e.preventDefault();
     if (cooldown > 0) return;
     if (isPaciente) {
+      if (showLinkEmailForm) {
+        // Flujo de vincular email/password al token
+        if (!patientEmail.trim() || !patientPassword.trim()) {
+          toast.error('Email y contraseña son requeridos');
+          return;
+        }
+        if (patientPassword !== confirmPatientPassword) {
+          toast.error('Las contraseñas no coinciden');
+          return;
+        }
+        const ok = await linkTokenToEmail(token, patientEmail, patientPassword, undefined);
+        if (ok) {
+          toast.success('Cuenta vinculada. Bienvenido a FisioMirror');
+        } else {
+          const currentError = useAuthStore.getState().error;
+          if (currentError?.includes('Demasiados intentos')) {
+            setCooldown(60);
+            toast.error('Demasiados intentos. Espera un minuto.');
+          }
+        }
+        return;
+      }
       const tokenValue = token;
       if (!tokenValue.trim() || tokenValue.length < 4) { toast.error('Ingresa tu token completo'); return; }
       await handleTokenSubmit(tokenValue);
@@ -444,21 +470,59 @@ export function Login() {
               {/* PACIENTE FLOW */}
               {isPaciente && !isRegister && (
                 <motion.div key="patient-flow" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.35, ease: 'easeOut' }} className="flex flex-col gap-y-6">
-                  <div className="space-y-3">
-                    <label className="block font-label-sm text-label-sm text-outline uppercase tracking-widest px-1 text-center">Código de Acceso (6 dígitos)</label>
-                    <PinInput
-                      value={token}
-                      onChange={setToken}
-                      onComplete={(full) => setToken(full)}
-                      disabled={loading || cooldown > 0}
-                      autoFocus
-                    />
-                  </div>
-                  <button type="submit" disabled={loading || cooldown > 0} className="premium-btn w-full bg-primary py-4 rounded-2xl text-on-primary font-title-md text-title-md shadow-glow-primary hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:hover:scale-100 breathe-teal relative z-10">
-                    {loading ? <Spinner size={20} className="text-current" /> : cooldown > 0 ? `Espera ${cooldown}s` : 'Ingresar con Token'}
-                    {!loading && cooldown === 0 && <Icon name="arrow_forward" size={20} />}
-                  </button>
-                  <p className="text-center text-on-surface-variant text-label-sm">¿No tienes un token? Contacta a tu fisioterapeuta.</p>
+                  <AnimatePresence mode="wait">
+                    {showLinkEmailForm ? (
+                      <motion.div key="patient-email-form" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3 }} className="flex flex-col gap-y-5">
+                        <div className="space-y-4">
+                          <div className="relative">
+                            <Icon name="alternate_email" size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-outline" />
+                            <input type="email" value={patientEmail} onChange={(e) => setPatientEmail(e.target.value)} placeholder="Correo electrónico" aria-label="Correo electrónico" autoComplete="email" className="glass-input w-full pl-12 pr-4 py-4 rounded-xl font-body-lg focus:outline-none bg-white/20 border border-white/40 focus:bg-white/50 focus:border-primary/50 focus:shadow-[0_0_0_4px_rgba(0,80,77,0.1)] transition-all" required />
+                          </div>
+                          <div className="relative">
+                            <Icon name="lock" size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-outline" />
+                            <input type={showPassword ? 'text' : 'password'} value={patientPassword} onChange={(e) => setPatientPassword(e.target.value)} placeholder="Contraseña" aria-label="Contraseña" autoComplete="new-password" className="glass-input w-full pl-12 pr-12 py-4 rounded-xl font-body-lg focus:outline-none bg-white/20 border border-white/40 focus:bg-white/50 focus:border-primary/50 focus:shadow-[0_0_0_4px_rgba(0,80,77,0.1)] transition-all" required />
+                            <button type="button" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'} className="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors">
+                              <Icon name={showPassword ? 'visibility_off' : 'visibility'} size={20} />
+                            </button>
+                          </div>
+                          <div className="relative">
+                            <Icon name="lock" size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-outline" />
+                            <input type="password" value={confirmPatientPassword} onChange={(e) => setConfirmPatientPassword(e.target.value)} placeholder="Confirmar contraseña" aria-label="Confirmar contraseña" autoComplete="new-password" className="glass-input w-full pl-12 pr-4 py-4 rounded-xl font-body-lg focus:outline-none bg-white/20 border border-white/40 focus:bg-white/50 focus:border-primary/50 focus:shadow-[0_0_0_4px_rgba(0,80,77,0.1)] transition-all" required />
+                          </div>
+                        </div>
+                        <div className="flex justify-between px-1">
+                          <button type="button" onClick={() => setShowLinkEmailForm(false)} className="text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface transition-colors">Volver al token</button>
+                        </div>
+                        {error && <motion.div initial={{ opacity: 0, x: -10 }} animate={errorShake ? { x: [-10, 10, -8, 8, 0] } : { x: 0 }} transition={{ duration: 0.4 }} role="alert" className="px-4 py-3 rounded-xl bg-error-container/30 text-error text-sm font-bold border border-error/30 shadow-[0_0_20px_rgba(186,26,26,0.2)]">{error}</motion.div>}
+                        <button type="submit" disabled={loading || cooldown > 0} aria-busy={loading} className="premium-btn w-full bg-primary py-4 rounded-2xl text-on-primary font-title-md text-title-md shadow-glow-primary hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:hover:scale-100 breathe-teal relative z-10">
+                          {loading ? <Spinner size={20} className="text-current" /> : 'Vincular Cuenta'}
+                          {!loading && <Icon name="link" size={20} />}
+                        </button>
+                      </motion.div>
+                    ) : (
+                      <motion.div key="patient-token-form" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.35, ease: 'easeOut' }} className="flex flex-col gap-y-6">
+                        <div className="space-y-3">
+                          <label className="block font-label-sm text-label-sm text-outline uppercase tracking-widest px-1 text-center">Código de Acceso (6 dígitos)</label>
+                          <PinInput
+                            value={token}
+                            onChange={setToken}
+                            onComplete={(full) => setToken(full)}
+                            disabled={loading || cooldown > 0}
+                            autoFocus
+                          />
+                        </div>
+                        <button type="submit" disabled={loading || cooldown > 0} className="premium-btn w-full bg-primary py-4 rounded-2xl text-on-primary font-title-md text-title-md shadow-glow-primary hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:hover:scale-100 breathe-teal relative z-10">
+                          {loading ? <Spinner size={20} className="text-current" /> : cooldown > 0 ? `Espera ${cooldown}s` : 'Ingresar con Token'}
+                          {!loading && cooldown === 0 && <Icon name="arrow_forward" size={20} />}
+                        </button>
+                        <div className="flex items-center justify-center gap-2 text-on-surface-variant text-label-sm">
+                          <span>¿Quieres usar email y contraseña?</span>
+                          <button type="button" onClick={() => setShowLinkEmailForm(true)} className="text-primary font-bold hover:underline">Vincular ahora</button>
+                        </div>
+                        <p className="text-center text-on-surface-variant text-label-sm">¿No tienes un token? Contacta a tu fisioterapeuta.</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               )}
 

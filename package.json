@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@number-flow/react": "^0.6.1",
-    "@supabase/supabase-js": "^2.57.4",
+    "@supabase/supabase-js": "^2.112.4",
     "@types/canvas-confetti": "^1.9.0",
     "@types/three": "^0.185.4",
     "canvas-confetti": "^1.9.4",

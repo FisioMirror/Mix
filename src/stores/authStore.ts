@@ -81,7 +81,9 @@ interface AuthState {
 
   initialize: () => Promise<void>;
   signIn: (email: string, password: string) => Promise<boolean>;
-  signInWithToken: (token: string) => Promise<boolean>;
+  signInWithToken: (token: string, email?: string, password?: string) => Promise<boolean>;
+  signInPatientWithEmail: (email: string, password: string, token?: string) => Promise<boolean>;
+  linkTokenToEmail: (token: string, email: string, password: string, fullName?: string) => Promise<boolean>;
   signUpFisio: (
     email: string,
     password: string,
@@ -270,12 +272,12 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
-      signInWithToken: async (token) => {
+      signInWithToken: async (token, email?: string, password?: string) => {
         set({ loading: true, error: null });
         try {
           const { data: tokenRow, error: tokenError } = await supabase
             .from('activation_tokens')
-            .select('id, token, paciente_id, terapeuta_id')
+            .select('id, token, paciente_id, terapeuta_id, email, password_hash')
             .eq('token', token.trim())
             .maybeSingle();
 
@@ -291,6 +293,8 @@ export const useAuthStore = create<AuthState>()(
             id: string;
             paciente_id: string | null;
             terapeuta_id: string | null;
+            email?: string | null;
+            password_hash?: string | null;
           };
           if (!row.paciente_id) {
             set({ error: 'Este token no tiene un paciente asignado', loading: false });
@@ -319,6 +323,90 @@ export const useAuthStore = create<AuthState>()(
 
           const { password_hash: _, ...userWithoutHash } = profile;
           set({ user: userWithoutHash as Profile, loading: false });
+          return true;
+        } catch (e) {
+          set({ error: (e as Error).message, loading: false });
+          return false;
+        }
+      },
+
+      signInPatientWithEmail: async (email: string, password: string, token?: string) => {
+        set({ loading: true, error: null });
+        try {
+          const res = await fetchWithRetry(`${functionsUrl}/auth-login-patient`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password, token }),
+          });
+
+          const data = await res.json().catch(() => ({}));
+
+          if (res.status === 429) {
+            set({ error: 'Demasiados intentos. Espera un minuto.', loading: false });
+            return false;
+          }
+          if (!res.ok || !data.success) {
+            set({ error: data.error || 'Credenciales inválidas', loading: false });
+            return false;
+          }
+
+          const userId = data.user_id as string | null;
+          const userEmail = data.email as string | null;
+          if (!userId || !userEmail) {
+            set({ error: 'Respuesta inválida del servidor', loading: false });
+            return false;
+          }
+
+          let profile = await fetchProfileById(userId);
+          if (!profile) profile = await fetchProfileByEmail(userEmail);
+          if (!profile) {
+            set({ error: 'No se encontró tu perfil', loading: false });
+            return false;
+          }
+
+          set({ user: profile, loading: false });
+          return true;
+        } catch (e) {
+          set({ error: (e as Error).message, loading: false });
+          return false;
+        }
+      },
+
+      linkTokenToEmail: async (token: string, email: string, password: string, fullName?: string) => {
+        set({ loading: true, error: null });
+        try {
+          const res = await fetchWithRetry(`${functionsUrl}/auth-link-token-email`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token, email, password, fullName }),
+          });
+
+          const data = await res.json().catch(() => ({}));
+
+          if (res.status === 429) {
+            set({ error: 'Demasiados intentos. Espera un minuto.', loading: false });
+            return false;
+          }
+          if (!res.ok || !data.success) {
+            set({ error: data.error || 'Error al vincular token', loading: false });
+            return false;
+          }
+
+          const userId = data.user_id as string | null;
+          const userEmail = data.email as string | null;
+          if (!userId || !userEmail) {
+            set({ error: 'Respuesta inválida del servidor', loading: false });
+            return false;
+          }
+
+          let profile = await fetchProfileById(userId);
+          if (!profile) profile = await fetchProfileByEmail(userEmail);
+          if (!profile) {
+            set({ error: 'No se encontró tu perfil', loading: false });
+            return false;
+          }
+
+          set({ user: profile, loading: false });
           return true;
         } catch (e) {
           set({ error: (e as Error).message, loading: false });
